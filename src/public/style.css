@@ -1,0 +1,7 @@
+.username {
+  font-weight: 700;
+}
+
+.username:before {
+  content: "\a0";
+}
