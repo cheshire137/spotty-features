@@ -47,7 +47,7 @@ export default class AuthLayout extends React.Component {
     }
     let image = ''
     if (this.state.avatarUrl) {
-      image = <img src={this.state.avatarUrl} className="icon" />
+      image = <img src={this.state.avatarUrl} className="icon spotify-avatar" />
     }
     return (
       <a className="nav-item" href="#" onClick={e => this.logout(e)}>
@@ -63,25 +63,15 @@ export default class AuthLayout extends React.Component {
       <div>
         <div className="container">
           <nav className="nav">
+            <div className="nav-left">
+              <a className="nav-item is-brand" href="/">Spotty Features</a>
+            </div>
             <div className="nav-right nav-menu">
               {this.logoutLink()}
             </div>
           </nav>
         </div>
-        <div className="hero is-primary">
-          <div className="hero-body">
-            <div className="container">
-              <h1 className="title">
-                <a href="/">Spotty Features</a>
-              </h1>
-            </div>
-          </div>
-        </div>
-        <section className="section">
-          <div className="container">
-            {this.props.children}
-          </div>
-        </section>
+        {this.props.children}
       </div>
     )
   }

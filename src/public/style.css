@@ -5,3 +5,8 @@
 .username:before {
   content: "\a0";
 }
+
+.spotify-avatar {
+  margin-right: 5px;
+  border-radius: 2px;
+}

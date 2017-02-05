@@ -9,6 +9,23 @@ export default class Spotify extends React.Component {
   }
 
   render() {
-    return <p>You are signed into Spotify.</p>
+    return (
+      <div>
+        <div className="hero is-primary">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
+                Your Listening Trends
+              </h1>
+            </div>
+          </div>
+        </div>
+        <section className="section">
+          <div className="container">
+            <p>You are signed into Spotify.</p>
+          </div>
+        </section>
+      </div>
+    )
   }
 }
