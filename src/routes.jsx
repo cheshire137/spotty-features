@@ -13,6 +13,15 @@ function App(props) {
   return <div>{props.children}</div>
 }
 
+function redirectIfSignedIn(nextState, replace) {
+  if (LocalStorage.has('spotify-token')) {
+    replace({
+      pathname: '/spotify',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}
+
 function requireSpotifyAuth(nextState, replace) {
   if (!LocalStorage.has('spotify-token')) {
     replace({
@@ -25,7 +34,7 @@ function requireSpotifyAuth(nextState, replace) {
 const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Auth} />
+      <IndexRoute component={Auth} onEnter={redirectIfSignedIn} />
       <Route path="auth" component={AuthCallback} />
       <Route
         path="spotify"
