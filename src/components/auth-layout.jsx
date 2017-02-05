@@ -6,15 +6,32 @@ import SpotifyApi from '../models/spotify-api.js'
 export default class AuthLayout extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      token: LocalStorage.get('spotify-token'),
+      username: LocalStorage.get('spotify-user'),
+      avatarUrl: LocalStorage.get('spotify-avatar-url')
+    }
   }
 
   componentDidMount() {
-    const token = LocalStorage.get('spotify-token')
-    const api = new SpotifyApi(token)
+    if (!this.state.username || !this.state.avatarUrl) {
+      this.fetchUser()
+    }
+  }
+
+  fetchUser() {
+    const api = new SpotifyApi(this.state.token)
     api.me().then(json => {
-      console.log('me', json)
-      this.setState({ username: json.display_name })
+      LocalStorage.set('spotify-user', json.display_name)
+      let avatarUrl = null
+      if (json.images && json.images.length > 0) {
+        avatarUrl = json.images[0].url
+        LocalStorage.set('spotify-avatar-url', avatarUrl)
+      }
+      this.setState({
+        username: json.display_name,
+        avatarUrl
+      })
     })
   }
 
@@ -28,8 +45,13 @@ export default class AuthLayout extends React.Component {
     if (!this.state.username) {
       return
     }
+    let image = ''
+    if (this.state.avatarUrl) {
+      image = <img src={this.state.avatarUrl} className="icon" />
+    }
     return (
       <a className="nav-item" href="#" onClick={e => this.logout(e)}>
+        {image}
         <span>Log out </span>
         <span className="username">{this.state.username}</span>
       </a>

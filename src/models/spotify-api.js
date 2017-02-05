@@ -9,7 +9,9 @@ export default class SpotifyApi {
   }
 
   me() {
-    return fetch(`${apiUrl}/me`, {
+    const url = `${apiUrl}/me`
+    console.log('GET', url)
+    return fetch(url, {
       headers: this.headers
     }).then(response => response.json())
   }
