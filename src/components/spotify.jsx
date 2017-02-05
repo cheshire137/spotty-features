@@ -17,26 +17,39 @@ export default class Spotify extends React.Component {
 
   fetchSavedTracks() {
     const api = new SpotifyApi(this.state.token)
-    api.myTracks().then(json => {
-      const trackIDs = json.items.map(item => item.track.id)
-      if (trackIDs.length < 1) {
-        return
-      }
-      const tracksByID = {}
-      for (const item of json.items) {
-        tracksByID[item.track.id] = {
-          id: item.track.id,
-          name: item.track.name,
-          artists: item.track.artists.map(artist => artist.name),
-          album: item.track.album.name,
-          image: item.track.album.images.filter(img => img.width < 100)[0].url
-        }
-      }
-      this.fetchAudioFeatures(api, trackIDs, tracksByID)
-    })
+    api.myTracks().
+      then(json => this.onSavedTracks(json)).
+      catch(err => this.onSavedTracksError(err))
   }
 
-  fetchAudioFeatures(api, trackIDs, tracksByID) {
+  onSavedTracksError(error) {
+    console.error('failed to load your saved tracks', error)
+    if (error.response.status === 401) {
+      LocalStorage.delete('spotify-token')
+      this.props.router.push('/')
+    }
+  }
+
+  onSavedTracks(json) {
+    const trackIDs = json.items.map(item => item.track.id)
+    if (trackIDs.length < 1) {
+      return
+    }
+    const tracksByID = {}
+    for (const item of json.items) {
+      tracksByID[item.track.id] = {
+        id: item.track.id,
+        name: item.track.name,
+        artists: item.track.artists.map(artist => artist.name),
+        album: item.track.album.name,
+        image: item.track.album.images.filter(img => img.width < 100)[0].url
+      }
+    }
+    this.fetchAudioFeatures(trackIDs, tracksByID)
+  }
+
+  fetchAudioFeatures(trackIDs, tracksByID) {
+    const api = new SpotifyApi(this.state.token)
     const tracks = []
     api.audioFeatures(trackIDs).then(json => {
       for (const feature of json.audio_features) {
