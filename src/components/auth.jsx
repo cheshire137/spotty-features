@@ -6,7 +6,8 @@ export default class Auth extends React.Component {
     const host = 'https://accounts.spotify.com'
     const redirectUri = `${window.location.protocol}//${window.location.host}/auth`
     const authUrl = `${host}/authorize?response_type=code` +
-      `&redirect_uri=${redirectUri}&client_id=${Config.spotify.clientId}`
+      `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+      `&client_id=${Config.spotify.clientId}`
     return (
       <a href={authUrl}>Sign into Spotify</a>
     )
