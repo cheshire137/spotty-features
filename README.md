@@ -11,7 +11,7 @@ You will need [Homebrew](http://brew.sh/) installed in macOS.
 brew update
 brew install yarn
 yarn install
-yarn run build
+yarn run watch
 yarn run serve
 open http://localhost:3000
 ```
