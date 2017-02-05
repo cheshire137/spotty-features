@@ -10,6 +10,11 @@ export default class LocalStorage {
     return JSON.parse(appData)
   }
 
+  static has(key) {
+    const value = this.get(key)
+    return typeof value !== 'undefined'
+  }
+
   static get(key) {
     const appData = this.getJSON()
     return appData[key]
