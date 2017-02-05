@@ -13,5 +13,8 @@
     "express": "^4.14.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/browserify src/lib/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ]"
   }
 }
