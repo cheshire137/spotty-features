@@ -7,6 +7,10 @@ I want to play around with Spotify's
 
 You will need [Homebrew](http://brew.sh/) installed in macOS.
 
+Create
+[a Spotify application](https://developer.spotify.com/my-applications) and copy
+your app's client ID to src/public/config.json.
+
 ```bash
 brew update
 brew install yarn
