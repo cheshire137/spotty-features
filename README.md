@@ -11,4 +11,5 @@ You will need [Homebrew](http://brew.sh/) installed in macOS.
 brew update
 brew install yarn
 yarn install
+node src/server.js
 ```
