@@ -15,6 +15,7 @@
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "build": "node_modules/.bin/browserify src/lib/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ]"
+    "build": "node_modules/.bin/browserify src/lib/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "serve": "node src/server.js"
   }
 }

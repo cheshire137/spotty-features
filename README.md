@@ -12,5 +12,6 @@ brew update
 brew install yarn
 yarn install
 yarn run build
-node src/server.js
+yarn run serve
+open http://localhost:3000
 ```
