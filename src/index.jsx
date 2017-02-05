@@ -1,6 +1,4 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
+import routes from './routes.jsx'
 
-import Auth from './components/auth.jsx'
-
-ReactDOM.render(<Auth />, document.getElementById('root'))
+ReactDOM.render(routes, document.getElementById('root'))
