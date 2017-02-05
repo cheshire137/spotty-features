@@ -10,3 +10,24 @@
   margin-right: 5px;
   border-radius: 2px;
 }
+
+.track-image {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.track-album {
+  display: block;
+  font-style: italic;
+}
+
+.track-name {
+  font-weight: 700;
+}
+
+.track-image-column {
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  width: 64px;
+}
