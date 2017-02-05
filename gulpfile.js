@@ -27,7 +27,9 @@ function compile(watch) {
 
   if (watch) {
     bundler.on('update', function() {
-      console.log('-> bundling...')
+      var date = new Date()
+      var timestamp = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+      console.log(`[${timestamp}] bundling...`)
       rebundle()
     })
   }
