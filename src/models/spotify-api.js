@@ -24,11 +24,24 @@ export default class SpotifyApi {
     return this.get(`/audio-features?ids=${idsStr}`)
   }
 
+  checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+      return response
+    }
+    const error = new Error(response.statusText)
+    error.response = response
+    throw error
+  }
+
+  parseJson(response) {
+    return response.json()
+  }
+
   get(path) {
     const url = `${apiUrl}${path}`
     console.log('GET', url)
-    return fetch(url, {
-      headers: this.headers
-    }).then(response => response.json())
+    return fetch(url, { headers: this.headers }).
+      then(this.checkStatus).
+      then(this.parseJson)
   }
 }
