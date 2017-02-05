@@ -12,6 +12,13 @@ export default class SpotifyApi {
     return this.get('/me')
   }
 
+  myTracks(opts) {
+    const options = opts || {}
+    const limit = options.limit || 10
+    const offset = options.offset || 0
+    return this.get(`/me/tracks?limit=${limit}&offset=${offset}`)
+  }
+
   get(path) {
     const url = `${apiUrl}${path}`
     console.log('GET', url)

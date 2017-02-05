@@ -6,6 +6,10 @@ import SpotifyApi from '../models/spotify-api.js'
 export default class Spotify extends React.Component {
   componentDidMount() {
     const token = LocalStorage.get('spotify-token')
+    const api = new SpotifyApi(token)
+    api.myTracks().then(json => {
+      console.log(json)
+    })
   }
 
   render() {
