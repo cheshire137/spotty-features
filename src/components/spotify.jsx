@@ -39,6 +39,7 @@ export default class Spotify extends React.Component {
     for (const item of json.items) {
       tracksByID[item.track.id] = {
         id: item.track.id,
+        savedAt: new Date(item.added_at),
         name: item.track.name,
         artists: item.track.artists.map(artist => artist.name),
         album: item.track.album.name,
@@ -75,9 +76,12 @@ export default class Spotify extends React.Component {
       return
     }
     return (
-      <ul>
-        {this.state.tracks.map(track => <TrackListItem key={track.id} {...track} />)}
-      </ul>
+      <div>
+        <h2 className="subtitle">Recently saved tracks</h2>
+        <ul>
+          {this.state.tracks.map(track => <TrackListItem key={track.id} {...track} />)}
+        </ul>
+      </div>
     )
   }
 

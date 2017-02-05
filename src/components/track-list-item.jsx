@@ -11,7 +11,8 @@ class TrackListItem extends React.Component {
   }
 
   render() {
-    const { image, name, artists, album } = this.props
+    const { image, name, artists, album, savedAt } = this.props
+    const date = savedAt.toLocaleDateString()
     return (
       <li>
         <div className="columns">
@@ -23,6 +24,7 @@ class TrackListItem extends React.Component {
             <span> by </span>
             <span className="track-artists">{artists.join(', ')}</span>
             <span className="track-album">{album}</span>
+            <span className="track-saved-at">Saved {date}</span>
             {this.audioFeatures()}
           </div>
         </div>
@@ -36,7 +38,8 @@ TrackListItem.propTypes = {
   name: React.PropTypes.string.isRequired,
   artists: React.PropTypes.array.isRequired,
   album: React.PropTypes.string.isRequired,
-  audioFeatures: React.PropTypes.object
+  audioFeatures: React.PropTypes.object,
+  savedAt: React.PropTypes.instanceOf(Date).isRequired
 }
 
 export default TrackListItem

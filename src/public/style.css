@@ -20,8 +20,12 @@
   font-style: italic;
 }
 
-.track-album:before {
+.track-album:before,
+.track-saved-at:before {
   content: "\a0\00b7\a0";
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .track-name {
