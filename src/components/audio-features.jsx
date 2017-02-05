@@ -30,24 +30,32 @@ class AudioFeatures extends React.Component {
     const speechClass = this.classForScale(speechiness)
     const valClass = this.classForScale(valence)
     return (
-      <dl className="audio-features">
-        <dt className={acousticClass}>Acoustic:</dt>
-        <dd className={acousticClass}>{this.percent(acousticness)}</dd>
-        <dt className={danceClass}>Danceable:</dt>
-        <dd className={danceClass}>{this.percent(danceability)}</dd>
-        <dt className={energyClass}>Energy:</dt>
-        <dd className={energyClass}>{this.percent(energy)}</dd>
-        <dt className={instClass}>Instrumental:</dt>
-        <dd className={instClass}>{this.percent(instrumentalness)}</dd>
-        <dt className={liveClass}>Live:</dt>
-        <dd className={liveClass}>{this.percent(liveness)}</dd>
-        <dt>Loud:</dt>
-        <dd>{loudness} dB</dd>
-        <dt className={speechClass}>Speech:</dt>
-        <dd className={speechClass}>{this.percent(speechiness)}</dd>
-        <dt className={valClass}>Valence:</dt>
-        <dd className={valClass}>{this.percent(valence)}</dd>
-      </dl>
+      <ul className="audio-features">
+        <li title={this.percent(acousticness)} className={acousticClass}>
+          Acoustic
+        </li>
+        <li title={this.percent(danceability)} className={danceClass}>
+          Danceable
+        </li>
+        <li title={this.percent(energy)} className={energyClass}>
+          Energetic
+        </li>
+        <li title={this.percent(instrumentalness)} className={instClass}>
+          Instrumental
+        </li>
+        <li title={this.percent(liveness)} className={liveClass}>
+          Live
+        </li>
+        <li title={`${loudness} dB`}>
+          Loud
+        </li>
+        <li title={this.percent(speechiness)} className={speechClass}>
+          Speechy
+        </li>
+        <li title={this.percent(valence)} className={valClass}>
+          Positive
+        </li>
+      </ul>
     )
   }
 }

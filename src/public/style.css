@@ -35,18 +35,13 @@
   width: 64px;
 }
 
-.audio-features dt {
+.audio-features li {
+  display: inline-block;
   font-weight: 700;
-  display: inline-block;
 }
 
-.audio-features dt:after {
-  content: "\a0";
-}
-
-.audio-features dd {
-  display: inline-block;
-  margin-right: 10px;
+.audio-features li + li {
+  margin-left: 1em;
 }
 
 .audio-feature-25 {
