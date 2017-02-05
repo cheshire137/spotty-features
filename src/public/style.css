@@ -17,8 +17,11 @@
 }
 
 .track-album {
-  display: block;
   font-style: italic;
+}
+
+.track-album:before {
+  content: "\a0\00b7\a0";
 }
 
 .track-name {
@@ -30,4 +33,34 @@
   -ms-flex: none;
   flex: none;
   width: 64px;
+}
+
+.audio-features dt {
+  font-weight: 700;
+  display: inline-block;
+}
+
+.audio-features dt:after {
+  content: "\a0";
+}
+
+.audio-features dd {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.audio-feature-25 {
+  color: #999;
+}
+
+.audio-feature-50 {
+  color: #52DA82;
+}
+
+.audio-feature-75 {
+  color: #23d160;
+}
+
+.audio-feature-100 {
+  color: #3273dc;
 }
