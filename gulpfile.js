@@ -1,7 +1,10 @@
 var gulp = require('gulp')
 var sourcemaps = require('gulp-sourcemaps')
+var nodemon = require('gulp-nodemon')
+
 var source = require('vinyl-source-stream')
 var buffer = require('vinyl-buffer')
+
 var browserify = require('browserify')
 var watchify = require('watchify')
 
@@ -39,4 +42,8 @@ function watch() {
 gulp.task('build', function() { return compile() })
 gulp.task('watch', function() { return watch() })
 
-gulp.task('default', ['watch'])
+gulp.task('serve', function() {
+  nodemon({ script: 'src/server.js', ignore: 'src/public/bundle.js' })
+})
+
+gulp.task('default', ['watch', 'serve'])
