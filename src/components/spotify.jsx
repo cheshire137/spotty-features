@@ -3,28 +3,57 @@ import React from 'react'
 import LocalStorage from '../models/local-storage.js'
 import SpotifyApi from '../models/spotify-api.js'
 
+import TrackListItem from './track-list-item.jsx'
+
 export default class Spotify extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { token: LocalStorage.get('spotify-token') }
   }
 
   componentDidMount() {
-    const token = LocalStorage.get('spotify-token')
-    const api = new SpotifyApi(token)
+    this.fetchSavedTracks()
+  }
+
+  fetchSavedTracks() {
+    const api = new SpotifyApi(this.state.token)
     api.myTracks().then(json => {
-      const tracks = []
+      const trackIDs = json.items.map(item => item.track.id)
+      if (trackIDs.length < 1) {
+        return
+      }
+      const tracksByID = {}
       for (const item of json.items) {
-        const track = {
+        tracksByID[item.track.id] = {
           id: item.track.id,
           name: item.track.name,
           artists: item.track.artists.map(artist => artist.name),
           album: item.track.album.name,
           image: item.track.album.images.filter(img => img.width < 100)[0].url
         }
+      }
+      this.fetchAudioFeatures(api, trackIDs, tracksByID)
+    })
+  }
+
+  fetchAudioFeatures(api, trackIDs, tracksByID) {
+    const tracks = []
+    api.audioFeatures(trackIDs).then(json => {
+      for (const feature of json.audio_features) {
+        const track = tracksByID[feature.id]
+        track.audioFeatures = {
+          acousticness: feature.acousticness,
+          danceability: feature.danceability,
+          energy: feature.energy,
+          instrumentalness: feature.instrumentalness,
+          liveness: feature.liveness,
+          loudness: feature.loudness,
+          speechiness: feature.speechiness,
+          valence: feature.valence
+        }
         tracks.push(track)
       }
-      this.setState({ tracks: tracks })
+      this.setState({ tracks })
     })
   }
 
@@ -34,21 +63,7 @@ export default class Spotify extends React.Component {
     }
     return (
       <ul>
-        {this.state.tracks.map(track => (
-          <li key={track.id}>
-            <div className="columns">
-              <div className="column track-image-column">
-                <img src={track.image} className="track-image" />
-              </div>
-              <div className="column">
-                <span className="track-name">{track.name}</span>
-                <span> by </span>
-                <span className="track-artists">{track.artists.join(', ')}</span>
-                <span className="track-album">{track.album}</span>
-              </div>
-            </div>
-          </li>
-        ))}
+        {this.state.tracks.map(track => <TrackListItem key={track.id} {...track} />)}
       </ul>
     )
   }

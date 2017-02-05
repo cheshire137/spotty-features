@@ -19,6 +19,11 @@ export default class SpotifyApi {
     return this.get(`/me/tracks?limit=${limit}&offset=${offset}`)
   }
 
+  audioFeatures(ids) {
+    const idsStr = ids.join(',')
+    return this.get(`/audio-features?ids=${idsStr}`)
+  }
+
   get(path) {
     const url = `${apiUrl}${path}`
     console.log('GET', url)
