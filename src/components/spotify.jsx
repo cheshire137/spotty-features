@@ -51,24 +51,29 @@ export default class Spotify extends React.Component {
 
   fetchAudioFeatures(trackIDs, tracksByID) {
     const api = new SpotifyApi(this.state.token)
+    api.audioFeatures(trackIDs).then(json => this.onAudioFeatures(json, tracksByID))
+  }
+
+  onAudioFeatures(json, tracksByID) {
     const tracks = []
-    api.audioFeatures(trackIDs).then(json => {
-      for (const feature of json.audio_features) {
-        const track = tracksByID[feature.id]
-        track.audioFeatures = {
-          acousticness: feature.acousticness,
-          danceability: feature.danceability,
-          energy: feature.energy,
-          instrumentalness: feature.instrumentalness,
-          liveness: feature.liveness,
-          loudness: feature.loudness,
-          speechiness: feature.speechiness,
-          valence: feature.valence
-        }
-        tracks.push(track)
-      }
-      this.setState({ tracks })
-    })
+    for (const feature of json.audio_features) {
+      tracks.push(this.addAudioFeaturesToTrack(feature, tracksByID[feature.id]))
+    }
+    this.setState({ tracks })
+  }
+
+  addAudioFeaturesToTrack(feature, track) {
+    track.audioFeatures = {
+      acousticness: feature.acousticness,
+      danceability: feature.danceability,
+      energy: feature.energy,
+      instrumentalness: feature.instrumentalness,
+      liveness: feature.liveness,
+      loudness: feature.loudness,
+      speechiness: feature.speechiness,
+      valence: feature.valence
+    }
+    return track
   }
 
   trackList() {
