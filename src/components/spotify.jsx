@@ -154,6 +154,10 @@ export default class Spotify extends React.Component {
     if (!weeklyAverages) {
       return
     }
+    const weekCount = Object.keys(weeklyAverages.acousticness).length
+    if (weekCount < 2) {
+      return
+    }
     return <AudioFeaturesChart weeklyAverages={weeklyAverages} />
   }
 
