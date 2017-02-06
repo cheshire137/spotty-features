@@ -6,6 +6,7 @@ const featureColors = {
   danceability: '#23d160',
   energy: '#ffdd57',
   valence: '#ff3860',
+  negativity: '#5bbe63',
   instrumentalness: '#494949',
   liveness: '#A800D1',
   speechiness: '#D16200'
@@ -15,6 +16,7 @@ const featureLabels = {
   danceability: 'Danceable',
   energy: 'Energetic',
   valence: 'Positive',
+  negativity: 'Negative',
   instrumentalness: 'Instrumental',
   liveness: 'Live',
   speechiness: 'Speechy'

@@ -90,7 +90,8 @@ export default class Spotify extends React.Component {
 
   getWeeklyAverages(tracks) {
     const features = ['acousticness', 'danceability', 'energy', 'valence',
-                      'instrumentalness', 'liveness', 'speechiness']
+                      'instrumentalness', 'liveness', 'speechiness',
+                      'negativity']
 
     const valuesByWeek = {}
     for (const track of tracks) {
@@ -136,7 +137,8 @@ export default class Spotify extends React.Component {
       liveness: feature.liveness,
       loudness: feature.loudness,
       speechiness: feature.speechiness,
-      valence: feature.valence
+      valence: feature.valence,
+      negativity: 1 - feature.valence
     }
     return track
   }
