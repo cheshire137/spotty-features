@@ -5,6 +5,7 @@ import SpotifyApi from '../models/spotify-api.js'
 
 import AudioFeaturesChart from './audio-features-chart.jsx'
 import WeekList from './week-list.jsx'
+import Features from '../models/features.js'
 
 export default class Spotify extends React.Component {
   constructor(props) {
@@ -225,35 +226,39 @@ export default class Spotify extends React.Component {
               <div className="column">
                 <h3 className="title is-3 feature-guide-header">Guide</h3>
                 <dl className="feature-guide">
-                  <dt>Acoustic</dt>
+                  <dt style={{color: Features.colors.acousticness}}>Acoustic</dt>
                   <dd>
                     A confidence measure of whether the track is acoustic.
                   </dd>
-                  <dt>Danceable</dt>
+                  <dt style={{color: Features.colors.danceability}}>Danceable</dt>
                   <dd>
                     Describes how suitable a track is for dancing based on
                     tempo, rhythm stability, beat strength, and regularity.
                   </dd>
-                  <dt>Energetic</dt>
+                  <dt style={{color: Features.colors.energy}}>Energetic</dt>
                   <dd>
                     A perceptual measure of intensity and activity. Energetic
                     tracks are usually fast, loud, and noisy.
                   </dd>
-                  <dt>Instrumental</dt>
+                  <dt style={{color: Features.colors.instrumentalness}}>Instrumental</dt>
                   <dd>
                     Whether a track lacks vocals.
                   </dd>
-                  <dt>Live</dt>
+                  <dt style={{color: Features.colors.liveness}}>Live</dt>
                   <dd>
                     Detects the presence of an audience.
                   </dd>
-                  <dt>Speechy</dt>
+                  <dt style={{color: Features.colors.speechiness}}>Speechy</dt>
                   <dd>
                     Detects the presence of spoken words. More than 66%
                     is probably entirely spoken. Between 33% - 66% may contain
                     both music and speech. Less than 33% most likely is music.
                   </dd>
-                  <dt>Positive / Negative</dt>
+                  <dt>
+                    <span style={{color: Features.colors.valence}}>Positive</span>
+                    <span> / </span>
+                    <span style={{color: Features.colors.negativity}}>Negative</span>
+                  </dt>
                   <dd>
                     Describes the musical positiveness of the track. High
                     positivity sounds more happy, cheerful, or euphoric. High

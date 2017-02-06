@@ -1,16 +1,8 @@
 import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
-const featureColors = {
-  acousticness: '#FF7EAB',
-  danceability: '#0ABD9C',
-  energy: '#e3b951',
-  valence: '#90B207',
-  negativity: '#004DD0',
-  instrumentalness: '#494949',
-  liveness: '#AF33C8',
-  speechiness: '#f09945'
-}
+import Features from '../models/features.js'
+
 const featureLabels = {
   acousticness: 'Acoustic',
   danceability: 'Danceable',
@@ -21,7 +13,7 @@ const featureLabels = {
   liveness: 'Live',
   speechiness: 'Speechy'
 }
-const allFeatures = Object.keys(featureColors)
+const allFeatures = Object.keys(Features.colors)
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
                 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -86,7 +78,7 @@ class AudioFeaturesChart extends React.Component {
               key={feature}
               type="monotone"
               dataKey={featureLabels[feature]}
-              stroke={featureColors[feature]}
+              stroke={Features.colors[feature]}
             />
           )
         })}
