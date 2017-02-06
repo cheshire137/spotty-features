@@ -59,7 +59,49 @@ export default class Spotify extends React.Component {
     for (const feature of json.audio_features) {
       tracks.push(this.addAudioFeaturesToTrack(feature, tracksByID[feature.id]))
     }
+    const dailyAverages = this.getDailyAverages(tracks)
     this.setState({ tracks })
+  }
+
+  getDailyAverages(tracks) {
+    const valuesByDay = {}
+    for (const track of tracks) {
+      const day = new Date(track.savedAt.getTime())
+      day.setHours(0, 0, 0, 0)
+
+      if (!valuesByDay.hasOwnProperty(day)) {
+        valuesByDay[day] = {
+          acousticness: [],
+          danceability: [],
+          energy: [],
+          instrumentalness: [],
+          liveness: [],
+          loudness: [],
+          speechiness: [],
+          valence: []
+        }
+      }
+
+      for (const feature in track.audioFeatures) {
+        valuesByDay[day][feature].push(track.audioFeatures[feature])
+      }
+    }
+
+    const averages = {}
+    for (const day in valuesByDay) {
+      averages[day] = {}
+      const features = valuesByDay[day]
+      for (const feature in features) {
+        const values = valuesByDay[day][feature]
+        let sum = 0
+        for (const value of values) {
+          sum += value
+        }
+        averages[day][feature] = sum / values.length
+      }
+    }
+    console.log(averages)
+    return averages
   }
 
   addAudioFeaturesToTrack(feature, track) {
