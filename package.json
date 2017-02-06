@@ -27,6 +27,7 @@
   "scripts": {
     "build": "node_modules/.bin/browserify src/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ]",
     "serve": "node src/server.js",
-    "watch": "node_modules/.bin/watchify src/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ] -v"
+    "watch": "node_modules/.bin/watchify src/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ] -v",
+    "postinstall": "yarn run build"
   }
 }
