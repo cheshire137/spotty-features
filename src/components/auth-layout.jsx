@@ -38,6 +38,8 @@ export default class AuthLayout extends React.Component {
   logout(event) {
     event.preventDefault()
     LocalStorage.delete('spotify-token')
+    LocalStorage.delete('spotify-user')
+    LocalStorage.delete('spotify-avatar-url')
     this.props.router.push('/')
   }
 
