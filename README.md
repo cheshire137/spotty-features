@@ -4,6 +4,10 @@ Show trends about your music listening habits over time using different audio
 features like acousticness, danceability, and energy, based on the tracks you
 save to your Spotify library.
 
+**[Try the app now](https://spotty-features.herokuapp.com)**
+
+![Screenshot](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot.png)
+
 ## How to Develop
 
 You will need [Homebrew](http://brew.sh/) installed in macOS.
