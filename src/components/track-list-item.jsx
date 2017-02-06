@@ -22,7 +22,7 @@ class TrackListItem extends React.Component {
       <li>
         <div className="columns">
           <div className="column track-image-column">
-            <a href={url} className="track-link" target="_blank">
+            <a href={albumUrl} className="track-link" target="_blank">
               <img src={image} className="track-image" />
             </a>
           </div>
