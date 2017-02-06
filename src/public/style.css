@@ -96,3 +96,19 @@
   font-size: 90%;
   color: #999;
 }
+
+.footer .separator {
+  display: inline-block;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1 0 auto;
+}
