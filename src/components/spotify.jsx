@@ -3,6 +3,7 @@ import React from 'react'
 import LocalStorage from '../models/local-storage.js'
 import SpotifyApi from '../models/spotify-api.js'
 
+import AcousticChart from './acoustic-chart.jsx'
 import TrackListItem from './track-list-item.jsx'
 
 export default class Spotify extends React.Component {
@@ -60,46 +61,44 @@ export default class Spotify extends React.Component {
       tracks.push(this.addAudioFeaturesToTrack(feature, tracksByID[feature.id]))
     }
     const dailyAverages = this.getDailyAverages(tracks)
-    this.setState({ tracks })
+    this.setState({ tracks, dailyAverages })
   }
 
   getDailyAverages(tracks) {
+    const features = ['acousticness', 'danceability', 'energy', 'valence',
+                      'instrumentalness', 'liveness', 'loudness', 'speechiness']
+
     const valuesByDay = {}
     for (const track of tracks) {
       const day = new Date(track.savedAt.getTime())
       day.setHours(0, 0, 0, 0)
+      const key = day.toISOString()
 
-      if (!valuesByDay.hasOwnProperty(day)) {
-        valuesByDay[day] = {
-          acousticness: [],
-          danceability: [],
-          energy: [],
-          instrumentalness: [],
-          liveness: [],
-          loudness: [],
-          speechiness: [],
-          valence: []
+      if (!valuesByDay.hasOwnProperty(key)) {
+        valuesByDay[key] = {}
+        for (const feature of features) {
+          valuesByDay[key][feature] = []
         }
       }
 
       for (const feature in track.audioFeatures) {
-        valuesByDay[day][feature].push(track.audioFeatures[feature])
+        valuesByDay[key][feature].push(track.audioFeatures[feature])
       }
     }
 
     const averages = {}
-    for (const day in valuesByDay) {
-      averages[day] = {}
-      const features = valuesByDay[day]
-      for (const feature in features) {
+    for (const feature of features) {
+      averages[feature] = {}
+      for (const day in valuesByDay) {
         const values = valuesByDay[day][feature]
         let sum = 0
         for (const value of values) {
           sum += value
         }
-        averages[day][feature] = sum / values.length
+        averages[feature][day] = sum / values.length
       }
     }
+
     console.log(averages)
     return averages
   }
@@ -132,6 +131,14 @@ export default class Spotify extends React.Component {
     )
   }
 
+  charts() {
+    const { dailyAverages } = this.state
+    if (!dailyAverages) {
+      return
+    }
+    return <AcousticChart days={dailyAverages.acousticness} />
+  }
+
   render() {
     return (
       <div>
@@ -146,6 +153,7 @@ export default class Spotify extends React.Component {
         </div>
         <section className="section">
           <div className="container">
+            {this.charts()}
             {this.trackList()}
           </div>
         </section>
