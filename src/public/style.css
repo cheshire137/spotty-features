@@ -21,7 +21,8 @@
 }
 
 .track-album:before,
-.track-saved-at:before {
+.track-saved-at:before,
+.week-track-list .track-count:before {
   content: "\a0\00b7\a0";
   display: inline-block;
   margin-left: 5px;
@@ -76,4 +77,13 @@
 
 .week-list-container {
   margin-top: 40px;
+}
+
+.week-track-list {
+  margin-bottom: 40px;
+}
+
+.week-track-list .track-count {
+  font-size: 90%;
+  color: #999;
 }

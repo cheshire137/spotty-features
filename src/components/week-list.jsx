@@ -16,7 +16,7 @@ class WeekList extends React.Component {
     const weeks = Object.keys(tracksByWeek)
     return (
       <div className="week-list-container">
-        <h2 className="subtitle">Recently saved tracks</h2>
+        <h2 className="title is-2">Recently saved tracks</h2>
         {weeks.map(weekStr => (
           <WeekTrackList
             key={weekStr}

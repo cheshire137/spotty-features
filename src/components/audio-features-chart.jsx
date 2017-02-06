@@ -6,7 +6,7 @@ const featureColors = {
   danceability: '#23d160',
   energy: '#ffdd57',
   valence: '#ff3860',
-  instrumentalness: '#00d1b2',
+  instrumentalness: '#494949',
   liveness: '#A800D1',
   speechiness: '#D16200'
 }
@@ -63,7 +63,7 @@ class AudioFeaturesChart extends React.Component {
 
     return (
       <div>
-        <h2 className="subtitle">How your listening habits have changed</h2>
+        <h2 className="title is-2">How your listening habits have changed</h2>
         <LineChart width={width} height={300} data={data}>
           <XAxis dataKey="dateLabel" />
           <YAxis type="number" domain={[0, 100]} />
