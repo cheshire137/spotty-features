@@ -18,7 +18,7 @@ export default class Spotify extends React.Component {
 
   fetchSavedTracks() {
     const api = new SpotifyApi(this.state.token)
-    api.myTracksForPastMonths(2).
+    api.myTracksForPastMonths(3).
       then(json => this.onSavedTracks(json)).
       catch(err => this.onSavedTracksError(err))
   }
