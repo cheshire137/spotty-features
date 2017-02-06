@@ -4,7 +4,7 @@ import LocalStorage from '../models/local-storage.js'
 import SpotifyApi from '../models/spotify-api.js'
 
 import AudioFeaturesChart from './audio-features-chart.jsx'
-import TrackListItem from './track-list-item.jsx'
+import WeekList from './week-list.jsx'
 
 export default class Spotify extends React.Component {
   constructor(props) {
@@ -40,9 +40,11 @@ export default class Spotify extends React.Component {
     }
     const tracksByID = {}
     for (const item of items) {
+      const savedAt = new Date(item.added_at)
       tracksByID[item.track.id] = {
         id: item.track.id,
-        savedAt: new Date(item.added_at),
+        savedAt,
+        week: this.getWeek(savedAt),
         name: item.track.name,
         artists: item.track.artists.map(artist => artist.name),
         album: item.track.album.name,
@@ -77,15 +79,20 @@ export default class Spotify extends React.Component {
     return sum / tracks.length
   }
 
+  getWeek(date) {
+    const week = new Date(date.getTime())
+    week.setHours(0, 0, 0, 0)
+    week.setDate(week.getDate() - week.getDay())
+    return week
+  }
+
   getWeeklyAverages(tracks) {
     const features = ['acousticness', 'danceability', 'energy', 'valence',
                       'instrumentalness', 'liveness', 'speechiness']
 
     const valuesByWeek = {}
     for (const track of tracks) {
-      const week = new Date(track.savedAt.getTime())
-      week.setHours(0, 0, 0, 0)
-      week.setDate(week.getDate() - week.getDay())
+      const week = this.getWeek(track.savedAt)
       const key = week.toISOString()
 
       if (!valuesByWeek.hasOwnProperty(key)) {
@@ -132,24 +139,12 @@ export default class Spotify extends React.Component {
     return track
   }
 
-  trackList() {
-    if (!this.state.tracks) {
+  weekList() {
+    const { tracks, avgLoudness } = this.state
+    if (!tracks) {
       return
     }
-    return (
-      <div className="recently-saved-tracks-container">
-        <h2 className="subtitle">Recently saved tracks</h2>
-        <ul>
-          {this.state.tracks.map(track => (
-            <TrackListItem
-              key={track.id}
-              {...track}
-              avgLoudness={this.state.avgLoudness}
-            />
-          ))}
-        </ul>
-      </div>
-    )
+    return <WeekList tracks={tracks} avgLoudness={avgLoudness} />
   }
 
   audioFeaturesChart() {
@@ -175,7 +170,7 @@ export default class Spotify extends React.Component {
         <section className="section">
           <div className="container" id="spotify-container">
             {this.audioFeaturesChart()}
-            {this.trackList()}
+            {this.weekList()}
           </div>
         </section>
       </div>
