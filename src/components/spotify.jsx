@@ -218,7 +218,50 @@ export default class Spotify extends React.Component {
         <section className="section">
           <div className="container" id="spotify-container">
             {this.audioFeaturesCharts()}
-            {this.weekList()}
+            <div className="columns">
+              <div className="column is-two-thirds">
+                {this.weekList()}
+              </div>
+              <div className="column">
+                <h3 className="title is-3 feature-guide-header">Guide</h3>
+                <dl className="feature-guide">
+                  <dt>Acoustic</dt>
+                  <dd>
+                    A confidence measure of whether the track is acoustic.
+                  </dd>
+                  <dt>Danceable</dt>
+                  <dd>
+                    Describes how suitable a track is for dancing based on
+                    tempo, rhythm stability, beat strength, and regularity.
+                  </dd>
+                  <dt>Energetic</dt>
+                  <dd>
+                    A perceptual measure of intensity and activity. Energetic
+                    tracks are usually fast, loud, and noisy.
+                  </dd>
+                  <dt>Instrumental</dt>
+                  <dd>
+                    Whether a track lacks vocals.
+                  </dd>
+                  <dt>Live</dt>
+                  <dd>
+                    Detects the presence of an audience.
+                  </dd>
+                  <dt>Speechy</dt>
+                  <dd>
+                    Detects the presence of spoken words. More than 66%
+                    is probably entirely spoken. Between 33% - 66% may contain
+                    both music and speech. Less than 33% most likely is music.
+                  </dd>
+                  <dt>Positive / Negative</dt>
+                  <dd>
+                    Describes the musical positiveness of the track. High
+                    positivity sounds more happy, cheerful, or euphoric. High
+                    negativity sounds more sad, depressed, or angry.
+                  </dd>
+                </dl>
+              </div>
+            </div>
           </div>
         </section>
       </div>

@@ -81,7 +81,8 @@
   color: #999;
 }
 
-.week-list-container {
+.week-list-container,
+.feature-guide-header {
   margin-top: 40px;
 }
 
@@ -119,4 +120,12 @@ body {
 .button.spotify-button:focus {
   background-color: #5bbe63;
   color: #fff;
+}
+
+.feature-guide dt {
+  font-weight: 700;
+}
+
+.feature-guide dd {
+  margin-bottom: 30px;
 }
