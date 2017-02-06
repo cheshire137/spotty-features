@@ -151,7 +151,7 @@ export default class Spotify extends React.Component {
     return <WeekList tracks={tracks} avgLoudness={avgLoudness} />
   }
 
-  audioFeaturesChart() {
+  audioFeaturesCharts() {
     const { weeklyAverages } = this.state
     if (!weeklyAverages) {
       return
@@ -160,7 +160,19 @@ export default class Spotify extends React.Component {
     if (weekCount < 2) {
       return
     }
-    return <AudioFeaturesChart weeklyAverages={weeklyAverages} />
+    return (
+      <div>
+        <h2 className="title is-2">How your listening habits have changed</h2>
+        <div className="tabs">
+          <ul>
+            <li className="is-active">
+              <a href="#">All features</a>
+            </li>
+          </ul>
+        </div>
+        <AudioFeaturesChart weeklyAverages={weeklyAverages} />
+      </div>
+    )
   }
 
   render() {
@@ -177,7 +189,7 @@ export default class Spotify extends React.Component {
         </div>
         <section className="section">
           <div className="container" id="spotify-container">
-            {this.audioFeaturesChart()}
+            {this.audioFeaturesCharts()}
             {this.weekList()}
           </div>
         </section>
