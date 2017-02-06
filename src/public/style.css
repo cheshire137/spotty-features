@@ -109,3 +109,14 @@ body {
 #root {
   flex: 1 0 auto;
 }
+
+.button.spotify-button {
+  background-color: #57b660;
+  color: #fff;
+}
+
+.button.spotify-button:hover,
+.button.spotify-button:focus {
+  background-color: #5bbe63;
+  color: #fff;
+}
