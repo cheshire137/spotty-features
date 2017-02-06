@@ -49,35 +49,32 @@
   width: 64px;
 }
 
-.audio-features li {
+.audio-features span {
   display: inline-block;
   font-weight: 700;
 }
 
-.audio-features li + li,
-.audio-features li + li.audio-feature-25 + li {
-  margin-left: 1em;
+.audio-features span:after {
+  content: "\a0";
+  display: inline-block;
+  margin-right: 1em;
 }
 
-.audio-features li.audio-feature-25 + li {
-  margin-left: 0;
-}
-
-.audio-features li.audio-feature-25 {
+.audio-features span.audio-feature-25,
+.audio-features span.audio-feature-50 {
   display: none;
 }
 
-.audio-features li.audio-feature-50 {
-  color: #ABC9F9;
-}
-
-.audio-features li.audio-feature-75 {
+.audio-features span.audio-feature-75 {
   color: #6799EA;
 }
 
-.audio-features li.audio-feature-100,
-.loudness-loud {
+.audio-features span.audio-feature-100 {
   color: #3273dc;
+}
+
+.loudness-loud {
+  color: #00d1b2;
 }
 
 .loudness-quiet {

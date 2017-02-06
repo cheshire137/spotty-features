@@ -34,30 +34,30 @@ class AudioFeatures extends React.Component {
       loudnessClass = 'loudness-loud'
     }
     return (
-      <ul className="audio-features">
-        <li title={this.percent(acousticness)} className={acousticClass}>
+      <p className="audio-features">
+        <span title={this.percent(acousticness)} className={acousticClass}>
           Acoustic
-        </li>
-        <li title={this.percent(danceability)} className={danceClass}>
+        </span>
+        <span title={this.percent(danceability)} className={danceClass}>
           Danceable
-        </li>
-        <li title={this.percent(energy)} className={energyClass}>
+        </span>
+        <span title={this.percent(energy)} className={energyClass}>
           Energetic
-        </li>
-        <li title={this.percent(instrumentalness)} className={instClass}>
+        </span>
+        <span title={this.percent(instrumentalness)} className={instClass}>
           Instrumental
-        </li>
-        <li title={this.percent(liveness)} className={liveClass}>
+        </span>
+        <span title={this.percent(liveness)} className={liveClass}>
           Live
-        </li>
-        <li className={loudnessClass}>{loudness} dB</li>
-        <li title={this.percent(speechiness)} className={speechClass}>
+        </span>
+        <span className={loudnessClass}>{loudness} dB</span>
+        <span title={this.percent(speechiness)} className={speechClass}>
           Speechy
-        </li>
-        <li title={this.percent(valence)} className={valClass}>
+        </span>
+        <span title={this.percent(valence)} className={valClass}>
           Positive
-        </li>
-      </ul>
+        </span>
+      </p>
     )
   }
 }
