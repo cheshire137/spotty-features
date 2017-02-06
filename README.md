@@ -20,3 +20,9 @@ yarn install
 gulp
 open http://localhost:3000
 ```
+
+## How to Deploy to Heroku
+
+```bash
+git push heroku master
+```
