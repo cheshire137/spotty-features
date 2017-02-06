@@ -20,8 +20,17 @@ const featureLabels = {
   speechiness: 'Speechy'
 }
 const features = Object.keys(featureColors)
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
+                'Sep', 'Oct', 'Nov', 'Dec']
 
 class AudioFeaturesChart extends React.Component {
+  dateLabel(dateStr) {
+    const date = new Date(dateStr)
+    const month = months[date.getMonth()]
+    const day = date.getDate()
+    return `${month} ${day}`
+  }
+
   getChartData() {
     const { dailyAverages } = this.props
 
@@ -30,8 +39,7 @@ class AudioFeaturesChart extends React.Component {
 
     const data = []
     for (const dateStr of dates) {
-      const dateLabel = new Date(dateStr).toLocaleDateString()
-      const datum = { dateLabel }
+      const datum = { dateLabel: this.dateLabel(dateStr) }
       for (const feature of features) {
         const value = dailyAverages[feature][dateStr]
         datum[featureLabels[feature]] = Math.round(value * 100)
