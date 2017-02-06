@@ -35,8 +35,11 @@ export default class SpotifyApi {
     this.myTracks({ limit, offset }).then(json => {
       const dates = []
       for (const item of json.items) {
-        dates.push(new Date(item.added_at))
-        items.push(item)
+        const date = new Date(item.added_at)
+        dates.push(date)
+        if (date >= pastDate) {
+          items.push(item)
+        }
       }
       dates.sort()
       const earliestDate = dates[0]
