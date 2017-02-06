@@ -19,6 +19,35 @@ export default class SpotifyApi {
     return this.get(`/me/tracks?limit=${limit}&offset=${offset}`)
   }
 
+  myTracksForPastMonths(numMonths) {
+    const pastDate = new Date()
+    pastDate.setMonth(pastDate.getMonth() - numMonths)
+    pastDate.setHours(0, 0, 0, 0)
+    console.log(numMonths, 'months ago was', pastDate)
+
+    const items = []
+    return new Promise(resolve => {
+      this.myTracksBeforeDate(pastDate, items, resolve, 50, 0)
+    })
+  }
+
+  myTracksBeforeDate(pastDate, items, resolve, limit, offset) {
+    this.myTracks({ limit, offset }).then(json => {
+      const dates = []
+      for (const item of json.items) {
+        dates.push(new Date(item.added_at))
+        items.push(item)
+      }
+      dates.sort()
+      const earliestDate = dates[0]
+      if (earliestDate < pastDate) {
+        resolve(items)
+      } else {
+        this.myTracksBeforeDate(pastDate, items, resolve, limit, offset + limit)
+      }
+    })
+  }
+
   audioFeatures(ids) {
     const idsStr = ids.join(',')
     return this.get(`/audio-features?ids=${idsStr}`)

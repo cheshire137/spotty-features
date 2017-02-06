@@ -18,7 +18,7 @@ export default class Spotify extends React.Component {
 
   fetchSavedTracks() {
     const api = new SpotifyApi(this.state.token)
-    api.myTracks().
+    api.myTracksForPastMonths(2).
       then(json => this.onSavedTracks(json)).
       catch(err => this.onSavedTracksError(err))
   }
@@ -31,13 +31,13 @@ export default class Spotify extends React.Component {
     }
   }
 
-  onSavedTracks(json) {
-    const trackIDs = json.items.map(item => item.track.id)
+  onSavedTracks(items) {
+    const trackIDs = items.map(item => item.track.id)
     if (trackIDs.length < 1) {
       return
     }
     const tracksByID = {}
-    for (const item of json.items) {
+    for (const item of items) {
       tracksByID[item.track.id] = {
         id: item.track.id,
         savedAt: new Date(item.added_at),
