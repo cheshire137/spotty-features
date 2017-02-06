@@ -9,7 +9,10 @@ import WeekList from './week-list.jsx'
 export default class Spotify extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { token: LocalStorage.get('spotify-token') }
+    this.state = {
+      token: LocalStorage.get('spotify-token'),
+      activeChart: 'all'
+    }
   }
 
   componentDidMount() {
@@ -151,8 +154,13 @@ export default class Spotify extends React.Component {
     return <WeekList tracks={tracks} avgLoudness={avgLoudness} />
   }
 
+  setActiveChart(event, activeChart) {
+    event.preventDefault()
+    this.setState({ activeChart })
+  }
+
   audioFeaturesCharts() {
-    const { weeklyAverages } = this.state
+    const { weeklyAverages, activeChart } = this.state
     if (!weeklyAverages) {
       return
     }
@@ -165,12 +173,22 @@ export default class Spotify extends React.Component {
         <h2 className="title is-2">How your listening habits have changed</h2>
         <div className="tabs">
           <ul>
-            <li className="is-active">
-              <a href="#">All features</a>
+            <li className={activeChart === 'all' ? 'is-active' : ''}>
+              <a href="#" onClick={e => this.setActiveChart(e, 'all')}>
+                All features
+              </a>
+            </li>
+            <li className={activeChart === 'mood' ? 'is-active' : ''}>
+              <a href="#" onClick={e => this.setActiveChart(e, 'mood')}>
+                Mood
+              </a>
             </li>
           </ul>
         </div>
-        <AudioFeaturesChart weeklyAverages={weeklyAverages} />
+        <AudioFeaturesChart
+          type={activeChart}
+          weeklyAverages={weeklyAverages}
+        />
       </div>
     )
   }
