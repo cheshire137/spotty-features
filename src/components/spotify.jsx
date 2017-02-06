@@ -48,7 +48,8 @@ export default class Spotify extends React.Component {
         name: item.track.name,
         artists: item.track.artists.map(artist => artist.name),
         album: item.track.album.name,
-        image: item.track.album.images.filter(img => img.width < 100)[0].url
+        image: item.track.album.images.filter(img => img.width < 100)[0].url,
+        url: item.track.external_urls.spotify
       }
     }
     this.fetchAudioFeatures(trackIDs, tracksByID)

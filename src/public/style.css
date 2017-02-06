@@ -20,6 +20,15 @@
   font-style: italic;
 }
 
+.track-link {
+  color: inherit;
+}
+
+.track-link:hover,
+.track-link:focus {
+  color: #00d1b2;
+}
+
 .track-album:before,
 .track-saved-at:before,
 .week-track-list .track-count:before {

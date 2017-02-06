@@ -16,20 +16,24 @@ class TrackListItem extends React.Component {
   }
 
   render() {
-    const { image, name, artists, album, savedAt } = this.props
+    const { image, name, artists, album, savedAt, url } = this.props
     const date = savedAt.toLocaleDateString()
     return (
       <li>
         <div className="columns">
           <div className="column track-image-column">
-            <img src={image} className="track-image" />
+            <a href={url} className="track-link" target="_blank">
+              <img src={image} className="track-image" />
+            </a>
           </div>
           <div className="column">
-            <span className="track-name">{name}</span>
-            <span> by </span>
-            <span className="track-artists">{artists.join(', ')}</span>
-            <span className="track-album">{album}</span>
-            <span className="track-saved-at">Saved {date}</span>
+            <a href={url} className="track-link" target="_blank">
+              <span className="track-name">{name}</span>
+              <span> by </span>
+              <span className="track-artists">{artists.join(', ')}</span>
+              <span className="track-album">{album}</span>
+              <span className="track-saved-at">Saved {date}</span>
+            </a>
             {this.audioFeatures()}
           </div>
         </div>
@@ -41,6 +45,7 @@ class TrackListItem extends React.Component {
 TrackListItem.propTypes = {
   image: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
+  url: React.PropTypes.string.isRequired,
   artists: React.PropTypes.array.isRequired,
   album: React.PropTypes.string.isRequired,
   audioFeatures: React.PropTypes.object,
