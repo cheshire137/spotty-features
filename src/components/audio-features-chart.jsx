@@ -5,8 +5,8 @@ const featureColors = {
   acousticness: '#6799EA',
   danceability: '#23d160',
   energy: '#ffdd57',
-  valence: '#ff3860',
-  negativity: '#5bbe63',
+  valence: '#5bbe63',
+  negativity: '#ff3860',
   instrumentalness: '#494949',
   liveness: '#A800D1',
   speechiness: '#D16200'
