@@ -32,16 +32,16 @@ class AudioFeaturesChart extends React.Component {
   }
 
   getChartData() {
-    const { dailyAverages } = this.props
+    const { weeklyAverages } = this.props
 
-    const dates = Object.keys(dailyAverages.acousticness)
+    const dates = Object.keys(weeklyAverages.acousticness)
     dates.sort()
 
     const data = []
     for (const dateStr of dates) {
       const datum = { dateLabel: this.dateLabel(dateStr) }
       for (const feature of features) {
-        const value = dailyAverages[feature][dateStr]
+        const value = weeklyAverages[feature][dateStr]
         datum[featureLabels[feature]] = Math.round(value * 100)
       }
       data.push(datum)
@@ -78,7 +78,7 @@ class AudioFeaturesChart extends React.Component {
 }
 
 AudioFeaturesChart.propTypes = {
-  dailyAverages: React.PropTypes.object.isRequired
+  weeklyAverages: React.PropTypes.object.isRequired
 }
 
 export default AudioFeaturesChart

@@ -64,7 +64,7 @@ export default class Spotify extends React.Component {
     }
     this.setState({
       tracks,
-      dailyAverages: this.getDailyAverages(tracks),
+      weeklyAverages: this.getWeeklyAverages(tracks),
       avgLoudness: this.getAverageLoudness(tracks)
     })
   }
@@ -77,26 +77,27 @@ export default class Spotify extends React.Component {
     return sum / tracks.length
   }
 
-  getDailyAverages(tracks) {
+  getWeeklyAverages(tracks) {
     const features = ['acousticness', 'danceability', 'energy', 'valence',
                       'instrumentalness', 'liveness', 'speechiness']
 
-    const valuesByDay = {}
+    const valuesByWeek = {}
     for (const track of tracks) {
-      const day = new Date(track.savedAt.getTime())
-      day.setHours(0, 0, 0, 0)
-      const key = day.toISOString()
+      const week = new Date(track.savedAt.getTime())
+      week.setHours(0, 0, 0, 0)
+      week.setDate(week.getDate() - week.getDay())
+      const key = week.toISOString()
 
-      if (!valuesByDay.hasOwnProperty(key)) {
-        valuesByDay[key] = {}
+      if (!valuesByWeek.hasOwnProperty(key)) {
+        valuesByWeek[key] = {}
         for (const feature of features) {
-          valuesByDay[key][feature] = []
+          valuesByWeek[key][feature] = []
         }
       }
 
       for (const feature in track.audioFeatures) {
-        if (valuesByDay[key].hasOwnProperty(feature)) {
-          valuesByDay[key][feature].push(track.audioFeatures[feature])
+        if (valuesByWeek[key].hasOwnProperty(feature)) {
+          valuesByWeek[key][feature].push(track.audioFeatures[feature])
         }
       }
     }
@@ -104,13 +105,13 @@ export default class Spotify extends React.Component {
     const averages = {}
     for (const feature of features) {
       averages[feature] = {}
-      for (const day in valuesByDay) {
-        const values = valuesByDay[day][feature]
+      for (const week in valuesByWeek) {
+        const values = valuesByWeek[week][feature]
         let sum = 0
         for (const value of values) {
           sum += value
         }
-        averages[feature][day] = sum / values.length
+        averages[feature][week] = sum / values.length
       }
     }
 
@@ -152,11 +153,11 @@ export default class Spotify extends React.Component {
   }
 
   audioFeaturesChart() {
-    const { dailyAverages } = this.state
-    if (!dailyAverages) {
+    const { weeklyAverages } = this.state
+    if (!weeklyAverages) {
       return
     }
-    return <AudioFeaturesChart dailyAverages={dailyAverages} />
+    return <AudioFeaturesChart weeklyAverages={weeklyAverages} />
   }
 
   render() {
