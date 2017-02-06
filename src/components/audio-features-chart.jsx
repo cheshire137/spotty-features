@@ -21,7 +21,7 @@ const featureLabels = {
   liveness: 'Live',
   speechiness: 'Speechy'
 }
-const features = Object.keys(featureColors)
+const allFeatures = Object.keys(featureColors)
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
                 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -36,7 +36,7 @@ class AudioFeaturesChart extends React.Component {
     return `${month} ${day}, ${year}`
   }
 
-  getChartData() {
+  getChartData(features) {
     const { weeklyAverages } = this.props
 
     const dates = Object.keys(weeklyAverages.acousticness)
@@ -59,36 +59,42 @@ class AudioFeaturesChart extends React.Component {
     return data
   }
 
+  featuresForType() {
+    switch (this.props.type) {
+      case 'mood': return ['valence', 'negativity']
+      default: return allFeatures
+    }
+  }
+
   render() {
-    const data = this.getChartData()
+    const features = this.featuresForType()
+    const data = this.getChartData(features)
     const width = document.getElementById('spotify-container').clientWidth
 
     return (
-      <div>
-        <h2 className="title is-2">How your listening habits have changed</h2>
-        <LineChart width={width} height={300} data={data}>
-          <XAxis dataKey="dateLabel" />
-          <YAxis type="number" domain={[0, 100]} />
-          <Tooltip />
-          <Legend />
-          {features.map(feature => {
-            return (
-              <Line
-                key={feature}
-                type="monotone"
-                dataKey={featureLabels[feature]}
-                stroke={featureColors[feature]}
-              />
-            )
-          })}
-        </LineChart>
-      </div>
+      <LineChart width={width} height={300} data={data}>
+        <XAxis dataKey="dateLabel" />
+        <YAxis type="number" domain={[0, 100]} />
+        <Tooltip />
+        <Legend />
+        {features.map(feature => {
+          return (
+            <Line
+              key={feature}
+              type="monotone"
+              dataKey={featureLabels[feature]}
+              stroke={featureColors[feature]}
+            />
+          )
+        })}
+      </LineChart>
     )
   }
 }
 
 AudioFeaturesChart.propTypes = {
-  weeklyAverages: React.PropTypes.object.isRequired
+  weeklyAverages: React.PropTypes.object.isRequired,
+  type: React.PropTypes.string
 }
 
 export default AudioFeaturesChart
