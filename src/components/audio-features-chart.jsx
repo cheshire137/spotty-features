@@ -2,14 +2,14 @@ import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
 const featureColors = {
-  acousticness: '#ff3860',
-  danceability: '#23d160',
-  energy: '#ffdd57',
-  valence: '#5bbe63',
-  negativity: '#6799EA',
+  acousticness: '#FF7EAB',
+  danceability: '#0ABD9C',
+  energy: '#e3b951',
+  valence: '#90B207',
+  negativity: '#004DD0',
   instrumentalness: '#494949',
-  liveness: '#A800D1',
-  speechiness: '#D16200'
+  liveness: '#AF33C8',
+  speechiness: '#f09945'
 }
 const featureLabels = {
   acousticness: 'Acoustic',
