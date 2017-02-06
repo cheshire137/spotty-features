@@ -24,11 +24,14 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
                 'Sep', 'Oct', 'Nov', 'Dec']
 
 class AudioFeaturesChart extends React.Component {
-  dateLabel(dateStr) {
-    const date = new Date(dateStr)
+  dateLabel(date, includeYear) {
     const month = months[date.getMonth()]
     const day = date.getDate()
-    return `${month} ${day}`
+    if (!includeYear) {
+      return `${month} ${day}`
+    }
+    const year = date.getFullYear()
+    return `${month} ${day}, ${year}`
   }
 
   getChartData() {
@@ -38,8 +41,13 @@ class AudioFeaturesChart extends React.Component {
     dates.sort()
 
     const data = []
+    let prevYear = null
     for (const dateStr of dates) {
-      const datum = { dateLabel: this.dateLabel(dateStr) }
+      const date = new Date(dateStr)
+      const year = date.getFullYear()
+      const includeYear = prevYear !== year
+      prevYear = year
+      const datum = { dateLabel: this.dateLabel(date, includeYear) }
       for (const feature of features) {
         const value = weeklyAverages[feature][dateStr]
         datum[featureLabels[feature]] = Math.round(value * 100)
