@@ -109,7 +109,6 @@ export default class SpotifyApi {
 
   get(path) {
     const url = `${apiUrl}${path}`
-    console.log('GET', url)
     return fetch(url, { headers: this.headers }).
       then(this.checkStatus).
       then(this.parseJson)
