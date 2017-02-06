@@ -26,12 +26,30 @@ export default class SpotifyApi {
     console.log(numMonths, 'months ago was', pastDate)
 
     const items = []
-    return new Promise(resolve => {
-      this.myTracksBeforeDate(pastDate, items, resolve, 50, 0)
+    return new Promise((resolve, reject) => {
+      this.myTracksBeforeDate(pastDate, items, resolve, reject, 50, 0)
     })
   }
 
-  myTracksBeforeDate(pastDate, items, resolve, limit, offset) {
+  audioFeatures(allIDs) {
+    const chunkSize = 100
+    if (allIDs.length <= chunkSize) {
+      return this.audioFeaturesForIDs(allIDs)
+    }
+    return new Promise((resolve, reject) => {
+      const batches = []
+      for (let i = 0; i < allIDs.length; i += chunkSize) {
+        batches.push(allIDs.slice(i, i + chunkSize))
+      }
+      this.audioFeaturesForBatch(batches, 0, [], resolve, reject)
+    })
+  }
+
+
+
+  /* Internal: */
+
+  myTracksBeforeDate(pastDate, items, resolve, reject, limit, offset) {
     this.myTracks({ limit, offset }).then(json => {
       const dates = []
       for (const item of json.items) {
@@ -46,14 +64,36 @@ export default class SpotifyApi {
       if (earliestDate < pastDate) {
         resolve(items)
       } else {
-        this.myTracksBeforeDate(pastDate, items, resolve, limit, offset + limit)
+        this.myTracksBeforeDate(pastDate, items, resolve, reject, limit, offset + limit)
       }
+    }).catch(error => {
+      reject(error)
     })
   }
 
-  audioFeatures(ids) {
-    const idsStr = ids.join(',')
-    return this.get(`/audio-features?ids=${idsStr}`)
+  audioFeaturesForBatch(batches, index, prevFeatures, resolve, reject) {
+    this.audioFeaturesForIDs(batches[index]).then(features => {
+      const allFeatures = prevFeatures.concat(features)
+      if (index < batches.length - 1) {
+        this.audioFeaturesForBatch(batches, index + 1, allFeatures, resolve,
+                                   reject)
+      } else {
+        resolve(allFeatures)
+      }
+    }).catch(error => {
+      reject(error)
+    })
+  }
+
+  audioFeaturesForIDs(ids) {
+    return new Promise((resolve, reject) => {
+      const idStr = ids.join(',')
+      this.get(`/audio-features?ids=${idStr}`).then(json => {
+        resolve(json.audio_features)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 
   checkStatus(response) {

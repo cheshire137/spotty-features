@@ -57,9 +57,9 @@ export default class Spotify extends React.Component {
     api.audioFeatures(trackIDs).then(json => this.onAudioFeatures(json, tracksByID))
   }
 
-  onAudioFeatures(json, tracksByID) {
+  onAudioFeatures(audioFeatures, tracksByID) {
     const tracks = []
-    for (const feature of json.audio_features) {
+    for (const feature of audioFeatures) {
       tracks.push(this.addAudioFeaturesToTrack(feature, tracksByID[feature.id]))
     }
     const dailyAverages = this.getDailyAverages(tracks)
