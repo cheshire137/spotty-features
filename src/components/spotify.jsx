@@ -188,6 +188,11 @@ export default class Spotify extends React.Component {
                 Party ready
               </a>
             </li>
+            <li className={activeChart === 'noDistraction' ? 'is-active' : ''}>
+              <a href="#" onClick={e => this.setActiveChart(e, 'noDistraction')}>
+                Distraction free
+              </a>
+            </li>
           </ul>
         </div>
         <AudioFeaturesChart
