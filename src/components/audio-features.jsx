@@ -46,9 +46,7 @@ class AudioFeatures extends React.Component {
         <li title={this.percent(liveness)} className={liveClass}>
           Live
         </li>
-        <li title={`${loudness} dB`}>
-          Loud
-        </li>
+        <li>{loudness} dB</li>
         <li title={this.percent(speechiness)} className={speechClass}>
           Speechy
         </li>
