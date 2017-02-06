@@ -3,7 +3,7 @@ import React from 'react'
 import LocalStorage from '../models/local-storage.js'
 import SpotifyApi from '../models/spotify-api.js'
 
-import AcousticChart from './acoustic-chart.jsx'
+import AudioFeaturesChart from './audio-features-chart.jsx'
 import TrackListItem from './track-list-item.jsx'
 
 export default class Spotify extends React.Component {
@@ -131,12 +131,12 @@ export default class Spotify extends React.Component {
     )
   }
 
-  charts() {
+  audioFeaturesChart() {
     const { dailyAverages } = this.state
     if (!dailyAverages) {
       return
     }
-    return <AcousticChart days={dailyAverages.acousticness} />
+    return <AudioFeaturesChart dailyAverages={dailyAverages} />
   }
 
   render() {
@@ -152,8 +152,8 @@ export default class Spotify extends React.Component {
           </div>
         </div>
         <section className="section">
-          <div className="container">
-            {this.charts()}
+          <div className="container" id="spotify-container">
+            {this.audioFeaturesChart()}
             {this.trackList()}
           </div>
         </section>
