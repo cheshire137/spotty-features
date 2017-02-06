@@ -63,7 +63,8 @@ class AudioFeaturesChart extends React.Component {
     switch (this.props.type) {
       case 'mood': return ['valence', 'negativity']
       case 'party': return ['danceability', 'energy']
-      case 'noDistraction': return ['acousticness', 'instrumentalness']
+      case 'noDistraction':
+        return ['acousticness', 'instrumentalness', 'speechiness']
       default: return allFeatures
     }
   }
