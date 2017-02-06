@@ -1,7 +1,8 @@
 # Spotty Features
 
-I want to play around with Spotify's
-[audio features API endpoints](https://developer.spotify.com/web-api/get-several-audio-features/).
+Show trends about your music listening habits over time using different audio
+features like acousticness, danceability, and energy, based on the tracks you
+save to your Spotify library.
 
 ## How to Develop
 
