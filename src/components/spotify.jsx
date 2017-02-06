@@ -183,6 +183,11 @@ export default class Spotify extends React.Component {
                 Mood
               </a>
             </li>
+            <li className={activeChart === 'party' ? 'is-active' : ''}>
+              <a href="#" onClick={e => this.setActiveChart(e, 'party')}>
+                Party ready
+              </a>
+            </li>
           </ul>
         </div>
         <AudioFeaturesChart
