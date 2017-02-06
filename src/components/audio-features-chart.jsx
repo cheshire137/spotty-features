@@ -10,6 +10,15 @@ const featureColors = {
   liveness: '#A800D1',
   speechiness: '#D16200'
 }
+const featureLabels = {
+  acousticness: 'Acoustic',
+  danceability: 'Danceable',
+  energy: 'Energetic',
+  valence: 'Positive',
+  instrumentalness: 'Instrumental',
+  liveness: 'Live',
+  speechiness: 'Speechy'
+}
 const features = Object.keys(featureColors)
 
 class AudioFeaturesChart extends React.Component {
@@ -25,7 +34,7 @@ class AudioFeaturesChart extends React.Component {
       const datum = { dateLabel }
       for (const feature of features) {
         const value = dailyAverages[feature][dateStr]
-        datum[feature] = Math.round(value * 100)
+        datum[featureLabels[feature]] = Math.round(value * 100)
       }
       data.push(datum)
     }
@@ -47,7 +56,7 @@ class AudioFeaturesChart extends React.Component {
             <Line
               key={feature}
               type="monotone"
-              dataKey={feature}
+              dataKey={featureLabels[feature]}
               stroke={featureColors[feature]}
             />
           )
