@@ -73,3 +73,7 @@
 .loudness-quiet {
   color: #999;
 }
+
+.recently-saved-tracks-container {
+  margin-top: 40px;
+}

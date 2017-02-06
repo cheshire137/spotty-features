@@ -54,22 +54,25 @@ class AudioFeaturesChart extends React.Component {
     const width = document.getElementById('spotify-container').clientWidth
 
     return (
-      <LineChart width={width} height={300} data={data}>
-        <XAxis dataKey="dateLabel" />
-        <YAxis type="number" domain={[0, 100]} />
-        <Tooltip />
-        <Legend />
-        {features.map(feature => {
-          return (
-            <Line
-              key={feature}
-              type="monotone"
-              dataKey={featureLabels[feature]}
-              stroke={featureColors[feature]}
-            />
-          )
-        })}
-      </LineChart>
+      <div>
+        <h2 className="subtitle">How your listening habits have changed</h2>
+        <LineChart width={width} height={300} data={data}>
+          <XAxis dataKey="dateLabel" />
+          <YAxis type="number" domain={[0, 100]} />
+          <Tooltip />
+          <Legend />
+          {features.map(feature => {
+            return (
+              <Line
+                key={feature}
+                type="monotone"
+                dataKey={featureLabels[feature]}
+                stroke={featureColors[feature]}
+              />
+            )
+          })}
+        </LineChart>
+      </div>
     )
   }
 }

@@ -136,7 +136,7 @@ export default class Spotify extends React.Component {
       return
     }
     return (
-      <div>
+      <div className="recently-saved-tracks-container">
         <h2 className="subtitle">Recently saved tracks</h2>
         <ul>
           {this.state.tracks.map(track => (
