@@ -2,7 +2,7 @@ import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
 const featureColors = {
-  acousticness: '#3273dc',
+  acousticness: '#6799EA',
   danceability: '#23d160',
   energy: '#ffdd57',
   valence: '#ff3860',
