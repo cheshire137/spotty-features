@@ -2,11 +2,11 @@ import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
 const featureColors = {
-  acousticness: '#6799EA',
+  acousticness: '#ff3860',
   danceability: '#23d160',
   energy: '#ffdd57',
   valence: '#5bbe63',
-  negativity: '#ff3860',
+  negativity: '#6799EA',
   instrumentalness: '#494949',
   liveness: '#A800D1',
   speechiness: '#D16200'
