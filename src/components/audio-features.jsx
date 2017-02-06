@@ -21,7 +21,7 @@ class AudioFeatures extends React.Component {
 
   render() {
     const { acousticness, danceability, energy, instrumentalness, liveness,
-            loudness, speechiness, valence } = this.props
+            loudness, speechiness, valence, avgLoudness } = this.props
     const acousticClass = this.classForScale(acousticness)
     const danceClass = this.classForScale(danceability)
     const energyClass = this.classForScale(energy)
@@ -29,6 +29,10 @@ class AudioFeatures extends React.Component {
     const liveClass = this.classForScale(liveness)
     const speechClass = this.classForScale(speechiness)
     const valClass = this.classForScale(valence)
+    let loudnessClass = 'loudness-quiet'
+    if (loudness && avgLoudness && loudness > avgLoudness) {
+      loudnessClass = 'loudness-loud'
+    }
     return (
       <ul className="audio-features">
         <li title={this.percent(acousticness)} className={acousticClass}>
@@ -46,7 +50,7 @@ class AudioFeatures extends React.Component {
         <li title={this.percent(liveness)} className={liveClass}>
           Live
         </li>
-        <li>{loudness} dB</li>
+        <li className={loudnessClass}>{loudness} dB</li>
         <li title={this.percent(speechiness)} className={speechClass}>
           Speechy
         </li>
@@ -65,6 +69,7 @@ AudioFeatures.propTypes = {
   instrumentalness: React.PropTypes.number,
   liveness: React.PropTypes.number,
   loudness: React.PropTypes.number,
+  avgLoudness: React.PropTypes.number,
   speechiness: React.PropTypes.number,
   valence: React.PropTypes.number
 }

@@ -7,7 +7,12 @@ class TrackListItem extends React.Component {
     if (!this.props.audioFeatures) {
       return
     }
-    return <AudioFeatures {...this.props.audioFeatures} />
+    return (
+      <AudioFeatures
+        avgLoudness={this.props.avgLoudness}
+        {...this.props.audioFeatures}
+      />
+    )
   }
 
   render() {
@@ -39,7 +44,8 @@ TrackListItem.propTypes = {
   artists: React.PropTypes.array.isRequired,
   album: React.PropTypes.string.isRequired,
   audioFeatures: React.PropTypes.object,
-  savedAt: React.PropTypes.instanceOf(Date).isRequired
+  savedAt: React.PropTypes.instanceOf(Date).isRequired,
+  avgLoudness: React.PropTypes.number.isRequired
 }
 
 export default TrackListItem

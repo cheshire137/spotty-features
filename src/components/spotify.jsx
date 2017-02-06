@@ -62,13 +62,24 @@ export default class Spotify extends React.Component {
     for (const feature of audioFeatures) {
       tracks.push(this.addAudioFeaturesToTrack(feature, tracksByID[feature.id]))
     }
-    const dailyAverages = this.getDailyAverages(tracks)
-    this.setState({ tracks, dailyAverages })
+    this.setState({
+      tracks,
+      dailyAverages: this.getDailyAverages(tracks),
+      avgLoudness: this.getAverageLoudness(tracks)
+    })
+  }
+
+  getAverageLoudness(tracks) {
+    let sum = 0
+    for (const track of tracks) {
+      sum += track.audioFeatures.loudness
+    }
+    return sum / tracks.length
   }
 
   getDailyAverages(tracks) {
     const features = ['acousticness', 'danceability', 'energy', 'valence',
-                      'instrumentalness', 'liveness', 'loudness', 'speechiness']
+                      'instrumentalness', 'liveness', 'speechiness']
 
     const valuesByDay = {}
     for (const track of tracks) {
@@ -84,7 +95,9 @@ export default class Spotify extends React.Component {
       }
 
       for (const feature in track.audioFeatures) {
-        valuesByDay[key][feature].push(track.audioFeatures[feature])
+        if (valuesByDay[key].hasOwnProperty(feature)) {
+          valuesByDay[key][feature].push(track.audioFeatures[feature])
+        }
       }
     }
 
@@ -101,7 +114,6 @@ export default class Spotify extends React.Component {
       }
     }
 
-    console.log(averages)
     return averages
   }
 
@@ -127,7 +139,13 @@ export default class Spotify extends React.Component {
       <div>
         <h2 className="subtitle">Recently saved tracks</h2>
         <ul>
-          {this.state.tracks.map(track => <TrackListItem key={track.id} {...track} />)}
+          {this.state.tracks.map(track => (
+            <TrackListItem
+              key={track.id}
+              {...track}
+              avgLoudness={this.state.avgLoudness}
+            />
+          ))}
         </ul>
       </div>
     )

@@ -23,11 +23,9 @@ export default class SpotifyApi {
     const pastDate = new Date()
     pastDate.setMonth(pastDate.getMonth() - numMonths)
     pastDate.setHours(0, 0, 0, 0)
-    console.log(numMonths, 'months ago was', pastDate)
 
-    const items = []
     return new Promise((resolve, reject) => {
-      this.myTracksBeforeDate(pastDate, items, resolve, reject, 50, 0)
+      this.myTracksBeforeDate(pastDate, [], resolve, reject, 50, 0)
     })
   }
 

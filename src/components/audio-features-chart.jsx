@@ -34,7 +34,6 @@ class AudioFeaturesChart extends React.Component {
 
   render() {
     const data = this.getChartData()
-    console.log(data)
     const width = document.getElementById('spotify-container').clientWidth
 
     return (

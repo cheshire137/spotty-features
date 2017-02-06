@@ -48,7 +48,8 @@
   margin-left: 1em;
 }
 
-.audio-feature-25 {
+.audio-feature-25,
+.loudness-quiet {
   color: #999;
 }
 
@@ -60,6 +61,7 @@
   color: #23d160;
 }
 
-.audio-feature-100 {
+.audio-feature-100,
+.loudness-loud {
   color: #3273dc;
 }
