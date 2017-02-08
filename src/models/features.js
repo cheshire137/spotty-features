@@ -12,4 +12,15 @@ Features.colors = {
   speechiness: '#f09945'
 }
 
+Features.labels = {
+  acousticness: 'Acoustic',
+  danceability: 'Danceable',
+  energy: 'Energetic',
+  valence: 'Positive',
+  negativity: 'Negative',
+  instrumentalness: 'Instrumental',
+  liveness: 'Live',
+  speechiness: 'Speechy'
+}
+
 export default Features

@@ -3,16 +3,6 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
 import Features from '../models/features.js'
 
-const featureLabels = {
-  acousticness: 'Acoustic',
-  danceability: 'Danceable',
-  energy: 'Energetic',
-  valence: 'Positive',
-  negativity: 'Negative',
-  instrumentalness: 'Instrumental',
-  liveness: 'Live',
-  speechiness: 'Speechy'
-}
 const allFeatures = Object.keys(Features.colors)
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
                 'Sep', 'Oct', 'Nov', 'Dec']
@@ -44,7 +34,7 @@ class AudioFeaturesChart extends React.Component {
       const datum = { dateLabel: this.dateLabel(date, includeYear) }
       for (const feature of features) {
         const value = weeklyAverages[feature][dateStr]
-        datum[featureLabels[feature]] = Math.round(value * 100)
+        datum[Features.labels[feature]] = Math.round(value * 100)
       }
       data.push(datum)
     }
@@ -77,7 +67,7 @@ class AudioFeaturesChart extends React.Component {
             <Line
               key={feature}
               type="monotone"
-              dataKey={featureLabels[feature]}
+              dataKey={Features.labels[feature]}
               stroke={Features.colors[feature]}
             />
           )
