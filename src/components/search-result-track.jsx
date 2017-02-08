@@ -1,14 +1,24 @@
 import React from 'react'
 
 class SearchResultTrack extends React.Component {
+  imageColumn() {
+    const { image } = this.props
+    if (!image || image.length < 1) {
+      return
+    }
+    return (
+      <div className="column track-image-column">
+        <img src={image} className="track-image" />
+      </div>
+    )
+  }
+
   render() {
-    const { name, artists, album, image } = this.props
+    const { name, artists, album } = this.props
     return (
       <li>
         <div className="columns">
-          <div className="column track-image-column">
-            <img src={image} className="track-image" />
-          </div>
+          {this.imageColumn()}
           <div className="column">
             <span className="track-name">{name}</span>
             <span> by </span>
@@ -25,7 +35,7 @@ SearchResultTrack.propTypes = {
   artists: React.PropTypes.array.isRequired,
   album: React.PropTypes.string.isRequired,
   albumUrl: React.PropTypes.string.isRequired,
-  image: React.PropTypes.string.isRequired,
+  image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired
 }

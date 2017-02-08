@@ -15,17 +15,27 @@ class TrackListItem extends React.Component {
     )
   }
 
+  imageColumn() {
+    const { image, albumUrl } = this.props
+    if (!image || image.length < 1) {
+      return
+    }
+    return (
+      <div className="column track-image-column">
+        <a href={albumUrl} className="track-link" target="_blank">
+          <img src={image} className="track-image" />
+        </a>
+      </div>
+    )
+  }
+
   render() {
-    const { image, name, artists, album, savedAt, url, albumUrl } = this.props
+    const { name, artists, album, savedAt, url, albumUrl } = this.props
     const date = savedAt.toLocaleDateString()
     return (
       <li>
         <div className="columns">
-          <div className="column track-image-column">
-            <a href={albumUrl} className="track-link" target="_blank">
-              <img src={image} className="track-image" />
-            </a>
-          </div>
+          {this.imageColumn()}
           <div className="column">
             <a href={url} className="track-link" target="_blank">
               <span className="track-name">{name}</span>
@@ -45,7 +55,7 @@ class TrackListItem extends React.Component {
 }
 
 TrackListItem.propTypes = {
-  image: React.PropTypes.string.isRequired,
+  image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
   artists: React.PropTypes.array.isRequired,

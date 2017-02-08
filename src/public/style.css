@@ -126,5 +126,16 @@ body {
 }
 
 .results {
+  border: 1px solid #ddd;
+  border-top: 0;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
+  left: 0;
+  right: 0;
+}
 
+.results li {
+  padding-left: 10px;
+  padding-right: 10px;
 }

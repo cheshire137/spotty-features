@@ -60,15 +60,16 @@ class Search extends React.Component {
       event.preventDefault()
     }
     const { seedType, seed } = this.state
+    if (!seed || seed.length < 1) {
+      return
+    }
     const opts = { q: seed, type: seedType }
-    console.log(opts)
     const api = new SpotifyApi(this.props.token)
     api.search(opts).then(json => this.onSeedSearchResults(json)).
       catch(err => this.onSeedSearchError(err))
   }
 
   onSeedSearchResults(json) {
-    console.log(json)
     const { seedType } = this.state
     const key = `${seedType}s`
     const results = []
@@ -81,14 +82,22 @@ class Search extends React.Component {
       if (seedType === 'track') {
         result.artists = item.artists.map(artist => artist.name)
         result.album = item.album.name
-        result.image = item.album.images.filter(img => img.width < 100)[0].url
+        const images = item.album.images.filter(img => img.width < 100)
+        if (images.length > 0) {
+          result.image = images[0].url
+        }
         result.albumUrl = item.album.external_urls.spotify
       } else {
-        result.image = item.images.filter(img => img.width < 100)[0].url
+        const images = item.images.filter(img => img.width < 100)
+        if (images.length > 0) {
+          result.image = images[0].url
+        }
       }
       results.push(result)
+      if (results.length > 4) {
+        break
+      }
     }
-    console.log(results)
     this.setState({ results })
   }
 
