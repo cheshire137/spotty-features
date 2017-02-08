@@ -248,18 +248,16 @@ export default class Spotify extends React.Component {
             <div className="container">
               <nav className="tabs is-boxed">
                 <ul>
-                  <li>
+                  <li className={trackSource === 'saved' ? 'is-active' : ''}>
                     <a
                       href="#"
                       onClick={e => this.switchTrackSource(e, 'saved')}
-                      className={trackSource === 'saved' ? 'is-active' : ''}
                     >Saved tracks</a>
                   </li>
-                  <li>
+                  <li className={trackSource === 'top' ? 'is-active' : ''}>
                     <a
                       href="#"
                       onClick={e => this.switchTrackSource(e, 'top')}
-                      className={trackSource === 'top' ? 'is-active' : ''}
                     >Top tracks</a>
                   </li>
                 </ul>
