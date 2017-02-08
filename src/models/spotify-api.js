@@ -85,6 +85,8 @@ export default class SpotifyApi {
         this.getTracksForXWeeks(numWeeks, items, resolve, reject, offset + 50,
                                 weeksFound + weeksAdded, weeks.concat(newWeeks))
       }
+    }).catch(error => {
+      reject(error)
     })
   }
 
