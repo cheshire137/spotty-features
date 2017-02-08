@@ -14,10 +14,14 @@ class SearchResultArtist extends React.Component {
   }
 
   render() {
-    const { name } = this.props
+    const { name, chooseArtist } = this.props
     return (
       <li>
-        <button type="button" className="search-result-button">
+        <button
+          type="button"
+          className="search-result-button"
+          onClick={() => chooseArtist()}
+        >
           <span className="columns">
             {this.imageColumn()}
             <span className="column">
@@ -33,7 +37,8 @@ class SearchResultArtist extends React.Component {
 SearchResultArtist.propTypes = {
   image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired
+  url: React.PropTypes.string.isRequired,
+  chooseArtist: React.PropTypes.func.isRequired
 }
 
 export default SearchResultArtist

@@ -1,8 +1,10 @@
 import React from 'react'
 import { debounce } from 'throttle-debounce'
 
+import ArtistSeedSummary from './artist-seed-summary.jsx'
 import SearchResultArtist from './search-result-artist.jsx'
 import SearchResultTrack from './search-result-track.jsx'
+import TrackSeedSummary from './track-seed-summary.jsx'
 
 import Features from '../models/features.js'
 import LocalStorage from '../models/local-storage.js'
@@ -11,7 +13,7 @@ import SpotifyApi from '../models/spotify-api.js'
 class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { seedType: 'track', results: [] }
+    this.state = { seedType: 'track', results: [], seedQuery: '' }
     this.delayedSeedSearch = debounce(500, this.delayedSeedSearch)
   }
 
@@ -47,23 +49,25 @@ class Search extends React.Component {
     this.setState({ seedType: event.target.value })
   }
 
-  onSeedChange(event) {
-    this.delayedSeedSearch(event.target.value.trim())
+  onSeedQueryChange(event) {
+    this.setState({ seedQuery: event.target.value }, () => {
+      this.delayedSeedSearch()
+    })
   }
 
-  delayedSeedSearch(seed) {
-    this.setState({ seed }, () => this.onSeedSearch())
+  delayedSeedSearch() {
+    this.onSeedSearch()
   }
 
   onSeedSearch(event) {
     if (event) {
       event.preventDefault()
     }
-    const { seedType, seed } = this.state
-    if (!seed || seed.length < 1) {
+    const { seedType, seedQuery } = this.state
+    if (!seedQuery || seedQuery.length < 1) {
       return
     }
-    const opts = { q: seed, type: seedType }
+    const opts = { q: seedQuery, type: seedType }
     const api = new SpotifyApi(this.props.token)
     api.search(opts).then(json => this.onSeedSearchResults(json)).
       catch(err => this.onSeedSearchError(err))
@@ -108,11 +112,27 @@ class Search extends React.Component {
     }
   }
 
+  chooseSeed(result) {
+    this.setState({ seed: result, results: [], seedQuery: '' })
+  }
+
+  seedSummary() {
+    const { seed, seedType } = this.state
+    if (!seed) {
+      return
+    }
+    if (seedType === 'track') {
+      return <TrackSeedSummary {...seed} />
+    }
+    return <ArtistSeedSummary {...seed} />
+  }
+
   render() {
-    const { seedType, results } = this.state
+    const { seedType, results, seedQuery } = this.state
     return (
       <div>
         <form onSubmit={e => this.onSeedSearch(e)}>
+          <h4 className="title is-4">Step 1: Seed your playlist</h4>
           <div className="control">
             <label className="label" htmlFor="seed">
               Find songs like:
@@ -122,15 +142,30 @@ class Search extends React.Component {
                 type="text"
                 id="seed"
                 className="input"
-                onChange={e => this.onSeedChange(e)}
+                autoComplete="off"
+                autoFocus
+                value={seedQuery}
+                onChange={e => this.onSeedQueryChange(e)}
                 placeholder={seedType === 'track' ? 'Search songs' : 'Search artists'}
               />
               <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
                 {results.map(result => {
                   if (seedType === 'track') {
-                    return <SearchResultTrack key={result.id} {...result} />
+                    return (
+                      <SearchResultTrack
+                        key={result.id}
+                        {...result}
+                        chooseTrack={() => this.chooseSeed(result)}
+                      />
+                    )
                   }
-                  return <SearchResultArtist key={result.id} {...result} />
+                  return (
+                    <SearchResultArtist
+                      key={result.id}
+                      {...result}
+                      chooseArtist={() => this.chooseSeed(result)}
+                    />
+                  )
                 })}
               </ul>
             </div>
@@ -158,9 +193,10 @@ class Search extends React.Component {
             </label>
           </div>
         </form>
+        {this.seedSummary()}
         <form onSubmit={e => this.onRecommendationsSubmit(e)}>
           <h4 className="refine-title title is-4">
-            Refine your results
+            Step 2: Refine your results
           </h4>
           {Features.fields.map(feature => {
             return (

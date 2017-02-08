@@ -14,10 +14,14 @@ class SearchResultTrack extends React.Component {
   }
 
   render() {
-    const { name, artists, album } = this.props
+    const { name, artists, album, chooseTrack } = this.props
     return (
       <li>
-        <button type="button" className="search-result-button">
+        <button
+          type="button"
+          onClick={() => chooseTrack()}
+          className="search-result-button"
+        >
           <span className="columns">
             {this.imageColumn()}
             <span className="column">
@@ -39,7 +43,8 @@ SearchResultTrack.propTypes = {
   albumUrl: React.PropTypes.string.isRequired,
   image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired
+  url: React.PropTypes.string.isRequired,
+  chooseTrack: React.PropTypes.func.isRequired
 }
 
 export default SearchResultTrack

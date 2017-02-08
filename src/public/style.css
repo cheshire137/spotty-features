@@ -157,3 +157,7 @@ body {
   outline: none;
   border-color: #3273dc;
 }
+
+.seed-summary {
+  margin-top: 30px;
+}
