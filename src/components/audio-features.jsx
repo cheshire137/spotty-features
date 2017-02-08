@@ -8,78 +8,6 @@ class AudioFeatures extends React.Component {
     return `${percentage}%`
   }
 
-  acoustic() {
-    const { acousticness } = this.props
-    if (acousticness <= 0.5) {
-      return
-    }
-    return (
-      <span
-        style={{color: Features.colors.acousticness}}
-        title={this.percent(acousticness)}>Acoustic</span>
-    )
-  }
-
-  danceable() {
-    const { danceability } = this.props
-    if (danceability <= 0.5) {
-      return
-    }
-    return (
-      <span
-        style={{color: Features.colors.danceability}}
-        title={this.percent(danceability)}>Danceable</span>
-    )
-  }
-
-  energetic() {
-    const { energy } = this.props
-    if (energy <= 0.5) {
-      return
-    }
-    return (
-      <span
-        style={{color: Features.colors.energy}}
-        title={this.percent(energy)}>Energetic</span>
-    )
-  }
-
-  instrumental() {
-    const { instrumentalness } = this.props
-    if (instrumentalness <= 0.5) {
-      return
-    }
-    return (
-      <span
-        style={{color: Features.colors.instrumentalness}}
-        title={this.percent(instrumentalness)}>Instrumental</span>
-    )
-  }
-
-  live() {
-    const { liveness } = this.props
-    if (liveness <= 0.5) {
-      return
-    }
-    return (
-      <span
-        style={{color: Features.colors.liveness}}
-        title={this.percent(liveness)}>Live</span>
-    )
-  }
-
-  speechy() {
-    const { speechiness } = this.props
-    if (speechiness <= 0.5) {
-      return
-    }
-    return (
-      <span
-        style={{color: Features.colors.speechiness}}
-        title={this.percent(speechiness)}>Speechy</span>
-    )
-  }
-
   positiveNegative() {
     const { valence } = this.props
     const percentage = this.percent(valence)
@@ -97,6 +25,18 @@ class AudioFeatures extends React.Component {
     )
   }
 
+  featureTag(key) {
+    const value = this.props[key]
+    if (value <= 0.5) {
+      return
+    }
+    return (
+      <span
+        style={{color: Features.colors[key]}}
+        title={this.percent(value)}>{Features.labels[key]}</span>
+    )
+  }
+
   render() {
     const { loudness, avgLoudness } = this.props
     let loudnessClass = 'loudness-quiet'
@@ -105,13 +45,13 @@ class AudioFeatures extends React.Component {
     }
     return (
       <p className="audio-features">
-        {this.acoustic()}
-        {this.danceable()}
-        {this.energetic()}
-        {this.instrumental()}
-        {this.live()}
+        {this.featureTag('acousticness')}
+        {this.featureTag('danceability')}
+        {this.featureTag('energy')}
+        {this.featureTag('instrumentalness')}
+        {this.featureTag('liveness')}
         <span className={loudnessClass}>{loudness} dB</span>
-        {this.speechy()}
+        {this.featureTag('speechiness')}
         {this.positiveNegative()}
       </p>
     )
