@@ -1,6 +1,9 @@
 class Features {
 }
 
+Features.fields = ['acousticness', 'danceability', 'energy', 'valence',
+                   'instrumentalness', 'liveness', 'speechiness']
+
 Features.colors = {
   acousticness: '#FF7EAB',
   danceability: '#0ABD9C',
