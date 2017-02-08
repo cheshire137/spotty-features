@@ -60,11 +60,6 @@
   margin-right: 1em;
 }
 
-.audio-features span.audio-feature-25,
-.audio-features span.audio-feature-50 {
-  display: none;
-}
-
 .loudness-loud {
   color: #00d1b2;
 }

@@ -8,73 +8,110 @@ class AudioFeatures extends React.Component {
     return `${percentage}%`
   }
 
-  classForScale(number) {
-    if (number <= 0.25) {
-      return 'audio-feature-25'
+  acoustic() {
+    const { acousticness } = this.props
+    if (acousticness <= 0.5) {
+      return
     }
-    if (number <= 0.5) {
-      return 'audio-feature-50'
+    return (
+      <span
+        style={{color: Features.colors.acousticness}}
+        title={this.percent(acousticness)}>Acoustic</span>
+    )
+  }
+
+  danceable() {
+    const { danceability } = this.props
+    if (danceability <= 0.5) {
+      return
     }
-    if (number <= 0.75) {
-      return 'audio-feature-75'
+    return (
+      <span
+        style={{color: Features.colors.danceability}}
+        title={this.percent(danceability)}>Danceable</span>
+    )
+  }
+
+  energetic() {
+    const { energy } = this.props
+    if (energy <= 0.5) {
+      return
     }
-    return 'audio-feature-100'
+    return (
+      <span
+        style={{color: Features.colors.energy}}
+        title={this.percent(energy)}>Energetic</span>
+    )
+  }
+
+  instrumental() {
+    const { instrumentalness } = this.props
+    if (instrumentalness <= 0.5) {
+      return
+    }
+    return (
+      <span
+        style={{color: Features.colors.instrumentalness}}
+        title={this.percent(instrumentalness)}>Instrumental</span>
+    )
+  }
+
+  live() {
+    const { liveness } = this.props
+    if (liveness <= 0.5) {
+      return
+    }
+    return (
+      <span
+        style={{color: Features.colors.liveness}}
+        title={this.percent(liveness)}>Live</span>
+    )
+  }
+
+  speechy() {
+    const { speechiness } = this.props
+    if (speechiness <= 0.5) {
+      return
+    }
+    return (
+      <span
+        style={{color: Features.colors.speechiness}}
+        title={this.percent(speechiness)}>Speechy</span>
+    )
   }
 
   positiveNegative() {
     const { valence } = this.props
-    const valClass = this.classForScale(valence)
     const percentage = this.percent(valence)
     if (valence > 0.5) {
       return (
         <span
           style={{color: Features.colors.valence}}
-          title={percentage}
-          className={valClass}>Positive</span>
+          title={percentage}>Positive</span>
       )
     }
     return (
       <span
         style={{color: Features.colors.negativity}}
-        title={percentage}
-        className={valClass}>Negative</span>
+        title={percentage}>Negative</span>
     )
   }
 
   render() {
-    const { acousticness, danceability, energy, instrumentalness, liveness,
-            loudness, speechiness, avgLoudness } = this.props
-    const acousticClass = this.classForScale(acousticness)
-    const danceClass = this.classForScale(danceability)
-    const energyClass = this.classForScale(energy)
-    const instClass = this.classForScale(instrumentalness)
-    const liveClass = this.classForScale(liveness)
-    const speechClass = this.classForScale(speechiness)
+    const { loudness, avgLoudness } = this.props
     let loudnessClass = 'loudness-quiet'
     if (loudness && avgLoudness && loudness > avgLoudness) {
       loudnessClass = 'loudness-loud'
     }
     return (
       <p className="audio-features">
-        <span style={{color: Features.colors.acousticness}} title={this.percent(acousticness)} className={acousticClass}>
-          Acoustic
-        </span>
-        <span style={{color: Features.colors.danceability}} title={this.percent(danceability)} className={danceClass}>
-          Danceable
-        </span>
-        <span style={{color: Features.colors.energy}} title={this.percent(energy)} className={energyClass}>
-          Energetic
-        </span>
-        <span style={{color: Features.colors.instrumentalness}} title={this.percent(instrumentalness)} className={instClass}>
-          Instrumental
-        </span>
-        <span style={{color: Features.colors.liveness}} title={this.percent(liveness)} className={liveClass}>
-          Live
-        </span>
+        {this.acoustic()}
+        {this.danceable()}
+        {this.energetic()}
+        {this.instrumental()}
+        {this.live()}
         <span className={loudnessClass}>{loudness} dB</span>
-        <span style={{color: Features.colors.speechiness}} title={this.percent(speechiness)} className={speechClass}>
-          Speechy
-        </span>
+        {this.speechy()}
         {this.positiveNegative()}
       </p>
     )
