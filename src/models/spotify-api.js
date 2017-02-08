@@ -1,5 +1,7 @@
 import 'whatwg-fetch'
 
+import Features from './features.js'
+
 const apiUrl = 'https://api.spotify.com/v1'
 
 export default class SpotifyApi {
@@ -10,6 +12,18 @@ export default class SpotifyApi {
 
   me() {
     return this.get('/me')
+  }
+
+  getRecommendations(opts) {
+    const limit = opts.limit || 20
+    const params = [`limit=${limit}`]
+    for (const feature of Features.fields) {
+      if (opts.hasOwnProperty(feature)) {
+        params.push(`target_${feature}=${opts[feature]}`)
+      }
+    }
+    console.log(params.join('&'))
+    return this.get(`/recommendations?${params.join('&')}`)
   }
 
   savedTracks(opts) {

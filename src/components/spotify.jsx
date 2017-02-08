@@ -162,11 +162,11 @@ export default class Spotify extends React.Component {
   }
 
   search() {
-    const { activeView } = this.state
+    const { activeView, token } = this.state
     if (activeView !== 'search') {
       return
     }
-    return <Search />
+    return <Search token={token} />
   }
 
   setActiveChart(event, activeChart) {
