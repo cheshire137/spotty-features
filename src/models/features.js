@@ -19,8 +19,8 @@ Features.labels = {
   acousticness: 'Acoustic',
   danceability: 'Danceable',
   energy: 'Energetic',
-  valence: 'Positive',
-  negativity: 'Negative',
+  valence: 'Positivity',
+  negativity: 'Negativity',
   instrumentalness: 'Instrumental',
   liveness: 'Live',
   speechiness: 'Speechy'

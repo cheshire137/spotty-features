@@ -15,11 +15,24 @@ export default class Search extends React.Component {
                 </label>
               </div>
               <div className="control">
-                <input id={feature} type="range" />
+                0%
+                <input
+                  id={feature}
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                />
+                100%
               </div>
             </div>
           )
         })}
+        <div className="control">
+          <button type="submit" className="button is-primary">
+            Find Songs
+          </button>
+        </div>
       </form>
     )
   }
