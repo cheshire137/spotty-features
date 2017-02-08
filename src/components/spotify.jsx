@@ -15,7 +15,7 @@ export default class Spotify extends React.Component {
     this.state = {
       token: LocalStorage.get('spotify-token'),
       activeChart: 'all',
-      activeView: 'trends'
+      activeView: LocalStorage.get('active-view') || 'trends'
     }
   }
 
@@ -229,6 +229,7 @@ export default class Spotify extends React.Component {
   setActiveView(event, activeView) {
     event.preventDefault()
     this.setState({ activeView }, () => {
+      LocalStorage.set('active-view', activeView)
       if (!this.state.weeklyAverages) {
         this.fetchTracks()
       }
