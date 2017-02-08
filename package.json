@@ -19,6 +19,7 @@
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
     "recharts": "^0.20.5",
+    "throttle-debounce": "^1.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0",
