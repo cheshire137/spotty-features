@@ -29,6 +29,12 @@ export default class SpotifyApi {
     })
   }
 
+  myTracksForXWeeks(numWeeks) {
+    return new Promise((resolve, reject) => {
+      this.getTracksForXWeeks(numWeeks, [], resolve, reject, 0, 0, [])
+    })
+  }
+
   audioFeatures(allIDs) {
     const chunkSize = 100
     if (allIDs.length <= chunkSize) {
@@ -46,6 +52,48 @@ export default class SpotifyApi {
 
 
   /* Internal: */
+
+  getTracksForXWeeks(numWeeks, items, resolve, reject, offset, weeksFound, weeks) {
+    this.myTracks({ limit: 50, offset }).then(json => {
+      const itemsByWeek = {}
+      for (const item of json.items) {
+        const week = this.getWeek(item.added_at).toISOString()
+        if (!itemsByWeek.hasOwnProperty(week)) {
+          itemsByWeek[week] = []
+        }
+        itemsByWeek[week].push(item)
+      }
+      const newWeeks = Object.keys(itemsByWeek)
+      let weeksAdded = 0
+      for (const week of newWeeks) {
+        const weekAlreadySeen = weeks.indexOf(week) > -1
+        if (weeksFound + weeksAdded < numWeeks || weekAlreadySeen) {
+          for (const item of itemsByWeek[week]) {
+            items.push(item)
+          }
+          if (!weekAlreadySeen) {
+            weeksAdded++
+          }
+        } else {
+          break
+        }
+      }
+
+      if (weeksFound + weeksAdded >= numWeeks) {
+        resolve(items)
+      } else {
+        this.getTracksForXWeeks(numWeeks, items, resolve, reject, offset + 50,
+                                weeksFound + weeksAdded, weeks.concat(newWeeks))
+      }
+    })
+  }
+
+  getWeek(dateStr) {
+    const week = new Date(dateStr)
+    week.setHours(0, 0, 0, 0)
+    week.setDate(week.getDate() - week.getDay())
+    return week
+  }
 
   myTracksBeforeDate(pastDate, items, resolve, reject, offset) {
     this.myTracks({ limit: 50, offset }).then(json => {
