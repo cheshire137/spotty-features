@@ -18,12 +18,20 @@ export default class Spotify extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchSavedTracks()
+    this.fetchTracks()
+  }
+
+  fetchTracks() {
+    if (this.trackSource === 'saved') {
+      this.fetchSavedTracks()
+    } else {
+      this.fetchTopTracks()
+    }
   }
 
   fetchSavedTracks() {
     const api = new SpotifyApi(this.state.token)
-    api.myTracksForXWeeks(14).
+    api.savedTracksForXWeeks(14).
       then(json => this.onSavedTracks(json)).
       catch(err => this.onSavedTracksError(err))
   }
@@ -60,6 +68,13 @@ export default class Spotify extends React.Component {
       }
     }
     this.fetchAudioFeatures(trackIDs, tracksByID)
+  }
+
+  fetchTopTracks() {
+    const api = new SpotifyApi(this.state.token)
+    api.topTracksForXWeeks(14).
+      then(json => this.onTopTracks(json)).
+      catch(err => this.onTopTracksError(err))
   }
 
   fetchAudioFeatures(trackIDs, tracksByID) {
