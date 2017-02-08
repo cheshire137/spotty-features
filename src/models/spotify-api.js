@@ -14,6 +14,14 @@ export default class SpotifyApi {
     return this.get('/me')
   }
 
+  search(opts) {
+    const limit = opts.limit || 20
+    const offset = opts.offset || 0
+    const query = encodeURIComponent(opts.q)
+    return this.get(`/search?q=${query}&type=${opts.type}&limit=${limit}` +
+                    `&offset=${offset}`)
+  }
+
   getRecommendations(opts) {
     const limit = opts.limit || 20
     const params = [`limit=${limit}`]

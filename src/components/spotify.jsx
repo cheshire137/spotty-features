@@ -34,11 +34,15 @@ export default class Spotify extends React.Component {
   onTracksFetchError(error) {
     console.error(`failed to load your saved tracks`, error)
     if (error.response.status === 401) {
-      LocalStorage.delete('spotify-token')
-      LocalStorage.delete('spotify-user')
-      LocalStorage.delete('spotify-avatar-url')
-      this.props.router.push('/')
+      this.unauthorized()
     }
+  }
+
+  unauthorized() {
+    LocalStorage.delete('spotify-token')
+    LocalStorage.delete('spotify-user')
+    LocalStorage.delete('spotify-avatar-url')
+    this.props.router.push('/')
   }
 
   onTracksFetched(items) {
@@ -166,7 +170,12 @@ export default class Spotify extends React.Component {
     if (activeView !== 'search') {
       return
     }
-    return <Search token={token} />
+    return (
+      <Search
+        token={token}
+        unauthorized={() => this.unauthorized()}
+      />
+    )
   }
 
   setActiveChart(event, activeChart) {

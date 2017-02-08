@@ -120,3 +120,11 @@ body {
 .refine-title {
   margin-top: 30px;
 }
+
+.results-container {
+  position: relative;
+}
+
+.results {
+
+}
