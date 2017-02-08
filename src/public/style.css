@@ -65,14 +65,6 @@
   display: none;
 }
 
-.audio-features span.audio-feature-75 {
-  color: #6799EA;
-}
-
-.audio-features span.audio-feature-100 {
-  color: #3273dc;
-}
-
 .loudness-loud {
   color: #00d1b2;
 }

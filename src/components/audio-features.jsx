@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Features from '../models/features.js'
+
 class AudioFeatures extends React.Component {
   percent(number) {
     const percentage = Math.round(number * 100)
@@ -19,44 +21,61 @@ class AudioFeatures extends React.Component {
     return 'audio-feature-100'
   }
 
+  positiveNegative() {
+    const { valence } = this.props
+    const valClass = this.classForScale(valence)
+    const percentage = this.percent(valence)
+    if (valence > 0.5) {
+      return (
+        <span
+          style={{color: Features.colors.valence}}
+          title={percentage}
+          className={valClass}>Positive</span>
+      )
+    }
+    return (
+      <span
+        style={{color: Features.colors.negativity}}
+        title={percentage}
+        className={valClass}>Negative</span>
+    )
+  }
+
   render() {
     const { acousticness, danceability, energy, instrumentalness, liveness,
-            loudness, speechiness, valence, avgLoudness } = this.props
+            loudness, speechiness, avgLoudness } = this.props
     const acousticClass = this.classForScale(acousticness)
     const danceClass = this.classForScale(danceability)
     const energyClass = this.classForScale(energy)
     const instClass = this.classForScale(instrumentalness)
     const liveClass = this.classForScale(liveness)
     const speechClass = this.classForScale(speechiness)
-    const valClass = this.classForScale(valence)
     let loudnessClass = 'loudness-quiet'
     if (loudness && avgLoudness && loudness > avgLoudness) {
       loudnessClass = 'loudness-loud'
     }
     return (
       <p className="audio-features">
-        <span title={this.percent(acousticness)} className={acousticClass}>
+        <span style={{color: Features.colors.acousticness}} title={this.percent(acousticness)} className={acousticClass}>
           Acoustic
         </span>
-        <span title={this.percent(danceability)} className={danceClass}>
+        <span style={{color: Features.colors.danceability}} title={this.percent(danceability)} className={danceClass}>
           Danceable
         </span>
-        <span title={this.percent(energy)} className={energyClass}>
+        <span style={{color: Features.colors.energy}} title={this.percent(energy)} className={energyClass}>
           Energetic
         </span>
-        <span title={this.percent(instrumentalness)} className={instClass}>
+        <span style={{color: Features.colors.instrumentalness}} title={this.percent(instrumentalness)} className={instClass}>
           Instrumental
         </span>
-        <span title={this.percent(liveness)} className={liveClass}>
+        <span style={{color: Features.colors.liveness}} title={this.percent(liveness)} className={liveClass}>
           Live
         </span>
         <span className={loudnessClass}>{loudness} dB</span>
-        <span title={this.percent(speechiness)} className={speechClass}>
+        <span style={{color: Features.colors.speechiness}} title={this.percent(speechiness)} className={speechClass}>
           Speechy
         </span>
-        <span title={this.percent(valence)} className={valClass}>
-          Positive
-        </span>
+        {this.positiveNegative()}
       </p>
     )
   }
