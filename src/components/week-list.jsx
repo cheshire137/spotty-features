@@ -3,13 +3,6 @@ import React from 'react'
 import WeekTrackList from './week-track-list.jsx'
 
 class WeekList extends React.Component {
-  title() {
-    if (this.props.trackSource === 'saved') {
-      return 'Recently saved tracks'
-    }
-    return 'Your top tracks'
-  }
-
   render() {
     const { tracks, avgLoudness } = this.props
     const tracksByWeek = {}
@@ -23,7 +16,7 @@ class WeekList extends React.Component {
     const weeks = Object.keys(tracksByWeek)
     return (
       <div className="week-list-container">
-        <h2 className="title is-2">{this.title()}</h2>
+        <h2 className="title is-2">Recently saved tracks</h2>
         {weeks.map(weekStr => (
           <WeekTrackList
             key={weekStr}

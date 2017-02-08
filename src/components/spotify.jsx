@@ -12,8 +12,7 @@ export default class Spotify extends React.Component {
     super(props)
     this.state = {
       token: LocalStorage.get('spotify-token'),
-      activeChart: 'all',
-      trackSource: 'saved'
+      activeChart: 'all'
     }
   }
 
@@ -22,17 +21,13 @@ export default class Spotify extends React.Component {
   }
 
   fetchTracks() {
-    let method = 'savedTracksForXWeeks'
-    if (this.state.trackSource === 'top') {
-      method = 'topTracksForXWeeks'
-    }
     const api = new SpotifyApi(this.state.token)
-    api[method](14).then(json => this.onTracksFetched(json)).
+    api.savedTracksForXWeeks(14).then(json => this.onTracksFetched(json)).
       catch(err => this.onTracksFetchError(err))
   }
 
   onTracksFetchError(error) {
-    console.error(`failed to load your ${this.state.trackSource} tracks`, error)
+    console.error(`failed to load your saved tracks`, error)
     if (error.response.status === 401) {
       LocalStorage.delete('spotify-token')
       LocalStorage.delete('spotify-user')
@@ -44,9 +39,7 @@ export default class Spotify extends React.Component {
   onTracksFetched(items) {
     const trackIDs = items.map(item => item.track.id)
     if (trackIDs.length < 1) {
-      this.setState({
-        message: `You have no ${this.state.trackSource} tracks to show.`
-      })
+      this.setState({ message: 'You have no saved tracks to show.' })
       return
     }
     const tracksByID = {}
@@ -156,13 +149,12 @@ export default class Spotify extends React.Component {
   }
 
   weekList() {
-    const { tracks, avgLoudness, trackSource } = this.state
+    const { tracks, avgLoudness } = this.state
     if (!tracks) {
       return
     }
     return (
       <WeekList
-        trackSource={trackSource}
         tracks={tracks}
         avgLoudness={avgLoudness}
       />
@@ -227,13 +219,7 @@ export default class Spotify extends React.Component {
     }
   }
 
-  switchTrackSource(event, trackSource) {
-    event.preventDefault()
-    this.setState({ trackSource }, () => this.fetchTracks())
-  }
-
   render() {
-    const { trackSource } = this.state
     return (
       <div>
         <div className="hero is-primary">
@@ -242,26 +228,6 @@ export default class Spotify extends React.Component {
               <h1 className="title">
                 Your Listening Trends
               </h1>
-            </div>
-          </div>
-          <div className="hero-foot">
-            <div className="container">
-              <nav className="tabs is-boxed">
-                <ul>
-                  <li className={trackSource === 'saved' ? 'is-active' : ''}>
-                    <a
-                      href="#"
-                      onClick={e => this.switchTrackSource(e, 'saved')}
-                    >Saved tracks</a>
-                  </li>
-                  <li className={trackSource === 'top' ? 'is-active' : ''}>
-                    <a
-                      href="#"
-                      onClick={e => this.switchTrackSource(e, 'top')}
-                    >Top tracks</a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
