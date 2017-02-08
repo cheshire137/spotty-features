@@ -11,17 +11,18 @@ class AudioFeatures extends React.Component {
   positiveNegative() {
     const { valence } = this.props
     const percentage = this.percent(valence)
+    const title = `${percentage} positive`
     if (valence > 0.5) {
       return (
         <span
           style={{color: Features.colors.valence}}
-          title={percentage}>Positive</span>
+          title={title}>Positive</span>
       )
     }
     return (
       <span
         style={{color: Features.colors.negativity}}
-        title={percentage}>Negative</span>
+        title={title}>Negative</span>
     )
   }
 
