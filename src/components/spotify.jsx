@@ -12,7 +12,8 @@ export default class Spotify extends React.Component {
     super(props)
     this.state = {
       token: LocalStorage.get('spotify-token'),
-      activeChart: 'all'
+      activeChart: 'all',
+      trackSource: 'saved'
     }
   }
 
@@ -148,11 +149,17 @@ export default class Spotify extends React.Component {
   }
 
   weekList() {
-    const { tracks, avgLoudness } = this.state
+    const { tracks, avgLoudness, trackSource } = this.state
     if (!tracks) {
       return
     }
-    return <WeekList tracks={tracks} avgLoudness={avgLoudness} />
+    return (
+      <WeekList
+        trackSource={trackSource}
+        tracks={tracks}
+        avgLoudness={avgLoudness}
+      />
+    )
   }
 
   setActiveChart(event, activeChart) {
