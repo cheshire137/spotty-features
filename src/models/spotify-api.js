@@ -25,7 +25,7 @@ export default class SpotifyApi {
     pastDate.setHours(0, 0, 0, 0)
 
     return new Promise((resolve, reject) => {
-      this.myTracksBeforeDate(pastDate, [], resolve, reject, 50, 0)
+      this.myTracksBeforeDate(pastDate, [], resolve, reject, 0)
     })
   }
 
@@ -47,8 +47,8 @@ export default class SpotifyApi {
 
   /* Internal: */
 
-  myTracksBeforeDate(pastDate, items, resolve, reject, limit, offset) {
-    this.myTracks({ limit, offset }).then(json => {
+  myTracksBeforeDate(pastDate, items, resolve, reject, offset) {
+    this.myTracks({ limit: 50, offset }).then(json => {
       const dates = []
       for (const item of json.items) {
         const date = new Date(item.added_at)
@@ -62,7 +62,7 @@ export default class SpotifyApi {
       if (earliestDate < pastDate) {
         resolve(items)
       } else {
-        this.myTracksBeforeDate(pastDate, items, resolve, reject, limit, offset + limit)
+        this.myTracksBeforeDate(pastDate, items, resolve, reject, offset + 50)
       }
     }).catch(error => {
       reject(error)
