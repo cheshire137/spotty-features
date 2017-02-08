@@ -41,6 +41,7 @@ export default class Spotify extends React.Component {
   onSavedTracks(items) {
     const trackIDs = items.map(item => item.track.id)
     if (trackIDs.length < 1) {
+      this.setState({ message: 'You have no saved tracks to show.' })
       return
     }
     const tracksByID = {}
@@ -73,6 +74,7 @@ export default class Spotify extends React.Component {
     }
     this.setState({
       tracks,
+      message: null,
       weeklyAverages: this.getWeeklyAverages(tracks),
       avgLoudness: this.getAverageLoudness(tracks)
     })
@@ -211,6 +213,15 @@ export default class Spotify extends React.Component {
     )
   }
 
+  message() {
+    const { message } = this.state
+    if (message && message.length > 0) {
+      return (
+        <p className="notification">{message}</p>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
@@ -228,6 +239,7 @@ export default class Spotify extends React.Component {
             {this.audioFeaturesCharts()}
             <div className="columns">
               <div className="column is-two-thirds">
+                {this.message()}
                 {this.weekList()}
               </div>
               <div className="column">
