@@ -2,11 +2,16 @@ import React from 'react'
 
 import Features from '../models/features.js'
 
-export default class FeatureGuide extends React.Component {
+class FeatureGuide extends React.Component {
   render() {
+    const { activeView } = this.props
+    let headerClass = 'title is-3 feature-guide-header'
+    if (activeView === 'search') {
+      headerClass += ' search-view'
+    }
     return (
       <div>
-        <h3 className="title is-3 feature-guide-header">Guide</h3>
+        <h3 className={headerClass}>Guide</h3>
         <dl className="feature-guide">
           <dt style={{color: Features.colors.acousticness}}>Acoustic</dt>
           <dd>
@@ -51,3 +56,9 @@ export default class FeatureGuide extends React.Component {
     )
   }
 }
+
+FeatureGuide.propTypes = {
+  activeView: React.PropTypes.string.isRequired
+}
+
+export default FeatureGuide

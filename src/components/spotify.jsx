@@ -292,7 +292,7 @@ export default class Spotify extends React.Component {
                 {this.search()}
               </div>
               <div className="column">
-                <FeatureGuide />
+                <FeatureGuide activeView={activeView} />
               </div>
             </div>
           </div>

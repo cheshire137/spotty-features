@@ -46,7 +46,7 @@ class Search extends React.Component {
   }
 
   onSeedTypeChange(event) {
-    this.setState({ seedType: event.target.value })
+    this.setState({ seedType: event.target.value, seed: null, seedQuery: '' })
   }
 
   onSeedQueryChange(event) {
@@ -127,110 +127,129 @@ class Search extends React.Component {
     return <ArtistSeedSummary {...seed} />
   }
 
-  render() {
-    const { seedType, results, seedQuery } = this.state
+  seedSearchForm() {
+    const { seed, seedType, seedQuery, results } = this.state
+    if (seed) {
+      return
+    }
     return (
-      <div>
-        <form onSubmit={e => this.onSeedSearch(e)}>
-          <h4 className="title is-4">Step 1: Seed your playlist</h4>
-          <div className="control">
-            <label className="label" htmlFor="seed">
-              Find songs like:
-            </label>
-            <div className="results-container">
-              <input
-                type="text"
-                id="seed"
-                className="input"
-                autoComplete="off"
-                autoFocus
-                value={seedQuery}
-                onChange={e => this.onSeedQueryChange(e)}
-                placeholder={seedType === 'track' ? 'Search songs' : 'Search artists'}
-              />
-              <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
-                {results.map(result => {
-                  if (seedType === 'track') {
-                    return (
-                      <SearchResultTrack
-                        key={result.id}
-                        {...result}
-                        chooseTrack={() => this.chooseSeed(result)}
-                      />
-                    )
-                  }
+      <form onSubmit={e => this.onSeedSearch(e)}>
+        <h4 className="title is-4">Step 1: Seed your playlist</h4>
+        <div className="control">
+          <label className="label" htmlFor="seed">
+            Find songs like:
+          </label>
+          <div className="results-container">
+            <input
+              type="text"
+              id="seed"
+              className="input"
+              autoComplete="off"
+              autoFocus
+              value={seedQuery}
+              onChange={e => this.onSeedQueryChange(e)}
+              placeholder={seedType === 'track' ? 'Search songs' : 'Search artists'}
+            />
+            <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
+              {results.map(result => {
+                if (seedType === 'track') {
                   return (
-                    <SearchResultArtist
+                    <SearchResultTrack
                       key={result.id}
                       {...result}
-                      chooseArtist={() => this.chooseSeed(result)}
+                      chooseTrack={() => this.chooseSeed(result)}
                     />
                   )
-                })}
-              </ul>
-            </div>
-          </div>
-          <div className="control">
-            <label className="radio">
-              <input
-                type="radio"
-                name="seed-type"
-                checked={seedType === 'track'}
-                value="track"
-                onChange={e => this.onSeedTypeChange(e)}
-              />
-              Songs
-            </label>
-            <label className="radio">
-              <input
-                type="radio"
-                name="seed-type"
-                checked={seedType === 'artist'}
-                value="artist"
-                onChange={e => this.onSeedTypeChange(e)}
-              />
-              Artists
-            </label>
-          </div>
-        </form>
-        {this.seedSummary()}
-        <form onSubmit={e => this.onRecommendationsSubmit(e)}>
-          <h4 className="refine-title title is-4">
-            Step 2: Refine your results
-          </h4>
-          {Features.fields.map(feature => {
-            return (
-              <div key={feature} className="control is-horizontal">
-                <div className="control-label">
-                  <label className="label" htmlFor={feature}>
-                    {Features.labels[feature]}
-                  </label>
-                </div>
-                <div className="control">
-                  0%
-                  <input
-                    onChange={e => this.onChange(e, feature)}
-                    id={feature}
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
+                }
+                return (
+                  <SearchResultArtist
+                    key={result.id}
+                    {...result}
+                    chooseArtist={() => this.chooseSeed(result)}
                   />
-                  100%
-                </div>
-              </div>
-            )
-          })}
-          <div className="control is-horizontal">
-            <div className="control-label"></div>
-            <div className="control">
-              <button
-                type="submit"
-                className="button is-primary is-large"
-              >Find Songs</button>
-            </div>
+                )
+              })}
+            </ul>
           </div>
-        </form>
+        </div>
+        <div className="control">
+          <label className="radio">
+            <input
+              type="radio"
+              name="seed-type"
+              checked={seedType === 'track'}
+              value="track"
+              onChange={e => this.onSeedTypeChange(e)}
+            />
+            Songs
+          </label>
+          <label className="radio">
+            <input
+              type="radio"
+              name="seed-type"
+              checked={seedType === 'artist'}
+              value="artist"
+              onChange={e => this.onSeedTypeChange(e)}
+            />
+            Artists
+          </label>
+        </div>
+      </form>
+    )
+  }
+
+  recommendationsForm() {
+    const { seed } = this.state
+    if (!seed) {
+      return
+    }
+    return (
+      <form onSubmit={e => this.onRecommendationsSubmit(e)}>
+        <h4 className="refine-title title is-4">
+          Step 2: Refine your results
+        </h4>
+        {Features.fields.map(feature => {
+          return (
+            <div key={feature} className="control is-horizontal">
+              <div className="control-label">
+                <label className="label" htmlFor={feature}>
+                  {Features.labels[feature]}
+                </label>
+              </div>
+              <div className="control">
+                0%
+                <input
+                  onChange={e => this.onChange(e, feature)}
+                  id={feature}
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                />
+                100%
+              </div>
+            </div>
+          )
+        })}
+        <div className="control is-horizontal">
+          <div className="control-label"></div>
+          <div className="control">
+            <button
+              type="submit"
+              className="button is-primary is-large"
+            >Find Songs</button>
+          </div>
+        </div>
+      </form>
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        {this.seedSearchForm()}
+        {this.seedSummary()}
+        {this.recommendationsForm()}
       </div>
     )
   }
