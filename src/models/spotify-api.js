@@ -12,26 +12,44 @@ export default class SpotifyApi {
     return this.get('/me')
   }
 
-  myTracks(opts) {
-    const options = opts || {}
-    const limit = options.limit || 10
-    const offset = options.offset || 0
-    return this.get(`/me/tracks?limit=${limit}&offset=${offset}`)
+  savedTracks(opts) {
+    return this.tracks('/me/tracks', opts)
   }
 
-  myTracksForPastMonths(numMonths) {
+  // https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+  topTracks(opts) {
+    return this.tracks('/me/top/tracks', opts)
+  }
+
+  savedTracksForPastMonths(numMonths) {
     const pastDate = new Date()
     pastDate.setMonth(pastDate.getMonth() - numMonths)
     pastDate.setHours(0, 0, 0, 0)
 
     return new Promise((resolve, reject) => {
-      this.myTracksBeforeDate(pastDate, [], resolve, reject, 0)
+      this.savedTracksBeforeDate(pastDate, [], resolve, reject, 0)
     })
   }
 
-  myTracksForXWeeks(numWeeks) {
+  savedTracksForXWeeks(numWeeks) {
     return new Promise((resolve, reject) => {
-      this.getTracksForXWeeks(numWeeks, [], resolve, reject, 0, 0, [])
+      const items = []
+      const offset = 0
+      const weeksFound = 0
+      const weeks = []
+      this.getTracksForXWeeks('/me/tracks', numWeeks, items, resolve, reject,
+                              offset, weeksFound, weeks)
+    })
+  }
+
+  topTracksForXWeeks(numWeeks) {
+    return new Promise((resolve, reject) => {
+      const items = []
+      const offset = 0
+      const weeksFound = 0
+      const weeks = []
+      this.getTracksForXWeeks('/me/top/tracks', numWeeks, items, resolve, reject,
+                              offset, weeksFound, weeks)
     })
   }
 
@@ -53,8 +71,15 @@ export default class SpotifyApi {
 
   /* Internal: */
 
-  getTracksForXWeeks(numWeeks, items, resolve, reject, offset, weeksFound, weeks) {
-    this.myTracks({ limit: 50, offset }).then(json => {
+  tracks(path, opts) {
+    const options = opts || {}
+    const limit = options.limit || 10
+    const offset = options.offset || 0
+    return this.get(`${path}?limit=${limit}&offset=${offset}`)
+  }
+
+  getTracksForXWeeks(path, numWeeks, items, resolve, reject, offset, weeksFound, weeks) {
+    this.tracks(path, { limit: 50, offset }).then(json => {
       const itemsByWeek = {}
       for (const item of json.items) {
         const week = this.getWeek(item.added_at).toISOString()
@@ -82,8 +107,9 @@ export default class SpotifyApi {
       if (weeksFound + weeksAdded >= numWeeks) {
         resolve(items)
       } else {
-        this.getTracksForXWeeks(numWeeks, items, resolve, reject, offset + 50,
-                                weeksFound + weeksAdded, weeks.concat(newWeeks))
+        this.getTracksForXWeeks(path, numWeeks, items, resolve, reject,
+                                offset + 50, weeksFound + weeksAdded,
+                                weeks.concat(newWeeks))
       }
     }).catch(error => {
       reject(error)
@@ -97,8 +123,8 @@ export default class SpotifyApi {
     return week
   }
 
-  myTracksBeforeDate(pastDate, items, resolve, reject, offset) {
-    this.myTracks({ limit: 50, offset }).then(json => {
+  savedTracksBeforeDate(pastDate, items, resolve, reject, offset) {
+    this.savedTracks({ limit: 50, offset }).then(json => {
       const dates = []
       for (const item of json.items) {
         const date = new Date(item.added_at)
@@ -112,7 +138,7 @@ export default class SpotifyApi {
       if (earliestDate < pastDate) {
         resolve(items)
       } else {
-        this.myTracksBeforeDate(pastDate, items, resolve, reject, offset + 50)
+        this.savedTracksBeforeDate(pastDate, items, resolve, reject, offset + 50)
       }
     }).catch(error => {
       reject(error)
