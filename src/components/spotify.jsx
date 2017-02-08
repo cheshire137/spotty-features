@@ -1,23 +1,28 @@
 import React from 'react'
 
+import Features from '../models/features.js'
 import LocalStorage from '../models/local-storage.js'
 import SpotifyApi from '../models/spotify-api.js'
 
 import AudioFeaturesChart from './audio-features-chart.jsx'
+import FeatureGuide from './feature-guide.jsx'
+import Search from './search.jsx'
 import WeekList from './week-list.jsx'
-import Features from '../models/features.js'
 
 export default class Spotify extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       token: LocalStorage.get('spotify-token'),
-      activeChart: 'all'
+      activeChart: 'all',
+      activeView: 'trends'
     }
   }
 
   componentDidMount() {
-    this.fetchTracks()
+    if (this.state.activeView === 'trends') {
+      this.fetchTracks()
+    }
   }
 
   fetchTracks() {
@@ -149,16 +154,19 @@ export default class Spotify extends React.Component {
   }
 
   weekList() {
-    const { tracks, avgLoudness } = this.state
-    if (!tracks) {
+    const { tracks, avgLoudness, activeView } = this.state
+    if (!tracks || activeView !== 'trends') {
       return
     }
-    return (
-      <WeekList
-        tracks={tracks}
-        avgLoudness={avgLoudness}
-      />
-    )
+    return <WeekList tracks={tracks} avgLoudness={avgLoudness} />
+  }
+
+  search() {
+    const { activeView } = this.state
+    if (activeView !== 'search') {
+      return
+    }
+    return <Search />
   }
 
   setActiveChart(event, activeChart) {
@@ -167,8 +175,8 @@ export default class Spotify extends React.Component {
   }
 
   audioFeaturesCharts() {
-    const { weeklyAverages, activeChart } = this.state
-    if (!weeklyAverages) {
+    const { weeklyAverages, activeChart, activeView } = this.state
+    if (!weeklyAverages || activeView !== 'trends') {
       return
     }
     const weekCount = Object.keys(weeklyAverages.acousticness).length
@@ -177,7 +185,6 @@ export default class Spotify extends React.Component {
     }
     return (
       <div>
-        <h2 className="title is-2">How your listening habits have changed</h2>
         <div className="tabs">
           <ul>
             <li className={activeChart === 'all' ? 'is-active' : ''}>
@@ -219,7 +226,17 @@ export default class Spotify extends React.Component {
     }
   }
 
+  setActiveView(event, activeView) {
+    event.preventDefault()
+    this.setState({ activeView }, () => {
+      if (!this.state.weeklyAverages) {
+        this.fetchTracks()
+      }
+    })
+  }
+
   render() {
+    const { activeView } = this.state
     return (
       <div>
         <div className="hero is-primary">
@@ -230,6 +247,26 @@ export default class Spotify extends React.Component {
               </h1>
             </div>
           </div>
+          <div className="hero-foot">
+            <div className="container">
+              <nav className="tabs is-boxed">
+                <ul>
+                  <li className={activeView === 'trends' ? 'is-active' : ''}>
+                    <a
+                      href="#"
+                      onClick={e => this.setActiveView(e, 'trends')}
+                    >Trends</a>
+                  </li>
+                  <li className={activeView === 'search' ? 'is-active' : ''}>
+                    <a
+                      href="#"
+                      onClick={e => this.setActiveView(e, 'search')}
+                    >Find songs by feature</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
         <section className="section">
           <div className="container" id="spotify-container">
@@ -238,49 +275,10 @@ export default class Spotify extends React.Component {
               <div className="column is-two-thirds">
                 {this.message()}
                 {this.weekList()}
+                {this.search()}
               </div>
               <div className="column">
-                <h3 className="title is-3 feature-guide-header">Guide</h3>
-                <dl className="feature-guide">
-                  <dt style={{color: Features.colors.acousticness}}>Acoustic</dt>
-                  <dd>
-                    A confidence measure of whether the track is acoustic.
-                  </dd>
-                  <dt style={{color: Features.colors.danceability}}>Danceable</dt>
-                  <dd>
-                    Describes how suitable a track is for dancing based on
-                    tempo, rhythm stability, beat strength, and regularity.
-                  </dd>
-                  <dt style={{color: Features.colors.energy}}>Energetic</dt>
-                  <dd>
-                    A perceptual measure of intensity and activity. Energetic
-                    tracks are usually fast, loud, and noisy.
-                  </dd>
-                  <dt style={{color: Features.colors.instrumentalness}}>Instrumental</dt>
-                  <dd>
-                    Whether a track lacks vocals.
-                  </dd>
-                  <dt style={{color: Features.colors.liveness}}>Live</dt>
-                  <dd>
-                    Detects the presence of an audience.
-                  </dd>
-                  <dt style={{color: Features.colors.speechiness}}>Speechy</dt>
-                  <dd>
-                    Detects the presence of spoken words. More than 66%
-                    is probably entirely spoken. Between 33% - 66% may contain
-                    both music and speech. Less than 33% most likely is music.
-                  </dd>
-                  <dt>
-                    <span style={{color: Features.colors.valence}}>Positive</span>
-                    <span> / </span>
-                    <span style={{color: Features.colors.negativity}}>Negative</span>
-                  </dt>
-                  <dd>
-                    Describes the musical positiveness of the track. High
-                    positivity sounds more happy, cheerful, or euphoric. High
-                    negativity sounds more sad, depressed, or angry.
-                  </dd>
-                </dl>
+                <FeatureGuide />
               </div>
             </div>
           </div>
