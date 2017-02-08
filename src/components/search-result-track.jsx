@@ -7,9 +7,9 @@ class SearchResultTrack extends React.Component {
       return
     }
     return (
-      <div className="column track-image-column">
+      <span className="column track-image-column">
         <img src={image} className="track-image" />
-      </div>
+      </span>
     )
   }
 
@@ -17,15 +17,17 @@ class SearchResultTrack extends React.Component {
     const { name, artists, album } = this.props
     return (
       <li>
-        <div className="columns">
-          {this.imageColumn()}
-          <div className="column">
-            <span className="track-name">{name}</span>
-            <span> by </span>
-            <span className="track-artists">{artists.join(', ')}</span>
-            <span className="track-album">{album}</span>
-          </div>
-        </div>
+        <button type="button" className="search-result-button">
+          <span className="columns">
+            {this.imageColumn()}
+            <span className="column">
+              <span className="track-name">{name}</span>
+              <span> by </span>
+              <span className="track-artists">{artists.join(', ')}</span>
+              <span className="track-album">{album}</span>
+            </span>
+          </span>
+        </button>
       </li>
     )
   }

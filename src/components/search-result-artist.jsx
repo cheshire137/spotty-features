@@ -7,9 +7,9 @@ class SearchResultArtist extends React.Component {
       return
     }
     return (
-      <div className="column track-image-column">
+      <span className="column track-image-column">
         <img src={image} className="track-image" />
-      </div>
+      </span>
     )
   }
 
@@ -17,12 +17,14 @@ class SearchResultArtist extends React.Component {
     const { name } = this.props
     return (
       <li>
-        <div className="columns">
-          {this.imageColumn()}
-          <div className="column">
-            <span className="track-name">{name}</span>
-          </div>
-        </div>
+        <button type="button" className="search-result-button">
+          <span className="columns">
+            {this.imageColumn()}
+            <span className="column">
+              <span className="track-name">{name}</span>
+            </span>
+          </span>
+        </button>
       </li>
     )
   }

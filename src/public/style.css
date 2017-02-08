@@ -138,4 +138,22 @@ body {
 .results li {
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 1px;
+}
+
+.search-result-button {
+  background-color: #fff;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+}
+
+.search-result-button:focus,
+.search-result-button:hover {
+  color: #3273dc;
+  outline: none;
+  border-color: #3273dc;
 }
