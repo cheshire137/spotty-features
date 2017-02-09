@@ -11,7 +11,7 @@ class FeatureGuide extends React.Component {
     }
     return (
       <div>
-        <h3 className={headerClass}>Guide</h3>
+        <h3 className={headerClass}>Audio features</h3>
         <dl className="feature-guide">
           <dt style={{color: Features.colors.acousticness}}>Acoustic</dt>
           <dd>

@@ -249,6 +249,13 @@ export default class Spotify extends React.Component {
     })
   }
 
+  title() {
+    if (this.state.activeView === 'search') {
+      return 'Make playlists from audio features'
+    }
+    return 'Your listening trends'
+  }
+
   render() {
     const { activeView } = this.state
     return (
@@ -257,7 +264,7 @@ export default class Spotify extends React.Component {
           <div className="hero-body">
             <div className="container">
               <h1 className="title">
-                Your Listening Trends
+                {this.title()}
               </h1>
             </div>
           </div>

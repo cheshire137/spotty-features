@@ -89,9 +89,9 @@ class RecommendationsForm extends React.Component {
           >&larr; Change seed</button>
         </p>
         <form onSubmit={e => this.onSubmit(e)}>
-          <h4 className="refine-title title is-4">
+          <h3 className="refine-title title is-3">
             Step 2: Refine your results
-          </h4>
+          </h3>
           {Features.fields.map(feature => {
             return (
               <div key={feature} className="control is-horizontal">

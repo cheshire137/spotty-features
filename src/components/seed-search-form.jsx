@@ -194,7 +194,7 @@ class SeedSearchForm extends React.Component {
     const { results } = this.state
     return (
       <form onSubmit={e => this.onSeedSearch(e)}>
-        <h4 className="title is-4">Step 1: Seed your playlist</h4>
+        <h3 className="title is-3">Step 1: Seed your playlist</h3>
         <div className="control">
           <label className="label" htmlFor="seed">
             Find songs like:

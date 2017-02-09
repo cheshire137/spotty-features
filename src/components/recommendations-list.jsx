@@ -45,6 +45,14 @@ class RecommendationsList extends React.Component {
     )
   }
 
+  trackCount() {
+    const count = this.props.recommendations.length
+    if (count === 1) {
+      return '1 song'
+    }
+    return `${count} songs`
+  }
+
   render() {
     const { recommendations } = this.props
     return (
@@ -56,9 +64,9 @@ class RecommendationsList extends React.Component {
             onClick={() => this.props.changeAudioFeatures()}
           >&larr; Change filters</button>
         </p>
-        <h4 className="title is-4 song-recs-title">
-          Song recommendations (<span>{recommendations.length}</span>)
-        </h4>
+        <h3 className="title is-3 song-recs-title">
+          Step 3: Save playlist (<span>{this.trackCount()}</span>)
+        </h3>
         {this.playlistMessage()}
         {this.playlistForm()}
         <ul className="recommendations-list">
