@@ -3,7 +3,7 @@ import React from 'react'
 import ArtistSeedSummary from './artist-seed-summary.jsx'
 import RecommendationsForm from './recommendations-form.jsx'
 import RecommendationsList from './recommendations-list.jsx'
-import RecommendationsSeedSearch from './recommendations-seed-search.jsx'
+import SeedSearchForm from './seed-search-form.jsx'
 import TrackSeedSummary from './track-seed-summary.jsx'
 
 import Features from '../models/features.js'
@@ -31,7 +31,8 @@ class Search extends React.Component {
       seedType: event.target.value,
       seed: null,
       seedQuery: '',
-      recommendations: []
+      recommendations: [],
+      features: {}
     })
   }
 
@@ -85,7 +86,7 @@ class Search extends React.Component {
     }
     const { seedType, seedQuery } = this.state
     return (
-      <RecommendationsSeedSearch
+      <SeedSearchForm
         onSeedTypeChange={e => this.onSeedTypeChange(e)}
         unauthorized={() => this.props.unauthorized()}
         chooseSeed={r => this.chooseSeed(r)}

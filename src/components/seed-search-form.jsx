@@ -6,7 +6,7 @@ import SpotifyApi from '../models/spotify-api.js'
 import SearchResultArtist from './search-result-artist.jsx'
 import SearchResultTrack from './search-result-track.jsx'
 
-class RecommendationsSeedSearch extends React.Component {
+class SeedSearchForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = { results: [] }
@@ -159,7 +159,7 @@ class RecommendationsSeedSearch extends React.Component {
   }
 }
 
-RecommendationsSeedSearch.propTypes = {
+SeedSearchForm.propTypes = {
   onSeedTypeChange: React.PropTypes.func.isRequired,
   unauthorized: React.PropTypes.func.isRequired,
   seedType: React.PropTypes.string.isRequired,
@@ -169,4 +169,4 @@ RecommendationsSeedSearch.propTypes = {
   token: React.PropTypes.string.isRequired
 }
 
-export default RecommendationsSeedSearch
+export default SeedSearchForm
