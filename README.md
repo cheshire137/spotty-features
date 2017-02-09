@@ -7,9 +7,11 @@ artist, but with the specified audio features.
 
 **[Try the app now](https://spotty-features.herokuapp.com)**
 
-![Screenshot 1](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot1.png)
+![Screenshot of trends](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot1.png)
 
-![Screenshot 2](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot2.png)
+![Screenshot of adjusting audio features](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot2.png)
+
+![Screenshot of creating a playlist](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot3.png)
 
 ## How to Develop
 
