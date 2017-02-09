@@ -275,7 +275,7 @@ export default class Spotify extends React.Component {
                     <a
                       href="#"
                       onClick={e => this.setActiveView(e, 'search')}
-                    >Find songs by feature</a>
+                    >Generate playlists</a>
                   </li>
                 </ul>
               </nav>
