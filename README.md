@@ -32,6 +32,9 @@ open http://localhost:3000
 
 ## How to Deploy to Heroku
 
+In your Spotify application, you'll need to add your Heroku app's URL, with `/auth`,
+as a valid redirect URI.
+
 ```bash
 git push heroku master
 ```
