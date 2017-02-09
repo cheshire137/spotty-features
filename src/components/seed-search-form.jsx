@@ -9,7 +9,10 @@ import SearchResultTrack from './search-result-track.jsx'
 class SeedSearchForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { results: [] }
+    this.state = {
+      results: [],
+      selectedResultIndex: -1
+    }
     this.delayedSeedSearch = debounce(500, this.delayedSeedSearch)
   }
 
@@ -76,12 +79,13 @@ class SeedSearchForm extends React.Component {
     return `Search ${noun} on Spotify`
   }
 
-  searchResult(result) {
+  searchResult(result, index) {
     if (this.props.seedType === 'track') {
       return (
         <SearchResultTrack
           key={result.id}
           {...result}
+          selected={index === this.state.selectedResultIndex}
           chooseTrack={() => this.props.chooseSeed(result)}
         />
       )
@@ -90,6 +94,7 @@ class SeedSearchForm extends React.Component {
       <SearchResultArtist
         key={result.id}
         {...result}
+        selected={index === this.state.selectedResultIndex}
         chooseArtist={() => this.props.chooseSeed(result)}
       />
     )
@@ -98,6 +103,46 @@ class SeedSearchForm extends React.Component {
   onSeedQueryChange(event) {
     this.props.onSeedQueryChange(event)
     this.delayedSeedSearch()
+  }
+
+  selectSearchResult(offset) {
+    const { results } = this.state
+    if (results.length < 1) {
+      return
+    }
+    let index = this.state.selectedResultIndex + offset
+    if (index >= results.length) {
+      index = 0
+    }
+    if (index < 0) {
+      index = results.length - 1
+    }
+    this.setState({ selectedResultIndex: index })
+  }
+
+  chooseSelectedSearchResult(event) {
+    const { selectedResultIndex, results } = this.state
+    if (selectedResultIndex >= 0 && selectedResultIndex < results.length) {
+      const result = results[selectedResultIndex]
+      event.preventDefault()
+      this.props.chooseSeed(result)
+    } else {
+      this.setState({ selectedResultIndex: -1 })
+    }
+  }
+
+  onSeedQueryKeyUp(event) {
+    switch (event.which) {
+      case 13: // Enter
+        this.chooseSelectedSearchResult(event)
+        break
+      case 40: // down
+        this.selectSearchResult(1)
+        break
+      case 38: // up
+        this.selectSearchResult(-1)
+        break
+    }
   }
 
   seedTypeControls() {
@@ -147,10 +192,11 @@ class SeedSearchForm extends React.Component {
               autoFocus
               value={seedQuery}
               onChange={e => this.onSeedQueryChange(e)}
+              onKeyUp={e => this.onSeedQueryKeyUp(e)}
               placeholder={this.placeholder()}
             />
             <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
-              {results.map(result => this.searchResult(result))}
+              {results.map((result, i) => this.searchResult(result, i))}
             </ul>
           </div>
         </div>

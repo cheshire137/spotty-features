@@ -12,9 +12,9 @@ class SearchResultArtist extends React.Component {
   }
 
   render() {
-    const { name, chooseArtist } = this.props
+    const { name, chooseArtist, selected } = this.props
     return (
-      <li>
+      <li className={selected ? 'selected' : ''}>
         <button
           type="button"
           className="search-result-button"
@@ -38,7 +38,8 @@ SearchResultArtist.propTypes = {
   image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
-  chooseArtist: React.PropTypes.func.isRequired
+  chooseArtist: React.PropTypes.func.isRequired,
+  selected: React.PropTypes.bool.isRequired
 }
 
 export default SearchResultArtist

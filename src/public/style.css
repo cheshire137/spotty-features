@@ -182,6 +182,7 @@ body {
   border-radius: 4px;
 }
 
+.results li.selected .search-result-button,
 .search-result-button:focus,
 .search-result-button:hover {
   color: #3273dc;
