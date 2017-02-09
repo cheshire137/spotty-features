@@ -1,11 +1,9 @@
 import React from 'react'
-import { debounce } from 'throttle-debounce'
 
 import ArtistSeedSummary from './artist-seed-summary.jsx'
 import RecommendationsForm from './recommendations-form.jsx'
 import RecommendationsList from './recommendations-list.jsx'
-import SearchResultArtist from './search-result-artist.jsx'
-import SearchResultTrack from './search-result-track.jsx'
+import RecommendationsSeedSearch from './recommendations-seed-search.jsx'
 import TrackSeedSummary from './track-seed-summary.jsx'
 
 import Features from '../models/features.js'
@@ -17,13 +15,11 @@ class Search extends React.Component {
     super(props)
     this.state = {
       seedType: 'track',
-      results: [],
       recommendations: [],
       seedQuery: '',
       numRecommendations: 20,
       fetchedFeatures: false
     }
-    this.delayedSeedSearch = debounce(500, this.delayedSeedSearch)
   }
 
   onRecommendations(recommendations) {
@@ -40,72 +36,12 @@ class Search extends React.Component {
   }
 
   onSeedQueryChange(event) {
-    this.setState({ seedQuery: event.target.value }, () => {
-      this.delayedSeedSearch()
-    })
-  }
-
-  delayedSeedSearch() {
-    this.onSeedSearch()
-  }
-
-  onSeedSearch(event) {
-    if (event) {
-      event.preventDefault()
-    }
-    const { seedType, seedQuery } = this.state
-    if (!seedQuery || seedQuery.length < 1) {
-      return
-    }
-    const opts = { q: seedQuery, type: seedType }
-    const api = new SpotifyApi(this.props.token)
-    api.search(opts).then(json => this.onSeedSearchResults(json)).
-      catch(err => this.onSeedSearchError(err))
-  }
-
-  onSeedSearchResults(json) {
-    const { seedType } = this.state
-    const key = `${seedType}s`
-    const results = []
-    for (const item of json[key].items) {
-      const result = {
-        id: item.id,
-        name: item.name,
-        url: item.external_urls.spotify
-      }
-      if (seedType === 'track') {
-        result.artists = item.artists.map(artist => artist.name)
-        result.album = item.album.name
-        const images = item.album.images.filter(img => img.width < 100)
-        if (images.length > 0) {
-          result.image = images[0].url
-        }
-        result.albumUrl = item.album.external_urls.spotify
-      } else {
-        const images = item.images.filter(img => img.width < 100)
-        if (images.length > 0) {
-          result.image = images[0].url
-        }
-      }
-      results.push(result)
-      if (results.length > 4) {
-        break
-      }
-    }
-    this.setState({ results })
-  }
-
-  onSeedSearchError(error) {
-    console.error(`failed to search ${this.state.seedType}s`, error)
-    if (error.response.status === 401) {
-      this.props.unauthorized()
-    }
+    this.setState({ seedQuery: event.target.value })
   }
 
   chooseSeed(result) {
     this.setState({
       seed: result,
-      results: [],
       seedQuery: ''
     }, () => this.getAudioFeaturesForSeed())
   }
@@ -144,79 +80,25 @@ class Search extends React.Component {
   }
 
   seedSearchForm() {
-    const { seed, seedType, seedQuery, results } = this.state
-    if (seed) {
+    if (this.state.seed) {
       return
     }
-    const placeholder = 'Search ' + (seedType === 'track' ? 'songs' : 'artists') + ' on Spotify'
+    const { seedType, seedQuery } = this.state
     return (
-      <form onSubmit={e => this.onSeedSearch(e)}>
-        <h4 className="title is-4">Step 1: Seed your playlist</h4>
-        <div className="control">
-          <label className="label" htmlFor="seed">
-            Find songs like:
-          </label>
-          <div className="results-container">
-            <input
-              type="text"
-              id="seed"
-              className="input"
-              autoComplete="off"
-              autoFocus
-              value={seedQuery}
-              onChange={e => this.onSeedQueryChange(e)}
-              placeholder={placeholder}
-            />
-            <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
-              {results.map(result => {
-                if (seedType === 'track') {
-                  return (
-                    <SearchResultTrack
-                      key={result.id}
-                      {...result}
-                      chooseTrack={() => this.chooseSeed(result)}
-                    />
-                  )
-                }
-                return (
-                  <SearchResultArtist
-                    key={result.id}
-                    {...result}
-                    chooseArtist={() => this.chooseSeed(result)}
-                  />
-                )
-              })}
-            </ul>
-          </div>
-        </div>
-        <div className="control">
-          <label className="radio">
-            <input
-              type="radio"
-              name="seed-type"
-              checked={seedType === 'track'}
-              value="track"
-              onChange={e => this.onSeedTypeChange(e)}
-            />
-            Songs
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="seed-type"
-              checked={seedType === 'artist'}
-              value="artist"
-              onChange={e => this.onSeedTypeChange(e)}
-            />
-            Artists
-          </label>
-        </div>
-      </form>
+      <RecommendationsSeedSearch
+        onSeedTypeChange={e => this.onSeedTypeChange(e)}
+        unauthorized={() => this.props.unauthorized()}
+        chooseSeed={r => this.chooseSeed(r)}
+        seedQuery={seedQuery}
+        seedType={seedType}
+        token={this.props.token}
+        onSeedQueryChange={e => this.onSeedQueryChange(e)}
+      />
     )
   }
 
   changeSeed() {
-    this.setState({ seed: null, results: [], fetchedFeatures: false })
+    this.setState({ seed: null, fetchedFeatures: false })
   }
 
   onNumRecommendationsChange(numRecommendations) {
