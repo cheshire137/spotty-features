@@ -38,7 +38,11 @@ class PlaylistForm extends React.Component {
 
   onPlaylistCreateError(error) {
     console.error('failed to create playlist', error)
-    this.setState({ error: `Could not create playlist: ${error}` })
+    if (error.response.status === 401) {
+      this.props.unauthorized()
+    } else {
+      this.setState({ error: `Could not create playlist: ${error}` })
+    }
   }
 
   changeName(event) {
@@ -83,6 +87,7 @@ PlaylistForm.propTypes = {
   token: React.PropTypes.string.isRequired,
   onPlaylistCreated: React.PropTypes.func.isRequired,
   seed: React.PropTypes.object.isRequired,
+  unauthorized: React.PropTypes.func.isRequired,
   seedType: React.PropTypes.string.isRequired
 }
 

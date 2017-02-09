@@ -140,6 +140,7 @@ class Search extends React.Component {
       <RecommendationsList
         seed={seed}
         seedType={seedType}
+        unauthorized={() => this.props.unauthorized()}
         recommendations={recommendations}
         token={this.props.token}
         changeAudioFeatures={() => this.changeAudioFeatures()}

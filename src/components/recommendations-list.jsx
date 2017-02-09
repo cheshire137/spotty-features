@@ -39,6 +39,7 @@ class RecommendationsList extends React.Component {
         token={token}
         seed={seed}
         seedType={seedType}
+        unauthorized={() => this.props.unauthorized()}
         onPlaylistCreated={p => this.onPlaylistCreated(p)}
       />
     )
@@ -74,6 +75,7 @@ RecommendationsList.propTypes = {
   recommendations: React.PropTypes.array.isRequired,
   changeAudioFeatures: React.PropTypes.func.isRequired,
   token: React.PropTypes.string.isRequired,
+  unauthorized: React.PropTypes.func.isRequired,
   seed: React.PropTypes.object.isRequired,
   seedType: React.PropTypes.string.isRequired
 }
