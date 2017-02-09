@@ -28,7 +28,6 @@ export default class SpotifyApi {
     for (const key in opts) {
       params.push(`${key}=${encodeURIComponent(opts[key])}`)
     }
-    console.log(params.join('&'))
     return this.get(`/recommendations?${params.join('&')}`)
   }
 

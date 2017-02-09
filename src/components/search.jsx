@@ -25,15 +25,16 @@ class Search extends React.Component {
       valence: 0.5,
       instrumentalness: 0.5,
       liveness: 0,
-      speechiness: 0
+      speechiness: 0,
+      numRecommendations: 20
     }
     this.delayedSeedSearch = debounce(500, this.delayedSeedSearch)
   }
 
   onRecommendationsSubmit(event) {
-    const { seedType, seed } = this.state
+    const { seedType, seed, numRecommendations } = this.state
     event.preventDefault()
-    const opts = {}
+    const opts = { limit: numRecommendations }
     if (seedType === 'track') {
       opts.seed_tracks = seed.id
     } else {
@@ -277,8 +278,14 @@ class Search extends React.Component {
     this.setState({ seed: null, results: [], fetchedFeatures: false })
   }
 
+  onNumRecommendationsChange(event) {
+    const numRecommendations = parseInt(event.target.value, 10)
+    this.setState({ numRecommendations })
+  }
+
   recommendationsForm() {
-    const { seed, recommendations, fetchedFeatures, seedType } = this.state
+    const { seed, recommendations, fetchedFeatures, seedType,
+            numRecommendations } = this.state
     if (!seed || recommendations.length > 0) {
       return
     }
@@ -323,6 +330,24 @@ class Search extends React.Component {
             )
           })}
           <div className="control">
+            <label className="label" htmlFor="num-recommendations">
+              How many songs to recommend:
+            </label>
+            <span className="select">
+              <select
+                id="num-recommendations"
+                value={numRecommendations}
+                onChange={e => this.onNumRecommendationsChange(e)}
+              >
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+                <option value="100">100</option>
+              </select>
+            </span>
+          </div>
+          <div className="control">
             <button
               type="submit"
               className="button is-primary is-large"
@@ -351,6 +376,9 @@ class Search extends React.Component {
             onClick={() => this.changeAudioFeatures()}
           >&larr; Change filters</button>
         </p>
+        <h4 className="title is-4 song-recs-title">
+          Song recommendations (<span>{recommendations.length}</span>)
+        </h4>
         <ul className="recommendations-list">
           {recommendations.map(track => {
             return <TrackRecommendation key={track.id} {...track} />

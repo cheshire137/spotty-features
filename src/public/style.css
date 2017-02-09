@@ -125,7 +125,8 @@ body {
   margin-bottom: 30px;
 }
 
-.refine-title {
+.refine-title,
+.song-recs-title {
   margin-top: 30px;
 }
 
@@ -309,5 +310,19 @@ input[type="range"]:focus::-ms-fill-upper {
 
 .content ul.recommendations-list li + li {
   border-top: 1px solid #ddd;
-  padding-top: 0.25em;
+  padding-top: 0.5em;
+  margin-top: 0.5em;
+}
+
+.recommended-track-details {
+  display: flex;
+  align-items: center;
+}
+
+.recommended-track-details span:after {
+  content: "\a0";
+}
+
+.recommended-track-details span.track-album:before {
+  content: "\00b7\a0";
 }
