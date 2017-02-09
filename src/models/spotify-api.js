@@ -90,6 +90,26 @@ export default class SpotifyApi {
     })
   }
 
+  createPlaylist(userID, trackURIs, opts) {
+    const headers = {}
+    headers['Content-Type'] = 'application/json'
+    let body = {
+      name: opts.name,
+      public: typeof opts.public === 'boolean' ? opts.public ? true,
+      collaborative: typeof opts.collaborative === 'boolean' ? opts.collaborative : false
+    }
+    return new Promise((resolve, reject) => {
+      this.post(`/users/${userID}/playlists`, headers, body).
+        then(json => {
+          const playlistID = json.id
+          body = { uris: trackURIs }
+          this.post(`/users/${userID}/playlists/${playlistID}/tracks`, headers, body).
+            then(resp => resolve(resp)).
+            catch(err => reject(err))
+        }).catch(err => reject(err))
+    })
+  }
+
 
 
   /* Internal: */
@@ -206,10 +226,30 @@ export default class SpotifyApi {
     return response.json()
   }
 
-  get(path) {
+  get(path, headers) {
+    return this.makeRequest('GET', path, headers)
+  }
+
+  post(path, headers, body) {
+    return this.makeRequest('POST', path, headers, body)
+  }
+
+  makeRequest(method, path, extraHeaders, body) {
     const url = `${apiUrl}${path}`
-    return fetch(url, { headers: this.headers }).
-      then(this.checkStatus).
-      then(this.parseJson)
+    let headers = {}
+    for (const key of Object.keys(this.headers)) {
+      headers[key] = this.headers[key]
+    }
+    if (extraHeaders) {
+      for (const key of Object.keys(extraHeaders)) {
+        headers[key] = extraHeaders[key]
+      }
+    }
+    const data = { method, headers }
+    if (body) {
+      data.body = JSON.stringify(body)
+    }
+    console.log(url, data)
+    return fetch(url, data).then(this.checkStatus).then(this.parseJson)
   }
 }
