@@ -50,7 +50,8 @@ class RecommendationsForm extends React.Component {
         artists: item.artists.map(artist => artist.name),
         album: item.album.name,
         url: item.external_urls.spotify,
-        albumUrl: item.album.external_urls.spotify
+        albumUrl: item.album.external_urls.spotify,
+        spotifyUri: item.uri
       }
       if (images.length > 0) {
         track.image = images[0].url
@@ -121,7 +122,7 @@ class RecommendationsForm extends React.Component {
           })}
           <div className="control">
             <label className="label" htmlFor="num-recommendations">
-              How many songs to recommend:
+              How many songs to find:
             </label>
             <span className="select">
               <select

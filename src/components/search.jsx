@@ -70,8 +70,8 @@ class Search extends React.Component {
   }
 
   seedSummary() {
-    const { seed, seedType } = this.state
-    if (!seed) {
+    const { seed, seedType, recommendations } = this.state
+    if (!seed || recommendations.length > 0) {
       return
     }
     if (seedType === 'track') {
@@ -132,13 +132,16 @@ class Search extends React.Component {
   }
 
   recommendationsList() {
-    const { recommendations } = this.state
+    const { recommendations, seed, seedType } = this.state
     if (recommendations.length < 1) {
       return
     }
     return (
       <RecommendationsList
+        seed={seed}
+        seedType={seedType}
         recommendations={recommendations}
+        token={this.props.token}
         changeAudioFeatures={() => this.changeAudioFeatures()}
       />
     )

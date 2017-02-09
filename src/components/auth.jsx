@@ -5,7 +5,7 @@ export default class Auth extends React.Component {
   render() {
     const host = 'https://accounts.spotify.com'
     const redirectUri = `${window.location.protocol}//${window.location.host}/auth`
-    const scopes = 'user-library-read'
+    const scopes = 'user-library-read playlist-modify-public'
     const authUrl = `${host}/authorize?response_type=token` +
       `&redirect_uri=${encodeURIComponent(redirectUri)}` +
       `&client_id=${Config.spotify.clientId}` +

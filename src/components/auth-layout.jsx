@@ -22,6 +22,7 @@ export default class AuthLayout extends React.Component {
   fetchUser() {
     const api = new SpotifyApi(this.state.token)
     api.me().then(json => {
+      LocalStorage.set('spotify-user-id', json.id)
       LocalStorage.set('spotify-user', json.display_name)
       let avatarUrl = null
       if (json.images && json.images.length > 0) {

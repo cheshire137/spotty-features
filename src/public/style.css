@@ -326,3 +326,12 @@ input[type="range"]:focus::-ms-fill-upper {
 .recommended-track-details span.track-album:before {
   content: "\00b7\a0";
 }
+
+.notification.is-success a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.playlist-created {
+  font-size: 16px;
+}

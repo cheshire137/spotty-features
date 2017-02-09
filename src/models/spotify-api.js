@@ -93,10 +93,18 @@ export default class SpotifyApi {
   createPlaylist(userID, trackURIs, opts) {
     const headers = {}
     headers['Content-Type'] = 'application/json'
+    let publicPlaylist = true
+    if (typeof opts.public === 'boolean') {
+      publicPlaylist = opts.public
+    }
+    let collaborative = false
+    if (typeof opts.collaborative === 'boolean') {
+      collaborative = opts.collaborative
+    }
     let body = {
       name: opts.name,
-      public: typeof opts.public === 'boolean' ? opts.public ? true,
-      collaborative: typeof opts.collaborative === 'boolean' ? opts.collaborative : false
+      public: publicPlaylist,
+      collaborative
     }
     return new Promise((resolve, reject) => {
       this.post(`/users/${userID}/playlists`, headers, body).
@@ -104,8 +112,10 @@ export default class SpotifyApi {
           const playlistID = json.id
           body = { uris: trackURIs }
           this.post(`/users/${userID}/playlists/${playlistID}/tracks`, headers, body).
-            then(resp => resolve(resp)).
-            catch(err => reject(err))
+            then(resp => {
+              json.snapshot_id = resp.snapshot_id
+              resolve(json)
+            }).catch(err => reject(err))
         }).catch(err => reject(err))
     })
   }
@@ -249,7 +259,6 @@ export default class SpotifyApi {
     if (body) {
       data.body = JSON.stringify(body)
     }
-    console.log(url, data)
     return fetch(url, data).then(this.checkStatus).then(this.parseJson)
   }
 }
