@@ -1,15 +1,13 @@
 import React from 'react'
 
 class SearchResultArtist extends React.Component {
-  imageColumn() {
+  artistImage() {
     const { image } = this.props
     if (!image || image.length < 1) {
       return
     }
     return (
-      <span className="column track-image-column">
-        <img src={image} className="track-image" />
-      </span>
+      <img src={image} className="track-image" />
     )
   }
 
@@ -23,8 +21,10 @@ class SearchResultArtist extends React.Component {
           onClick={() => chooseArtist()}
         >
           <span className="columns">
-            {this.imageColumn()}
-            <span className="column">
+            <span className="column track-image-column">
+              {this.artistImage()}
+            </span>
+            <span className="column search-result-details">
               <span className="track-name">{name}</span>
             </span>
           </span>

@@ -23,6 +23,7 @@ class SeedSearchForm extends React.Component {
     }
     const { seedType, seedQuery, token } = this.props
     if (!seedQuery || seedQuery.length < 1) {
+      this.setState({ results: [] })
       return
     }
     const opts = { q: seedQuery, type: seedType }
