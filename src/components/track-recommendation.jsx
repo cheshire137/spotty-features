@@ -16,15 +16,17 @@ class TrackRecommendation extends React.Component {
   render() {
     const { name, artists, album } = this.props
     return (
-      <div className="columns seed-summary">
-        {this.imageColumn()}
-        <div className="column">
-          <span className="track-name">{name}</span>
-          <span> by </span>
-          <span className="track-artists">{artists.join(', ')}</span>
-          <span className="track-album">{album}</span>
+      <li>
+        <div className="columns">
+          {this.imageColumn()}
+          <div className="column">
+            <span className="track-name">{name}</span>
+            <span> by </span>
+            <span className="track-artists">{artists.join(', ')}</span>
+            <span className="track-album">{album}</span>
+          </div>
         </div>
-      </div>
+      </li>
     )
   }
 }

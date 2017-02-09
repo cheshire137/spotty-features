@@ -152,7 +152,42 @@ class Search extends React.Component {
   }
 
   chooseSeed(result) {
-    this.setState({ seed: result, results: [], seedQuery: '' })
+    this.setState({
+      seed: result,
+      results: [],
+      seedQuery: ''
+    }, () => this.getAudioFeaturesForSeed())
+  }
+
+  getAudioFeaturesForSeed() {
+    const { seed, seedType } = this.state
+    if (seedType !== 'track') {
+      return
+    }
+    const api = new SpotifyApi(this.props.token)
+    api.audioFeaturesForTrack(seed.id).
+      then(json => this.onAudioFeatures(json)).
+      catch(err => this.onAudioFeaturesError(err))
+  }
+
+  onAudioFeatures(json) {
+    this.setState({
+      acousticness: json.acousticness,
+      danceability: json.danceability,
+      energy: json.energy,
+      valence: json.valence,
+      instrumentalness: json.instrumentalness,
+      liveness: json.liveness,
+      speechiness: json.speechiness,
+      fetchedFeatures: true
+    })
+  }
+
+  onAudioFeaturesError(error) {
+    console.error('failed to get audio features for track', error)
+    if (error.response.status === 401) {
+      this.props.unauthorized()
+    }
   }
 
   seedSummary() {
@@ -171,6 +206,7 @@ class Search extends React.Component {
     if (seed) {
       return
     }
+    const placeholder = 'Search ' + (seedType === 'track' ? 'songs' : 'artists') + ' on Spotify'
     return (
       <form onSubmit={e => this.onSeedSearch(e)}>
         <h4 className="title is-4">Step 1: Seed your playlist</h4>
@@ -187,7 +223,7 @@ class Search extends React.Component {
               autoFocus
               value={seedQuery}
               onChange={e => this.onSeedQueryChange(e)}
-              placeholder={seedType === 'track' ? 'Search songs' : 'Search artists'}
+              placeholder={placeholder}
             />
             <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
               {results.map(result => {
@@ -238,21 +274,23 @@ class Search extends React.Component {
   }
 
   changeSeed() {
-    this.setState({ seed: null, results: [] })
+    this.setState({ seed: null, results: [], fetchedFeatures: false })
   }
 
   recommendationsForm() {
-    const { seed, recommendations } = this.state
+    const { seed, recommendations, fetchedFeatures, seedType } = this.state
     if (!seed || recommendations.length > 0) {
       return
     }
     return (
-      <div>
-        <button
-          type="button"
-          className="button is-small"
-          onClick={() => this.changeSeed()}
-        >&larr; Change seed</button>
+      <div className="content">
+        <p>
+          <button
+            type="button"
+            className="button is-link"
+            onClick={() => this.changeSeed()}
+          >&larr; Change seed</button>
+        </p>
         <form onSubmit={e => this.onRecommendationsSubmit(e)}>
           <h4 className="refine-title title is-4">
             Step 2: Refine your results
@@ -275,6 +313,7 @@ class Search extends React.Component {
                     min="0"
                     max="1"
                     step="0.05"
+                    disabled={!fetchedFeatures && seedType === 'track'}
                     className="slider"
                   />
                   <span className="feature-range-max">100%</span>
@@ -304,12 +343,14 @@ class Search extends React.Component {
       return
     }
     return (
-      <div>
-        <button
-          type="button"
-          className="button is-small"
-          onClick={() => this.changeAudioFeatures()}
-        >&larr; Change filters</button>
+      <div className="content">
+        <p>
+          <button
+            type="button"
+            className="button is-link"
+            onClick={() => this.changeAudioFeatures()}
+          >&larr; Change filters</button>
+        </p>
         <ul className="recommendations-list">
           {recommendations.map(track => {
             return <TrackRecommendation key={track.id} {...track} />

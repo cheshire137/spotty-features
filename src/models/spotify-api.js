@@ -73,6 +73,10 @@ export default class SpotifyApi {
     })
   }
 
+  audioFeaturesForTrack(id) {
+    return this.get(`/audio-features/${id}`)
+  }
+
   audioFeatures(allIDs) {
     const chunkSize = 100
     if (allIDs.length <= chunkSize) {

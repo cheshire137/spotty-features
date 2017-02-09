@@ -300,3 +300,14 @@ input[type="range"]:focus::-ms-fill-upper {
     padding-top: 0;
   }
 }
+
+.content ul.recommendations-list {
+  list-style: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.content ul.recommendations-list li + li {
+  border-top: 1px solid #ddd;
+  padding-top: 0.25em;
+}
