@@ -13,7 +13,18 @@ import SpotifyApi from '../models/spotify-api.js'
 class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { seedType: 'track', results: [], seedQuery: '' }
+    this.state = {
+      seedType: 'track',
+      results: [],
+      seedQuery: '',
+      acousticness: 0.5,
+      danceability: 0.5,
+      energy: 0.5,
+      valence: 0.5,
+      instrumentalness: 0.5,
+      liveness: 0.5,
+      speechiness: 0.5
+    }
     this.delayedSeedSearch = debounce(500, this.delayedSeedSearch)
   }
 
@@ -39,7 +50,7 @@ class Search extends React.Component {
     console.error('failed to fetch recommendations', error)
   }
 
-  onChange(event, feature) {
+  onFeatureChange(event, feature) {
     const newState = {}
     newState[feature] = parseFloat(event.target.value)
     this.setState(newState)
@@ -217,16 +228,19 @@ class Search extends React.Component {
                 </label>
               </div>
               <div className="control">
-                0%
+                <span className="feature-range-min">0%</span>
                 <input
-                  onChange={e => this.onChange(e, feature)}
+                  onChange={e => this.onFeatureChange(e, feature)}
                   id={feature}
+                  value={this.state[feature]}
                   type="range"
                   min="0"
                   max="1"
                   step="0.05"
+                  className="slider"
                 />
-                100%
+                <span className="feature-range-max">100%</span>
+                <span className="feature-percentage">{Math.round(this.state[feature] * 100)}%</span>
               </div>
             </div>
           )
