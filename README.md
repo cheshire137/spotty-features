@@ -2,11 +2,14 @@
 
 Show trends about your music listening habits over time using different audio
 features like acousticness, danceability, and energy, based on the tracks you
-save to your Spotify library.
+save to your Spotify library. Also generate playlists like a given song or
+artist, but with the specified audio features.
 
 **[Try the app now](https://spotty-features.herokuapp.com)**
 
-![Screenshot](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot.png)
+![Screenshot 1](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot1.png)
+
+![Screenshot 2](https://raw.githubusercontent.com/cheshire137/spotty-features/master/screenshot2.png)
 
 ## How to Develop
 
