@@ -16,7 +16,7 @@ class SearchResultTrack extends React.Component {
     return (
       <li
         className={selected ? 'selected' : ''}
-        onMouseOver={() => this.props.deselect()}
+        onMouseOver={() => this.props.select()}
       >
         <button
           type="button"
@@ -48,7 +48,7 @@ SearchResultTrack.propTypes = {
   name: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
   chooseTrack: React.PropTypes.func.isRequired,
-  deselect: React.PropTypes.func.isRequired,
+  select: React.PropTypes.func.isRequired,
   selected: React.PropTypes.bool.isRequired
 }
 

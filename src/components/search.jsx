@@ -26,9 +26,9 @@ class Search extends React.Component {
     this.setState({ recommendations })
   }
 
-  onSeedTypeChange(event) {
+  onSeedTypeChange(seedType) {
     this.setState({
-      seedType: event.target.value,
+      seedType,
       seed: null,
       seedQuery: '',
       recommendations: [],

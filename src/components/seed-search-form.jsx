@@ -79,9 +79,9 @@ class SeedSearchForm extends React.Component {
     return `Search ${noun} on Spotify`
   }
 
-  deselectResult() {
-    if (this.state.selectedResultIndex > -1) {
-      this.setState({ selectedResultIndex: -1 })
+  selectResultIndex(index) {
+    if (this.state.selectedResultIndex !== index) {
+      this.setState({ selectedResultIndex: index })
     }
   }
 
@@ -91,7 +91,7 @@ class SeedSearchForm extends React.Component {
         <SearchResultTrack
           key={result.id}
           {...result}
-          deselect={() => this.deselectResult()}
+          select={() => this.selectResultIndex(index)}
           selected={index === this.state.selectedResultIndex}
           chooseTrack={() => this.props.chooseSeed(result)}
         />
@@ -101,7 +101,7 @@ class SeedSearchForm extends React.Component {
       <SearchResultArtist
         key={result.id}
         {...result}
-        deselect={() => this.deselectResult()}
+        select={() => this.selectResultIndex(index)}
         selected={index === this.state.selectedResultIndex}
         chooseArtist={() => this.props.chooseSeed(result)}
       />
@@ -113,11 +113,12 @@ class SeedSearchForm extends React.Component {
     this.delayedSeedSearch()
   }
 
-  selectSearchResult(offset) {
+  selectSearchResult(event, offset) {
     const { results } = this.state
     if (results.length < 1) {
       return
     }
+    event.preventDefault()
     let index = this.state.selectedResultIndex + offset
     if (index >= results.length) {
       index = 0
@@ -145,16 +146,23 @@ class SeedSearchForm extends React.Component {
         this.chooseSelectedSearchResult(event)
         break
       case 40: // down
-        this.selectSearchResult(1)
+        this.selectSearchResult(event, 1)
         break
       case 38: // up
-        this.selectSearchResult(-1)
+        this.selectSearchResult(event, -1)
         break
     }
   }
 
+  onSeedTypeChange(event) {
+    const seedType = event.target.value
+    this.setState({ selectedResultIndex: -1 }, () => {
+      this.props.onSeedTypeChange(seedType)
+    })
+  }
+
   seedTypeControls() {
-    const { seedType, onSeedTypeChange } = this.props
+    const { seedType } = this.props
     return (
       <div className="control">
         <label className="radio is-large">
@@ -163,7 +171,7 @@ class SeedSearchForm extends React.Component {
             name="seed-type"
             checked={seedType === 'track'}
             value="track"
-            onChange={e => onSeedTypeChange(e)}
+            onChange={e => this.onSeedTypeChange(e)}
           />
           Songs
         </label>
@@ -173,7 +181,7 @@ class SeedSearchForm extends React.Component {
             name="seed-type"
             checked={seedType === 'artist'}
             value="artist"
-            onChange={e => onSeedTypeChange(e)}
+            onChange={e => this.onSeedTypeChange(e)}
           />
           Artists
         </label>
