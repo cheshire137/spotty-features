@@ -104,7 +104,7 @@ class SeedSearchForm extends React.Component {
     const { seedType, onSeedTypeChange } = this.props
     return (
       <div className="control">
-        <label className="radio">
+        <label className="radio is-large">
           <input
             type="radio"
             name="seed-type"
@@ -114,7 +114,7 @@ class SeedSearchForm extends React.Component {
           />
           Songs
         </label>
-        <label className="radio">
+        <label className="radio is-large">
           <input
             type="radio"
             name="seed-type"
@@ -142,7 +142,7 @@ class SeedSearchForm extends React.Component {
             <input
               type="text"
               id="seed"
-              className="input"
+              className="input is-large"
               autoComplete="off"
               autoFocus
               value={seedQuery}

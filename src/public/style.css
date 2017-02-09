@@ -360,3 +360,11 @@ input[type="range"]:focus::-ms-fill-upper {
 .playlist-created {
   font-size: 16px;
 }
+
+.radio.is-large {
+  font-size: 1.2rem;
+}
+
+.radio.is-large + .radio.is-large {
+  margin-left: 1em;
+}
