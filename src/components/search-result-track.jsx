@@ -14,7 +14,10 @@ class SearchResultTrack extends React.Component {
   render() {
     const { name, artists, album, chooseTrack, selected } = this.props
     return (
-      <li className={selected ? 'selected' : ''}>
+      <li
+        className={selected ? 'selected' : ''}
+        onMouseOver={() => this.props.deselect()}
+      >
         <button
           type="button"
           onClick={() => chooseTrack()}
@@ -45,6 +48,7 @@ SearchResultTrack.propTypes = {
   name: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
   chooseTrack: React.PropTypes.func.isRequired,
+  deselect: React.PropTypes.func.isRequired,
   selected: React.PropTypes.bool.isRequired
 }
 

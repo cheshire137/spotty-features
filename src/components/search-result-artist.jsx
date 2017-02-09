@@ -14,7 +14,10 @@ class SearchResultArtist extends React.Component {
   render() {
     const { name, chooseArtist, selected } = this.props
     return (
-      <li className={selected ? 'selected' : ''}>
+      <li
+        className={selected ? 'selected' : ''}
+        onMouseOver={() => this.props.deselect()}
+      >
         <button
           type="button"
           className="search-result-button"
@@ -39,6 +42,7 @@ SearchResultArtist.propTypes = {
   name: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
   chooseArtist: React.PropTypes.func.isRequired,
+  deselect: React.PropTypes.func.isRequired,
   selected: React.PropTypes.bool.isRequired
 }
 

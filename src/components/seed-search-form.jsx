@@ -79,12 +79,19 @@ class SeedSearchForm extends React.Component {
     return `Search ${noun} on Spotify`
   }
 
+  deselectResult() {
+    if (this.state.selectedResultIndex > -1) {
+      this.setState({ selectedResultIndex: -1 })
+    }
+  }
+
   searchResult(result, index) {
     if (this.props.seedType === 'track') {
       return (
         <SearchResultTrack
           key={result.id}
           {...result}
+          deselect={() => this.deselectResult()}
           selected={index === this.state.selectedResultIndex}
           chooseTrack={() => this.props.chooseSeed(result)}
         />
@@ -94,6 +101,7 @@ class SeedSearchForm extends React.Component {
       <SearchResultArtist
         key={result.id}
         {...result}
+        deselect={() => this.deselectResult()}
         selected={index === this.state.selectedResultIndex}
         chooseArtist={() => this.props.chooseSeed(result)}
       />
