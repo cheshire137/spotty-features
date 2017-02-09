@@ -197,7 +197,7 @@ class SeedSearchForm extends React.Component {
         <h3 className="title is-3">Step 1: Seed your playlist</h3>
         <div className="control">
           <label className="label" htmlFor="seed">
-            Find songs like:
+            Find {seedType}s like:
           </label>
           <div className="results-container">
             <input
