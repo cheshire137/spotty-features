@@ -22,21 +22,26 @@ class Search extends React.Component {
       energy: 0.5,
       valence: 0.5,
       instrumentalness: 0.5,
-      liveness: 0.5,
-      speechiness: 0.5
+      liveness: 0,
+      speechiness: 0
     }
     this.delayedSeedSearch = debounce(500, this.delayedSeedSearch)
   }
 
   onRecommendationsSubmit(event) {
+    const { seedType, seed } = this.state
     event.preventDefault()
     const opts = {}
+    if (seedType === 'track') {
+      opts.seed_tracks = seed.id
+    } else {
+      opts.seed_artists = seed.id
+    }
     for (const feature of Features.fields) {
       if (this.state.hasOwnProperty(feature)) {
-        opts[feature] = this.state[feature]
+        opts[`target_${feature}`] = this.state[feature]
       }
     }
-    console.log(opts)
     const api = new SpotifyApi(this.props.token)
     api.getRecommendations(opts).then(json => this.onRecommendations(json)).
       catch(err => this.onRecommendationsError(err))
@@ -245,14 +250,11 @@ class Search extends React.Component {
             </div>
           )
         })}
-        <div className="control is-horizontal">
-          <div className="control-label"></div>
-          <div className="control">
-            <button
-              type="submit"
-              className="button is-primary is-large"
-            >Find Songs</button>
-          </div>
+        <div className="control">
+          <button
+            type="submit"
+            className="button is-primary is-large"
+          >Find Songs</button>
         </div>
       </form>
     )

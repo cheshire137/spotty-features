@@ -25,10 +25,8 @@ export default class SpotifyApi {
   getRecommendations(opts) {
     const limit = opts.limit || 20
     const params = [`limit=${limit}`]
-    for (const feature of Features.fields) {
-      if (opts.hasOwnProperty(feature)) {
-        params.push(`target_${feature}=${opts[feature]}`)
-      }
+    for (const key in opts) {
+      params.push(`${key}=${encodeURIComponent(opts[key])}`)
     }
     console.log(params.join('&'))
     return this.get(`/recommendations?${params.join('&')}`)
