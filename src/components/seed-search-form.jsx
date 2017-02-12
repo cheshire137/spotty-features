@@ -192,12 +192,13 @@ class SeedSearchForm extends React.Component {
   render() {
     const { seedType, seedQuery } = this.props
     const { results } = this.state
+    const noun = seedType === 'track' ? 'song' : 'artist'
     return (
       <form onSubmit={e => this.onSeedSearch(e)}>
         <h3 className="title is-3">Step 1: Seed your playlist</h3>
         <div className="control">
           <label className="label" htmlFor="seed">
-            Find {seedType}s like:
+            Recommendations based on this {noun}:
           </label>
           <div className="results-container">
             <input
