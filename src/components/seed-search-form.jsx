@@ -7,6 +7,8 @@ import Genres from '../models/genres.js'
 import SearchResultArtist from './search-result-artist.jsx'
 import SearchResultTrack from './search-result-track.jsx'
 
+const genreValue = "genre:" + Genres.fields[Math.floor(Math.random()*Genres.fields.length)]
+
 class SeedSearchForm extends React.Component {
   constructor(props) {
     super(props)
@@ -199,7 +201,6 @@ class SeedSearchForm extends React.Component {
     const { seedType, seedQuery } = this.props
     const { results } = this.state
     const noun = seedType === 'track' ? 'song' : 'artist'
-    let genreValue = "genre:" + Genres.fields[Math.floor(Math.random()*Genres.fields.length)]
     return (
       <form onSubmit={e => this.onSeedSearch(e)}>
         <h3 className="title is-3">Step 1: Seed your playlist</h3>
