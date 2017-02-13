@@ -2,9 +2,12 @@ import React from 'react'
 import { debounce } from 'throttle-debounce'
 
 import SpotifyApi from '../models/spotify-api.js'
+import Genres from '../models/genres.js'
 
 import SearchResultArtist from './search-result-artist.jsx'
 import SearchResultTrack from './search-result-track.jsx'
+
+const genreValue = "genre:" + Genres.fields[Math.floor(Math.random()*Genres.fields.length)]
 
 class SeedSearchForm extends React.Component {
   constructor(props) {
@@ -189,15 +192,21 @@ class SeedSearchForm extends React.Component {
     )
   }
 
+  seedGenre(event) {
+    const seedInput = document.getElementById("seed")
+    seedInput.value = event.target.innerHTML
+  }
+
   render() {
     const { seedType, seedQuery } = this.props
     const { results } = this.state
+    const noun = seedType === 'track' ? 'song' : 'artist'
     return (
       <form onSubmit={e => this.onSeedSearch(e)}>
         <h3 className="title is-3">Step 1: Seed your playlist</h3>
         <div className="control">
           <label className="label" htmlFor="seed">
-            Find songs like:
+            Recommendations based on this {noun}:
           </label>
           <div className="results-container">
             <input
@@ -217,6 +226,7 @@ class SeedSearchForm extends React.Component {
           </div>
         </div>
         {this.seedTypeControls()}
+        <strong>Tip!</strong> Try a genre search by typing <a onClick={e => this.seedGenre(e)}>{genreValue}</a>
       </form>
     )
   }
