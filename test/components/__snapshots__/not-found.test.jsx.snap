@@ -1,4 +1,4 @@
-exports[`NotFound renders 1`] = `
+exports[`NotFound matches snapshot 1`] = `
 <h1
   className="title">
   404 Not Found
