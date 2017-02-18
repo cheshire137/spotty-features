@@ -103,4 +103,16 @@ describe('SpotifyApi', () => {
       expect(data[0].track).toEqual(SavedTracksResponse.items[0].track)
     })
   })
+
+  test("fetches specified weeks' worth of user's saved tracks", () => {
+    const path1 = 'me/tracks?limit=50&offset=0'
+    fetchMock.get(`${Config.spotify.apiUrl}/${path1}`, SavedTracksResponse)
+
+    const api = new SpotifyApi('123abc')
+    return api.savedTracksForXWeeks(1).then(data => {
+      expect(data).toBeInstanceOf(Array)
+      expect(data).toHaveLength(1)
+      expect(data[0].track).toEqual(SavedTracksResponse.items[0].track)
+    })
+  })
 })
