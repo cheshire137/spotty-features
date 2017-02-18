@@ -1,0 +1,65 @@
+{
+  "tracks" : [ {
+    "album" : {
+      "album_type" : "ALBUM",
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/3o5EnVZNJXtfPV8tCoagjI"
+      },
+      "href" : "https://api.spotify.com/v1/albums/3o5EnVZNJXtfPV8tCoagjI",
+      "id" : "3o5EnVZNJXtfPV8tCoagjI",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/fdb942b174fc10316157d17778543c5cc96f1da6",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/5ffbd20bf28792a56aa81017b671a4700b5eeb12",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/d4a10ce84788eb82b53f72d1dee2fca4fa8cbcf0",
+        "width" : 64
+      } ],
+      "name" : "When The Pawn...",
+      "type" : "album",
+      "uri" : "spotify:album:3o5EnVZNJXtfPV8tCoagjI"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/3g2kUQ6tHLLbmkV7T4GPtL"
+      },
+      "href" : "https://api.spotify.com/v1/artists/3g2kUQ6tHLLbmkV7T4GPtL",
+      "id" : "3g2kUQ6tHLLbmkV7T4GPtL",
+      "name" : "Fiona Apple",
+      "type" : "artist",
+      "uri" : "spotify:artist:3g2kUQ6tHLLbmkV7T4GPtL"
+    } ],
+    "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CR", "CY", "CZ", "DE", "DK", "DO", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY", "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY" ],
+    "disc_number" : 1,
+    "duration_ms" : 256133,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "USSM19910366"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/6DLJQz0hav4l4VfEjJze5T"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/6DLJQz0hav4l4VfEjJze5T",
+    "id" : "6DLJQz0hav4l4VfEjJze5T",
+    "name" : "The Way Things Are",
+    "popularity" : 32,
+    "preview_url" : "https://p.scdn.co/mp3-preview/dfe3f254368d1ce0875d957b96470c0d8ad1b6cb?cid=c093721d396d4c3f802e4a65bb653a68",
+    "track_number" : 8,
+    "type" : "track",
+    "uri" : "spotify:track:6DLJQz0hav4l4VfEjJze5T"
+  } ],
+  "seeds" : [ {
+    "initialPoolSize" : 250,
+    "afterFilteringSize" : 250,
+    "afterRelinkingSize" : 250,
+    "id" : "6DLJQz0hav4l4VfEjJze5T",
+    "type" : "TRACK",
+    "href" : "https://api.spotify.com/v1/tracks/6DLJQz0hav4l4VfEjJze5T"
+  } ]
+}
