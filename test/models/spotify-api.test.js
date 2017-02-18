@@ -1,8 +1,10 @@
 import fetchMock from 'fetch-mock'
 import MockDate from 'mockdate'
 
+import AddTracksToPlaylistResponse from '../fixtures/spotify/add-tracks-to-playlist'
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import Config from '../../src/public/config'
+import CreatePlaylistResponse from '../fixtures/spotify/create-playlist'
 import MeResponse from '../fixtures/spotify/me'
 import MultiAudioFeaturesResponse from '../fixtures/spotify/multi-audio-features'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
@@ -139,6 +141,33 @@ describe('SpotifyApi', () => {
     const api = new SpotifyApi('123abc')
     return api.audioFeatures([id1, id2]).then(data => {
       expect(data).toEqual(MultiAudioFeaturesResponse.audio_features)
+    })
+  })
+
+  test("creates a playlist in the user's account", () => {
+    const userID = 'cheshire137'
+
+    const path1 = `users/${userID}/playlists`
+    fetchMock.post(`${Config.spotify.apiUrl}/${path1}`, CreatePlaylistResponse)
+
+    const path2 = `users/${userID}/playlists/${CreatePlaylistResponse.id}/tracks`
+    fetchMock.post(`${Config.spotify.apiUrl}/${path2}`, AddTracksToPlaylistResponse)
+
+    const trackURIs = [
+      'spotify:track:4FULAlQuDeDlv1FidteGv0',
+      'spotify:track:4nDfc6F2uVcc6wdG7kBzWO',
+      'spotify:track:4r9uaA43qfASToQ959KwDt'
+    ]
+    const opts = {
+      name: 'test playlist pls ignore',
+      public: true,
+      collaborative: false
+    }
+    const api = new SpotifyApi('123abc')
+    return api.createPlaylist(userID, trackURIs, opts).then(data => {
+      const expected = CreatePlaylistResponse
+      expected.snapshot_id = AddTracksToPlaylistResponse.snapshot_id
+      expect(data).toEqual(expected)
     })
   })
 })

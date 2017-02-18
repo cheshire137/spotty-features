@@ -1,0 +1,37 @@
+{
+  "collaborative" : false,
+  "description" : null,
+  "external_urls" : {
+    "spotify" : "http://open.spotify.com/user/cheshire137/playlist/620BggflPRh7lL9HPZklh2"
+  },
+  "followers" : {
+    "href" : null,
+    "total" : 0
+  },
+  "href" : "https://api.spotify.com/v1/users/cheshire137/playlists/620BggflPRh7lL9HPZklh2",
+  "id" : "620BggflPRh7lL9HPZklh2",
+  "images" : [ ],
+  "name" : "test playlist pls ignore",
+  "owner" : {
+    "external_urls" : {
+      "spotify" : "http://open.spotify.com/user/cheshire137"
+    },
+    "href" : "https://api.spotify.com/v1/users/cheshire137",
+    "id" : "cheshire137",
+    "type" : "user",
+    "uri" : "spotify:user:cheshire137"
+  },
+  "public" : true,
+  "snapshot_id" : "Hu5zh6IQ70ZAKRKcjXcZMgkyCcA6ZT3C+pqdwjXxFy2SIMU2flmq5XEwj7ORmwR4",
+  "tracks" : {
+    "href" : "https://api.spotify.com/v1/users/cheshire137/playlists/620BggflPRh7lL9HPZklh2/tracks",
+    "items" : [ ],
+    "limit" : 100,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 0
+  },
+  "type" : "playlist",
+  "uri" : "spotify:user:cheshire137:playlist:620BggflPRh7lL9HPZklh2"
+}
