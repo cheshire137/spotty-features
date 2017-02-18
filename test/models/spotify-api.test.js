@@ -1,9 +1,11 @@
 import fetchMock from 'fetch-mock'
+import MockDate from 'mockdate'
 
 import Config from '../../src/public/config'
 import MeResponse from '../fixtures/spotify/me'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
+import SavedTracksResponse2 from '../fixtures/spotify/saved-tracks2'
 import SpotifyApi from '../../src/models/spotify-api'
 import TopTracksResponse from '../fixtures/spotify/top-tracks'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
@@ -82,6 +84,23 @@ describe('SpotifyApi', () => {
     const api = new SpotifyApi('123abc')
     return api.topTracks(opts).then(data => {
       expect(data).toEqual(TopTracksResponse)
+    })
+  })
+
+  test("gets the user's saved tracks for the past month", () => {
+    MockDate.set('3/15/2017')
+
+    const path1 = 'me/tracks?limit=50&offset=0'
+    fetchMock.get(`${Config.spotify.apiUrl}/${path1}`, SavedTracksResponse)
+
+    const path2 = 'me/tracks?limit=50&offset=50'
+    fetchMock.get(`${Config.spotify.apiUrl}/${path2}`, SavedTracksResponse2)
+
+    const api = new SpotifyApi('123abc')
+    return api.savedTracksForPastMonths(1).then(data => {
+      expect(data).toBeInstanceOf(Array)
+      expect(data).toHaveLength(1)
+      expect(data[0].track).toEqual(SavedTracksResponse.items[0].track)
     })
   })
 })
