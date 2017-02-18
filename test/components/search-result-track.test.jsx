@@ -22,7 +22,7 @@ function props() {
     album: track.album.name,
     image: track.album.images[2].url,
     name: track.name,
-    selected: true,
+    selected: false,
     chooseTrack,
     select
   }

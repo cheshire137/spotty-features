@@ -1,6 +1,6 @@
 exports[`SearchResultTrack matches snapshot 1`] = `
 <li
-  className="selected"
+  className=""
   onMouseOver={[Function]}>
   <button
     className="search-result-button"
