@@ -2,7 +2,7 @@
 
 import 'whatwg-fetch'
 
-const apiUrl = 'https://api.spotify.com/v1'
+import Config from '../public/config'
 
 export default class SpotifyApi {
   constructor(token) {
@@ -247,7 +247,7 @@ export default class SpotifyApi {
   }
 
   makeRequest(method, path, extraHeaders, body) {
-    const url = `${apiUrl}${path}`
+    const url = `${Config.apiUrl}${path}`
     const headers = {}
     for (const key of Object.keys(this.headers)) {
       headers[key] = this.headers[key]

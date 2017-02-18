@@ -1,5 +1,6 @@
 {
   "spotify": {
+    "apiUrl": "https://api.spotify.com/v1",
     "clientId": "c093721d396d4c3f802e4a65bb653a68"
   }
 }
