@@ -110,9 +110,12 @@
     }
   },
   "devDependencies": {
+    "babel-jest": "^18.0.0",
     "eslint-config-xo-react": "^0.10.0",
     "eslint-plugin-react": "^6.10.0",
     "jest": "^18.1.0",
+    "jest-cli": "^18.1.0",
+    "react-addons-test-utils": "^15.4.2",
     "xo": "^0.17.1"
   }
 }
