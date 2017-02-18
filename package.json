@@ -31,6 +31,16 @@
     "unit-test": "jest",
     "style": "node_modules/xo/cli.js src/components/*.jsx src/models/*.js src/*.jsx src/*.js gulpfile.js test/models/*.js test/components/*.jsx test/helpers/*.js"
   },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!src/public/bundle.js",
+      "!gulpfile.js",
+      "!coverage/**"
+    ]
+  },
   "xo": {
     "esnext": true,
     "globals": [
