@@ -29,13 +29,16 @@
     "postinstall": "yarn run build",
     "test": "yarn run style && yarn run unit-test",
     "unit-test": "jest",
-    "style": "node_modules/xo/cli.js src/components/*.jsx src/models/*.js src/*.jsx src/*.js gulpfile.js"
+    "style": "node_modules/xo/cli.js src/components/*.jsx src/models/*.js src/*.jsx src/*.js gulpfile.js test/models/*.js"
   },
   "xo": {
     "esnext": true,
     "globals": [
+      "describe",
       "document",
+      "expect",
       "fetch",
+      "test",
       "window"
     ],
     "space": true,
