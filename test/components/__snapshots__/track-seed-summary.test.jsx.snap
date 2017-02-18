@@ -1,0 +1,29 @@
+exports[`TrackSeedSummary matches snapshot 1`] = `
+<div
+  className="columns seed-summary">
+  <div
+    className="column track-image-column">
+    <img
+      className="track-image"
+      src="https://i.scdn.co/image/b6a166bdf785f16e212ef95984fcf2e788678597" />
+  </div>
+  <div
+    className="column">
+    <span
+      className="track-name">
+      SCREAM
+    </span>
+    <span>
+       by 
+    </span>
+    <span
+      className="track-artists">
+      Grimes, Aristophanes
+    </span>
+    <span
+      className="track-album">
+      Art Angels
+    </span>
+  </div>
+</div>
+`;
