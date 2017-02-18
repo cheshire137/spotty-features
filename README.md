@@ -1,5 +1,7 @@
 # Spotty Features
 
+[![Build Status](https://travis-ci.org/cheshire137/spotty-features.svg?branch=master)](https://travis-ci.org/cheshire137/spotty-features)
+
 Show trends about your music listening habits over time using different audio
 features like acousticness, danceability, and energy, based on the tracks you
 save to your Spotify library. Also generate playlists like a given song or
