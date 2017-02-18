@@ -1,7 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-
-import getDOM from '../helpers/get-dom'
+import { shallow } from 'enzyme'
 
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
@@ -25,32 +24,29 @@ function props() {
 }
 
 describe('TrackListItem', () => {
+  let component = null
+
+  beforeEach(() => {
+    component = <TrackListItem {...props()} />
+  })
+
   test('matches snapshot', () => {
-    const component = renderer.create(<TrackListItem {...props()} />)
-    const tree = component.toJSON()
+    const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
   })
 
-  describe('rendered content', () => {
-    let dom = null
+  test('lists artists', () => {
+    const artists = shallow(component).find('.track-artists')
+    expect(artists.text()).toBe('Nick Jonas, Nicki Minaj')
+  })
 
-    beforeEach(() => {
-      dom = getDOM(<TrackListItem {...props()} />)
-    })
+  test('displays song title', () => {
+    const title = shallow(component).find('.track-name')
+    expect(title.text()).toBe('Bom Bidi Bom')
+  })
 
-    test('lists artists', () => {
-      const artists = dom.querySelector('.track-artists')
-      expect(artists.textContent).toBe('Nick Jonas, Nicki Minaj')
-    })
-
-    test('displays song title', () => {
-      const title = dom.querySelector('.track-name')
-      expect(title.textContent).toBe('Bom Bidi Bom')
-    })
-
-    test('displays album name', () => {
-      const album = dom.querySelector('.track-album')
-      expect(album.textContent).toBe('Fifty Shades Darker (Original Motion Picture Soundtrack)')
-    })
+  test('displays album name', () => {
+    const album = shallow(component).find('.track-album')
+    expect(album.text()).toBe('Fifty Shades Darker (Original Motion Picture Soundtrack)')
   })
 })

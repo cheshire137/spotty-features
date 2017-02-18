@@ -107,8 +107,7 @@
           "allowNamedFunctions": true
         }
       ],
-      "default-case": 0,
-      "react/no-find-dom-node": 0
+      "default-case": 0
     }
   },
   "devDependencies": {
