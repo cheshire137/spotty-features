@@ -1,0 +1,85 @@
+{
+  "href" : "https://api.spotify.com/v1/me/tracks?offset=0&limit=1",
+  "items" : [ {
+    "added_at" : "2017-02-18T04:50:15Z",
+    "track" : {
+      "album" : {
+        "album_type" : "album",
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of"
+          },
+          "href" : "https://api.spotify.com/v1/artists/0LyfQWJT6nXafLPZqxe9Of",
+          "id" : "0LyfQWJT6nXafLPZqxe9Of",
+          "name" : "Various Artists",
+          "type" : "artist",
+          "uri" : "spotify:artist:0LyfQWJT6nXafLPZqxe9Of"
+        } ],
+        "available_markets" : [ "AD", "AR", "AU", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "UY" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/4RPo8gaqAbJksSE8JOIVLF"
+        },
+        "href" : "https://api.spotify.com/v1/albums/4RPo8gaqAbJksSE8JOIVLF",
+        "id" : "4RPo8gaqAbJksSE8JOIVLF",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/c8590563835cdb0f6b6c97ec95d038d31bdaa0cd",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/3ff11c9c743dda46ae71119252fc3db2a54334a3",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/8bf2ccb01c25cf7b314eec154dc0cdf42e3e67df",
+          "width" : 64
+        } ],
+        "name" : "Fifty Shades Darker (Original Motion Picture Soundtrack)",
+        "type" : "album",
+        "uri" : "spotify:album:4RPo8gaqAbJksSE8JOIVLF"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/4Rxn7Im3LGfyRkY2FlHhWi"
+        },
+        "href" : "https://api.spotify.com/v1/artists/4Rxn7Im3LGfyRkY2FlHhWi",
+        "id" : "4Rxn7Im3LGfyRkY2FlHhWi",
+        "name" : "Nick Jonas",
+        "type" : "artist",
+        "uri" : "spotify:artist:4Rxn7Im3LGfyRkY2FlHhWi"
+      }, {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/0hCNtLu0JehylgoiP8L4Gh"
+        },
+        "href" : "https://api.spotify.com/v1/artists/0hCNtLu0JehylgoiP8L4Gh",
+        "id" : "0hCNtLu0JehylgoiP8L4Gh",
+        "name" : "Nicki Minaj",
+        "type" : "artist",
+        "uri" : "spotify:artist:0hCNtLu0JehylgoiP8L4Gh"
+      } ],
+      "available_markets" : [ "AD", "AR", "AU", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "EC", "EE", "ES", "FI", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "UY" ],
+      "disc_number" : 1,
+      "duration_ms" : 214760,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USQ4E1602591"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/4nDfc6F2uVcc6wdG7kBzWO"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/4nDfc6F2uVcc6wdG7kBzWO",
+      "id" : "4nDfc6F2uVcc6wdG7kBzWO",
+      "name" : "Bom Bidi Bom",
+      "popularity" : 67,
+      "preview_url" : "https://p.scdn.co/mp3-preview/7f0f251b671149f94250dbe50fc8d450ecc72d70?cid=c093721d396d4c3f802e4a65bb653a68",
+      "track_number" : 8,
+      "type" : "track",
+      "uri" : "spotify:track:4nDfc6F2uVcc6wdG7kBzWO"
+    }
+  } ],
+  "limit" : 1,
+  "next" : "https://api.spotify.com/v1/me/tracks?offset=1&limit=1",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 1110
+}

@@ -3,6 +3,7 @@ import fetchMock from 'fetch-mock'
 import Config from '../../src/public/config'
 import MeResponse from '../fixtures/spotify/me'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
+import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 import SpotifyApi from '../../src/models/spotify-api'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
 
@@ -58,6 +59,17 @@ describe('SpotifyApi', () => {
     const api = new SpotifyApi('123abc')
     return api.getRecommendations(opts).then(data => {
       expect(data).toEqual(RecommendationsResponse)
+    })
+  })
+
+  test("gets the user's saved tracks", () => {
+    const path = 'me/tracks?limit=1&offset=0'
+    fetchMock.get(`${Config.spotify.apiUrl}/${path}`, SavedTracksResponse)
+
+    const opts = { limit: 1, offset: 0 }
+    const api = new SpotifyApi('123abc')
+    return api.savedTracks(opts).then(data => {
+      expect(data).toEqual(SavedTracksResponse)
     })
   })
 })
