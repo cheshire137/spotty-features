@@ -5,6 +5,7 @@ import MeResponse from '../fixtures/spotify/me'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 import SpotifyApi from '../../src/models/spotify-api'
+import TopTracksResponse from '../fixtures/spotify/top-tracks'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
 
 describe('SpotifyApi', () => {
@@ -70,6 +71,17 @@ describe('SpotifyApi', () => {
     const api = new SpotifyApi('123abc')
     return api.savedTracks(opts).then(data => {
       expect(data).toEqual(SavedTracksResponse)
+    })
+  })
+
+  test("gets the user's top tracks", () => {
+    const path = 'me/top/tracks?limit=1&offset=0'
+    fetchMock.get(`${Config.spotify.apiUrl}/${path}`, TopTracksResponse)
+
+    const opts = { limit: 1, offset: 0 }
+    const api = new SpotifyApi('123abc')
+    return api.topTracks(opts).then(data => {
+      expect(data).toEqual(TopTracksResponse)
     })
   })
 })

@@ -1,0 +1,62 @@
+{
+  "items" : [ {
+    "album" : {
+      "album_type" : "ALBUM",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/album/3jviKiBoZrkHLQZYIReWCh"
+      },
+      "href" : "https://api.spotify.com/v1/albums/3jviKiBoZrkHLQZYIReWCh",
+      "id" : "3jviKiBoZrkHLQZYIReWCh",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/c0ff866306632df8c4b20537fb83b64de1bd2c90",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/cf2e755062ff0d2a667374eaf9a2d6fee4847935",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/b234379eb3e135937fe45af5d85d98e3b63bf514",
+        "width" : 64
+      } ],
+      "name" : "Ten Love Songs",
+      "type" : "album",
+      "uri" : "spotify:album:3jviKiBoZrkHLQZYIReWCh"
+    },
+    "artists" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/54KCNI7URCrG6yjQK3Ukow"
+      },
+      "href" : "https://api.spotify.com/v1/artists/54KCNI7URCrG6yjQK3Ukow",
+      "id" : "54KCNI7URCrG6yjQK3Ukow",
+      "name" : "Susanne Sundfør",
+      "type" : "artist",
+      "uri" : "spotify:artist:54KCNI7URCrG6yjQK3Ukow"
+    } ],
+    "disc_number" : 1,
+    "duration_ms" : 295920,
+    "explicit" : false,
+    "external_ids" : {
+      "isrc" : "NOAGW1400191"
+    },
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/track/4r9uaA43qfASToQ959KwDt"
+    },
+    "href" : "https://api.spotify.com/v1/tracks/4r9uaA43qfASToQ959KwDt",
+    "id" : "4r9uaA43qfASToQ959KwDt",
+    "is_playable" : true,
+    "name" : "Delirious",
+    "popularity" : 36,
+    "preview_url" : "https://p.scdn.co/mp3-preview/ebb6a30b44f4d4989b2631dc3bef338f2b4b05d3",
+    "track_number" : 7,
+    "type" : "track",
+    "uri" : "spotify:track:4r9uaA43qfASToQ959KwDt"
+  } ],
+  "total" : 50,
+  "limit" : 1,
+  "offset" : 0,
+  "previous" : null,
+  "href" : "https://api.spotify.com/v1/me/top/tracks?limit=1&offset=0",
+  "next" : "https://api.spotify.com/v1/me/top/tracks?limit=1&offset=1"
+}
