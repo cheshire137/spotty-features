@@ -122,6 +122,7 @@
     "jest-cli": "^18.1.0",
     "mockdate": "^2.0.1",
     "react-addons-test-utils": "^15.4.2",
+    "react-test-renderer": "^15.4.2",
     "xo": "^0.17.1"
   }
 }
