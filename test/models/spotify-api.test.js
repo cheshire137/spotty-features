@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock'
 import MockDate from 'mockdate'
 
+import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import Config from '../../src/public/config'
 import MeResponse from '../fixtures/spotify/me'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
@@ -105,14 +106,25 @@ describe('SpotifyApi', () => {
   })
 
   test("fetches specified weeks' worth of user's saved tracks", () => {
-    const path1 = 'me/tracks?limit=50&offset=0'
-    fetchMock.get(`${Config.spotify.apiUrl}/${path1}`, SavedTracksResponse)
+    const path = 'me/tracks?limit=50&offset=0'
+    fetchMock.get(`${Config.spotify.apiUrl}/${path}`, SavedTracksResponse)
 
     const api = new SpotifyApi('123abc')
     return api.savedTracksForXWeeks(1).then(data => {
       expect(data).toBeInstanceOf(Array)
       expect(data).toHaveLength(1)
       expect(data[0].track).toEqual(SavedTracksResponse.items[0].track)
+    })
+  })
+
+  test('get audio features for a track', () => {
+    const trackID = '4nDfc6F2uVcc6wdG7kBzWO'
+    const path = `audio-features/${trackID}`
+    fetchMock.get(`${Config.spotify.apiUrl}/${path}`, AudioFeaturesResponse)
+
+    const api = new SpotifyApi('123abc')
+    return api.audioFeaturesForTrack(trackID).then(data => {
+      expect(data).toEqual(AudioFeaturesResponse)
     })
   })
 })
