@@ -29,7 +29,7 @@
     "postinstall": "yarn run build",
     "test": "yarn run style && yarn run unit-test",
     "unit-test": "jest",
-    "style": "node_modules/xo/cli.js src/components/*.jsx src/models/*.js src/*.jsx src/*.js gulpfile.js test/models/*.js test/components/*.jsx"
+    "style": "node_modules/xo/cli.js src/components/*.jsx src/models/*.js src/*.jsx src/*.js gulpfile.js test/models/*.js test/components/*.jsx test/helpers/*.js"
   },
   "xo": {
     "esnext": true,
@@ -107,7 +107,8 @@
           "allowNamedFunctions": true
         }
       ],
-      "default-case": 0
+      "default-case": 0,
+      "react/no-find-dom-node": 0
     }
   },
   "devDependencies": {
