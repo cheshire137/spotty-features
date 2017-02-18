@@ -1,0 +1,19 @@
+{
+  "display_name" : "Sarah Vessels",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/user/cheshire137"
+  },
+  "followers" : {
+    "href" : null,
+    "total" : 36
+  },
+  "href" : "https://api.spotify.com/v1/users/cheshire137",
+  "id" : "cheshire137",
+  "images" : [ {
+    "height" : null,
+    "url" : "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12985354_10103400838978350_7968746455103891991_n.jpg?oh=b417e0961519a43dea492d39a70e5b2b&oe=5949135C",
+    "width" : null
+  } ],
+  "type" : "user",
+  "uri" : "spotify:user:cheshire137"
+}
