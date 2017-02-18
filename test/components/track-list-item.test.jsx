@@ -7,9 +7,10 @@ import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 
 import TrackListItem from '../../src/components/track-list-item.jsx'
 
+const item = SavedTracksResponse.items[0]
+const track = item.track
+
 function props() {
-  const item = SavedTracksResponse.items[0]
-  const track = item.track
   return {
     image: track.album.images[2].url,
     name: track.name,
@@ -48,5 +49,16 @@ describe('TrackListItem', () => {
   test('displays album name', () => {
     const album = shallow(component).find('.track-album')
     expect(album.text()).toBe('Fifty Shades Darker (Original Motion Picture Soundtrack)')
+  })
+
+  test('displays when song was saved', () => {
+    const saved = shallow(component).find('.track-saved-at')
+    expect(saved.text()).toBe('Saved 2/17/2017')
+  })
+
+  test('displays album art', () => {
+    const images = shallow(component).find('.track-image')
+    expect(images.length).toBe(1)
+    expect(images.at(0).props().src).toBe(track.album.images[2].url)
   })
 })
