@@ -1,6 +1,8 @@
 import fetchMock from 'fetch-mock'
 import MockDate from 'mockdate'
 
+import SpotifyApi from '../../src/models/spotify-api'
+
 import AddTracksToPlaylistResponse from '../fixtures/spotify/add-tracks-to-playlist'
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import Config from '../../src/public/config'
@@ -10,7 +12,6 @@ import MultiAudioFeaturesResponse from '../fixtures/spotify/multi-audio-features
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 import SavedTracksResponse2 from '../fixtures/spotify/saved-tracks2'
-import SpotifyApi from '../../src/models/spotify-api'
 import TopTracksResponse from '../fixtures/spotify/top-tracks'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
 
