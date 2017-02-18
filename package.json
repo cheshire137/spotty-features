@@ -120,6 +120,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "jest": "^18.1.0",
     "jest-cli": "^18.1.0",
+    "mockdate": "^2.0.1",
     "react-addons-test-utils": "^15.4.2",
     "xo": "^0.17.1"
   }
