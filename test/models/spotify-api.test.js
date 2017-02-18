@@ -4,6 +4,7 @@ import MockDate from 'mockdate'
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import Config from '../../src/public/config'
 import MeResponse from '../fixtures/spotify/me'
+import MultiAudioFeaturesResponse from '../fixtures/spotify/multi-audio-features'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 import SavedTracksResponse2 from '../fixtures/spotify/saved-tracks2'
@@ -125,6 +126,19 @@ describe('SpotifyApi', () => {
     const api = new SpotifyApi('123abc')
     return api.audioFeaturesForTrack(trackID).then(data => {
       expect(data).toEqual(AudioFeaturesResponse)
+    })
+  })
+
+  test('gets audio features for specified tracks', () => {
+    const id1 = '4nDfc6F2uVcc6wdG7kBzWO'
+    const id2 = '6cgvDYk7YGQTVfd5jsw0Qw'
+
+    const path = `audio-features?ids=${id1},${id2}`
+    fetchMock.get(`${Config.spotify.apiUrl}/${path}`, MultiAudioFeaturesResponse)
+
+    const api = new SpotifyApi('123abc')
+    return api.audioFeatures([id1, id2]).then(data => {
+      expect(data).toEqual(MultiAudioFeaturesResponse.audio_features)
     })
   })
 })
