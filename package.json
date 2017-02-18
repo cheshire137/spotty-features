@@ -122,6 +122,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "jest": "^18.1.0",
     "jest-cli": "^18.1.0",
+    "jest-enzyme": "^2.1.2",
     "mockdate": "^2.0.1",
     "react-addons-test-utils": "^15.4.2",
     "react-shallow-render": "^1.0.1",
