@@ -8,15 +8,7 @@ import SearchResultTrack from '../../src/components/search-result-track.jsx'
 
 const track = TrackSearchResponse.tracks.items[0]
 
-function chooseTrack() {
-
-}
-
-function select() {
-
-}
-
-function props() {
+function props(chooseTrack, select) {
   return {
     artists: track.artists.map(a => a.name),
     album: track.album.name,
@@ -30,9 +22,17 @@ function props() {
 
 describe('SearchResultTrack', () => {
   let component = null
+  let trackChosen = false
+  let trackSelected = false
 
   beforeEach(() => {
-    component = <SearchResultTrack {...props()} />
+    const chooseTrack = () => {
+      trackChosen = true
+    }
+    const select = () => {
+      trackSelected = true
+    }
+    component = <SearchResultTrack {...props(chooseTrack, select)} />
   })
 
   test('matches snapshot', () => {
@@ -59,5 +59,19 @@ describe('SearchResultTrack', () => {
     const images = shallow(component).find('.track-image')
     expect(images.length).toBe(1)
     expect(images.at(0).props().src).toBe(track.album.images[2].url)
+  })
+
+  test('search result can be chosen', () => {
+    const button = shallow(component).find('.search-result-button')
+    expect(trackChosen).toBe(false)
+    button.simulate('click')
+    expect(trackChosen).toBe(true)
+  })
+
+  test('search result can be selected', () => {
+    const button = shallow(component).find('li')
+    expect(trackSelected).toBe(false)
+    button.simulate('mouseover')
+    expect(trackSelected).toBe(true)
   })
 })
