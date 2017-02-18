@@ -1,0 +1,38 @@
+exports[`SearchResultTrack matches snapshot 1`] = `
+<li
+  className="selected"
+  onMouseOver={[Function]}>
+  <button
+    className="search-result-button"
+    onClick={[Function]}
+    type="button">
+    <span
+      className="columns">
+      <span
+        className="column track-image-column">
+        <img
+          className="track-image"
+          src="https://i.scdn.co/image/b6a166bdf785f16e212ef95984fcf2e788678597" />
+      </span>
+      <span
+        className="column search-result-details">
+        <span
+          className="track-name">
+          SCREAM
+        </span>
+        <span>
+          by
+        </span>
+        <span
+          className="track-artists">
+          Grimes, Aristophanes
+        </span>
+        <span
+          className="track-album">
+          Art Angels
+        </span>
+      </span>
+    </span>
+  </button>
+</li>
+`;
