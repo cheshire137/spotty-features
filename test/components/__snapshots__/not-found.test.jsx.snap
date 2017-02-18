@@ -1,0 +1,6 @@
+exports[`NotFound renders 1`] = `
+<h1
+  className="title">
+  404 Not Found
+</h1>
+`;
