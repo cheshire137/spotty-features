@@ -26,7 +26,7 @@ export default class SpotifyApi {
     const limit = opts.limit || 20
     const params = [`limit=${limit}`]
     for (const key in opts) {
-      if (opts.hasOwnProperty(key)) {
+      if (key !== 'limit' && opts.hasOwnProperty(key)) {
         params.push(`${key}=${encodeURIComponent(opts[key])}`)
       }
     }
