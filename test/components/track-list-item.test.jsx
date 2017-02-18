@@ -7,21 +7,25 @@ import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 
 import TrackListItem from '../../src/components/track-list-item.jsx'
 
+function props() {
+  const track = SavedTracksResponse.items[0].track
+  return {
+    image: track.album.images[2].url,
+    name: track.name,
+    url: track.external_urls.spotify,
+    artists: track.artists.map(a => a.name),
+    album: track.album.name,
+    albumUrl: track.album.external_urls.spotify,
+    audioFeatures: AudioFeaturesResponse,
+    savedAt: new Date(SavedTracksResponse.items[0].added_at),
+    avgLoudness: AudioFeaturesResponse.loudness
+  }
+}
+
 describe('TrackListItem', () => {
   test('matches snapshot', () => {
-    const track = SavedTracksResponse.items[0].track
     const component = renderer.create(
-      <TrackListItem
-        image={track.album.images[2].url}
-        name={track.name}
-        url={track.external_urls.spotify}
-        artists={track.artists.map(a => a.name)}
-        album={track.album.name}
-        albumUrl={track.album.external_urls.spotify}
-        audioFeatures={AudioFeaturesResponse}
-        savedAt={new Date(SavedTracksResponse.items[0].added_at)}
-        avgLoudness={AudioFeaturesResponse.loudness}
-      />
+      <TrackListItem {...props()} />
     )
     const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
