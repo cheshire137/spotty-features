@@ -43,31 +43,75 @@
     "space": true,
     "extends": "xo-react",
     "rules": {
-      "quotes": [2, "single", {"avoidEscape": true}],
-      "object-curly-spacing": [2, "always"],
-      "semi": [2, "never"],
-      "space-before-function-paren": [2, "never"],
-      "react/jsx-closing-bracket-location": [2, "tag-aligned"],
-      "react/jsx-no-bind": [2, {"allowArrowFunctions": true}],
-      "react/jsx-space-before-closing": [2, "always"],
+      "quotes": [
+        2,
+        "single",
+        {
+          "avoidEscape": true
+        }
+      ],
+      "object-curly-spacing": [
+        2,
+        "always"
+      ],
+      "semi": [
+        2,
+        "never"
+      ],
+      "space-before-function-paren": [
+        2,
+        "never"
+      ],
+      "react/jsx-closing-bracket-location": [
+        2,
+        "tag-aligned"
+      ],
+      "react/jsx-no-bind": [
+        2,
+        {
+          "allowArrowFunctions": true
+        }
+      ],
+      "react/jsx-space-before-closing": [
+        2,
+        "always"
+      ],
       "unicorn/catch-error-name": 0,
       "no-prototype-builtins": 0,
       "no-mixed-operators": 0,
-      "dot-location": [2, "object"],
+      "dot-location": [
+        2,
+        "object"
+      ],
       "react/prop-types": [
         2,
         {
-          "ignore": ["children", "location", "router"]
+          "ignore": [
+            "children",
+            "location",
+            "router"
+          ]
         }
       ],
-      "camelcase": [2, {"properties": "never"}],
-      "prefer-arrow-callback": [2, {"allowNamedFunctions": true}],
+      "camelcase": [
+        2,
+        {
+          "properties": "never"
+        }
+      ],
+      "prefer-arrow-callback": [
+        2,
+        {
+          "allowNamedFunctions": true
+        }
+      ],
       "default-case": 0
     }
   },
   "devDependencies": {
     "eslint-config-xo-react": "^0.10.0",
     "eslint-plugin-react": "^6.10.0",
+    "jest": "^18.1.0",
     "xo": "^0.17.1"
   }
 }
