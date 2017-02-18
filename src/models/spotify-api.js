@@ -63,17 +63,6 @@ export default class SpotifyApi {
     })
   }
 
-  topTracksForXWeeks(numWeeks) {
-    return new Promise((resolve, reject) => {
-      const items = []
-      const offset = 0
-      const weeksFound = 0
-      const weeks = []
-      this.getTracksForXWeeks('/me/top/tracks', numWeeks, items, resolve, reject,
-                              offset, weeksFound, weeks)
-    })
-  }
-
   audioFeaturesForTrack(id) {
     return this.get(`/audio-features/${id}`)
   }
