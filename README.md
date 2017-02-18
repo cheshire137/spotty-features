@@ -39,7 +39,9 @@ yarn install
 yarn test
 ```
 
-This will run the style checker.
+This will run the style checker and the Jest tests. You can run just the
+style checker via `yarn run style`. You can run just the Jest tests
+via `yarn run unit-test`.
 
 ## How to Deploy to Heroku
 
