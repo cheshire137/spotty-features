@@ -111,6 +111,7 @@
     "babel-polyfill": "^6.23.0",
     "eslint-config-xo-react": "^0.10.0",
     "eslint-plugin-react": "^6.10.0",
+    "fetch-mock": "^5.9.4",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-sourcemaps": "^2.4.1",
