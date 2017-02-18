@@ -1,7 +1,7 @@
 import React from 'react'
 import { debounce } from 'throttle-debounce'
 
-import SpotifyApi from '../models/spotify-api.js'
+import SpotifyApi from '../models/spotify-api'
 
 import SearchResultArtist from './search-result-artist.jsx'
 import SearchResultTrack from './search-result-track.jsx'
@@ -212,7 +212,7 @@ class SeedSearchForm extends React.Component {
               onKeyUp={e => this.onSeedQueryKeyUp(e)}
               placeholder={this.placeholder()}
             />
-            <ul className="results" style={{display: results.length < 1 ? 'none' : 'block'}}>
+            <ul className="results" style={{ display: results.length < 1 ? 'none' : 'block' }}>
               {results.map((result, i) => this.searchResult(result, i))}
             </ul>
           </div>

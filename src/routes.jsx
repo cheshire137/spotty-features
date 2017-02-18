@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 
-import LocalStorage from './models/local-storage.js'
+import LocalStorage from './models/local-storage'
 
 import AnonLayout from './components/anon-layout.jsx'
 import Auth from './components/auth.jsx'

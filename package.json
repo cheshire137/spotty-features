@@ -29,6 +29,45 @@
     "build": "node_modules/.bin/browserify src/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ]",
     "serve": "node src/server.js",
     "watch": "node_modules/.bin/watchify src/index.jsx -o src/public/bundle.js -t [ babelify --presets [ es2015 react ] ] -v",
-    "postinstall": "yarn run build"
+    "postinstall": "yarn run build",
+    "test": "npm run-script style",
+    "style": "node_modules/xo/cli.js src/components/*.jsx src/models/*.js src/*.jsx src/*.js gulpfile.js"
+  },
+  "xo": {
+    "esnext": true,
+    "globals": [
+      "document",
+      "fetch",
+      "window"
+    ],
+    "space": true,
+    "extends": "xo-react",
+    "rules": {
+      "quotes": [2, "single", {"avoidEscape": true}],
+      "object-curly-spacing": [2, "always"],
+      "semi": [2, "never"],
+      "space-before-function-paren": [2, "never"],
+      "react/jsx-closing-bracket-location": [2, "tag-aligned"],
+      "react/jsx-no-bind": [2, {"allowArrowFunctions": true}],
+      "react/jsx-space-before-closing": [2, "always"],
+      "unicorn/catch-error-name": 0,
+      "no-prototype-builtins": 0,
+      "no-mixed-operators": 0,
+      "dot-location": [2, "object"],
+      "react/prop-types": [
+        2,
+        {
+          "ignore": ["children", "location", "router"]
+        }
+      ],
+      "camelcase": [2, {"properties": "never"}],
+      "prefer-arrow-callback": [2, {"allowNamedFunctions": true}],
+      "default-case": 0
+    }
+  },
+  "devDependencies": {
+    "eslint-config-xo-react": "^0.10.0",
+    "eslint-plugin-react": "^6.10.0",
+    "xo": "^0.17.1"
   }
 }

@@ -1,11 +1,13 @@
 import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts'
 
-import Features from '../models/features.js'
+import Features from '../models/features'
 
 const allFeatures = Object.keys(Features.colors)
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
-                'Sep', 'Oct', 'Nov', 'Dec']
+const months = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+  'Nov', 'Dec'
+]
 
 class AudioFeaturesChart extends React.Component {
   dateLabel(date, includeYear) {

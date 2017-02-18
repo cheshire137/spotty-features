@@ -22,9 +22,12 @@ class TrackListItem extends React.Component {
     }
     return (
       <div className="column track-image-column">
-        <a href={albumUrl} className="track-link" target="_blank">
-          <img src={image} className="track-image" />
-        </a>
+        <a
+          href={albumUrl}
+          className="track-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        ><img src={image} className="track-image" /></a>
       </div>
     )
   }
@@ -37,12 +40,22 @@ class TrackListItem extends React.Component {
         <div className="columns">
           {this.imageColumn()}
           <div className="column">
-            <a href={url} className="track-link" target="_blank">
+            <a
+              href={url}
+              className="track-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="track-name">{name}</span>
               <span> by </span>
               <span className="track-artists">{artists.join(', ')}</span>
             </a>
-            <a href={albumUrl} className="track-link" target="_blank">
+            <a
+              href={albumUrl}
+              className="track-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="track-album">{album}</span>
             </a>
             <span className="track-saved-at">Saved {date}</span>

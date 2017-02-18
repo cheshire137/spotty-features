@@ -1,14 +1,12 @@
 import React from 'react'
 
+import SpotifyApi from '../models/spotify-api'
+
 import ArtistSeedSummary from './artist-seed-summary.jsx'
 import RecommendationsForm from './recommendations-form.jsx'
 import RecommendationsList from './recommendations-list.jsx'
 import SeedSearchForm from './seed-search-form.jsx'
 import TrackSeedSummary from './track-seed-summary.jsx'
-
-import Features from '../models/features.js'
-import LocalStorage from '../models/local-storage.js'
-import SpotifyApi from '../models/spotify-api.js'
 
 class Search extends React.Component {
   constructor(props) {

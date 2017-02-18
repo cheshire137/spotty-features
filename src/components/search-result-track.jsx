@@ -43,10 +43,8 @@ class SearchResultTrack extends React.Component {
 SearchResultTrack.propTypes = {
   artists: React.PropTypes.array.isRequired,
   album: React.PropTypes.string.isRequired,
-  albumUrl: React.PropTypes.string.isRequired,
   image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired,
   chooseTrack: React.PropTypes.func.isRequired,
   select: React.PropTypes.func.isRequired,
   selected: React.PropTypes.bool.isRequired

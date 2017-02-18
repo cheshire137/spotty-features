@@ -1,5 +1,6 @@
 import React from 'react'
-import Config from '../public/config.json'
+
+import Config from '../public/config'
 
 export default class Auth extends React.Component {
   render() {

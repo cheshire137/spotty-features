@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Features from '../models/features.js'
-import SpotifyApi from '../models/spotify-api.js'
+import Features from '../models/features'
+import SpotifyApi from '../models/spotify-api'
 
 class RecommendationsForm extends React.Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class RecommendationsForm extends React.Component {
   }
 
   render() {
-    const { numRecommendations, seedType } = this.props
+    const { numRecommendations } = this.props
     const { features } = this.state
     return (
       <div className="content">
@@ -158,7 +158,7 @@ RecommendationsForm.propTypes = {
   token: React.PropTypes.string.isRequired,
   onNumRecommendationsChange: React.PropTypes.func.isRequired,
   onRecommendations: React.PropTypes.func.isRequired,
-  features: React.PropTypes.object.isRequired,
+  features: React.PropTypes.object.isRequired
 }
 
 export default RecommendationsForm

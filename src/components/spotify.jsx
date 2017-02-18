@@ -1,8 +1,7 @@
 import React from 'react'
 
-import Features from '../models/features.js'
-import LocalStorage from '../models/local-storage.js'
-import SpotifyApi from '../models/spotify-api.js'
+import LocalStorage from '../models/local-storage'
+import SpotifyApi from '../models/spotify-api'
 
 import AudioFeaturesChart from './audio-features-chart.jsx'
 import FeatureGuide from './feature-guide.jsx'
@@ -32,7 +31,7 @@ export default class Spotify extends React.Component {
   }
 
   onTracksFetchError(error) {
-    console.error(`failed to load your saved tracks`, error)
+    console.error('failed to load your saved tracks', error)
     if (error.response.status === 401) {
       this.unauthorized()
     }
@@ -107,9 +106,10 @@ export default class Spotify extends React.Component {
   }
 
   getWeeklyAverages(tracks) {
-    const features = ['acousticness', 'danceability', 'energy', 'valence',
-                      'instrumentalness', 'liveness', 'speechiness',
-                      'negativity']
+    const features = [
+      'acousticness', 'danceability', 'energy', 'valence',
+      'instrumentalness', 'liveness', 'speechiness', 'negativity'
+    ]
 
     const valuesByWeek = {}
     for (const track of tracks) {
@@ -134,12 +134,14 @@ export default class Spotify extends React.Component {
     for (const feature of features) {
       averages[feature] = {}
       for (const week in valuesByWeek) {
-        const values = valuesByWeek[week][feature]
-        let sum = 0
-        for (const value of values) {
-          sum += value
+        if (valuesByWeek.hasOwnProperty(week)) {
+          const values = valuesByWeek[week][feature]
+          let sum = 0
+          for (const value of values) {
+            sum += value
+          }
+          averages[feature][week] = sum / values.length
         }
-        averages[feature][week] = sum / values.length
       }
     }
 

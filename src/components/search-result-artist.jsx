@@ -40,7 +40,6 @@ class SearchResultArtist extends React.Component {
 SearchResultArtist.propTypes = {
   image: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired,
   chooseArtist: React.PropTypes.func.isRequired,
   select: React.PropTypes.func.isRequired,
   selected: React.PropTypes.bool.isRequired

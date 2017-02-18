@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 
-import LocalStorage from '../models/local-storage.js'
+import LocalStorage from '../models/local-storage'
 
 class AuthCallback extends React.Component {
   componentWillMount() {

@@ -1,6 +1,8 @@
+/* eslint-disable react/no-unused-prop-types */
+
 import React from 'react'
 
-import Features from '../models/features.js'
+import Features from '../models/features'
 
 class AudioFeatures extends React.Component {
   percent(number) {
@@ -15,14 +17,16 @@ class AudioFeatures extends React.Component {
     if (valence > 0.5) {
       return (
         <span
-          style={{color: Features.colors.valence}}
-          title={title}>Positive</span>
+          style={{ color: Features.colors.valence }}
+          title={title}
+        >Positive</span>
       )
     }
     return (
       <span
-        style={{color: Features.colors.negativity}}
-        title={title}>Negative</span>
+        style={{ color: Features.colors.negativity }}
+        title={title}
+      >Negative</span>
     )
   }
 
@@ -33,8 +37,9 @@ class AudioFeatures extends React.Component {
     }
     return (
       <span
-        style={{color: Features.colors[key]}}
-        title={this.percent(value)}>{Features.labels[key]}</span>
+        style={{ color: Features.colors[key] }}
+        title={this.percent(value)}
+      >{Features.labels[key]}</span>
     )
   }
 

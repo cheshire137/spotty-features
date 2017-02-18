@@ -1,7 +1,7 @@
 import React from 'react'
 
-import LocalStorage from '../models/local-storage.js'
-import SpotifyApi from '../models/spotify-api.js'
+import LocalStorage from '../models/local-storage'
+import SpotifyApi from '../models/spotify-api'
 
 class PlaylistForm extends React.Component {
   constructor(props) {

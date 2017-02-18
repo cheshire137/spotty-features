@@ -3,7 +3,7 @@ const localStorageKey = 'spotty-features'
 export default class LocalStorage {
   static getJSON() {
     if (!window.localStorage) {
-      console.error('browser does not support local storage');
+      console.error('browser does not support local storage')
       return {}
     }
     const appData = window.localStorage.getItem(localStorageKey) || '{}'

@@ -2,8 +2,10 @@ import React from 'react'
 
 import TrackListItem from './track-list-item.jsx'
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                'August', 'September', 'October', 'November', 'December']
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June', 'July',
+  'August', 'September', 'October', 'November', 'December'
+]
 
 class WeekTrackList extends React.Component {
   label() {

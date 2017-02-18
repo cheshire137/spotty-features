@@ -22,7 +22,9 @@ class RecommendationsList extends React.Component {
       <p className="playlist-created notification is-success">
         <span>Created playlist </span>
         <a
-          href={playlist.external_urls.spotify} target="_blank"
+          href={playlist.external_urls.spotify}
+          target="_blank"
+          rel="noopener noreferrer"
         >{playlist.name}</a>!
       </p>
     )

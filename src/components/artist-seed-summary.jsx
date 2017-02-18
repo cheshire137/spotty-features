@@ -28,8 +28,7 @@ class ArtistSeedSummary extends React.Component {
 
 ArtistSeedSummary.propTypes = {
   image: React.PropTypes.string,
-  name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired
+  name: React.PropTypes.string.isRequired
 }
 
 export default ArtistSeedSummary

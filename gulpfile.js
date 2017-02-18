@@ -1,15 +1,15 @@
-var gulp = require('gulp')
-var sourcemaps = require('gulp-sourcemaps')
-var nodemon = require('gulp-nodemon')
+const gulp = require('gulp')
+const sourcemaps = require('gulp-sourcemaps')
+const nodemon = require('gulp-nodemon')
 
-var source = require('vinyl-source-stream')
-var buffer = require('vinyl-buffer')
+const source = require('vinyl-source-stream')
+const buffer = require('vinyl-buffer')
 
-var browserify = require('browserify')
-var watchify = require('watchify')
+const browserify = require('browserify')
+const watchify = require('watchify')
 
 function compile(watch) {
-  var bundler = watchify(
+  const bundler = watchify(
     browserify('./src/index.jsx', { debug: true }).
     transform('babelify', { presets: ['es2015', 'react'] })
   )
@@ -25,25 +25,27 @@ function compile(watch) {
        pipe(gulp.dest('./src/public'))
   }
 
+  function onUpdate() {
+    const date = new Date()
+    let hours = date.getHours()
+    if (hours < 10) {
+      hours = `0${hours}`
+    }
+    let minutes = date.getMinutes()
+    if (minutes < 10) {
+      minutes = `0${minutes}`
+    }
+    let seconds = date.getSeconds()
+    if (seconds < 10) {
+      seconds = `0${seconds}`
+    }
+    const timestamp = `${hours}:${minutes}:${seconds}`
+    console.log(`[${timestamp}] bundling...`)
+    rebundle()
+  }
+
   if (watch) {
-    bundler.on('update', function() {
-      var date = new Date()
-      var hours = date.getHours()
-      if (hours < 10) {
-        hours = `0${hours}`
-      }
-      var minutes = date.getMinutes()
-      if (minutes < 10) {
-        minutes = `0${minutes}`
-      }
-      var seconds = date.getSeconds()
-      if (seconds < 10) {
-        seconds = `0${seconds}`
-      }
-      var timestamp = `${hours}:${minutes}:${seconds}`
-      console.log(`[${timestamp}] bundling...`)
-      rebundle()
-    })
+    bundler.on('update', onUpdate)
   }
 
   rebundle()
@@ -53,11 +55,15 @@ function watch() {
   return compile(true)
 }
 
-gulp.task('build', function() { return compile() })
-gulp.task('watch', function() { return watch() })
+function build() {
+  return compile()
+}
 
-gulp.task('serve', function() {
+function serve() {
   nodemon({ script: 'src/server.js', ignore: 'src/public/bundle.js' })
-})
+}
 
+gulp.task('build', build)
+gulp.task('watch', watch)
+gulp.task('serve', serve)
 gulp.task('default', ['watch', 'serve'])

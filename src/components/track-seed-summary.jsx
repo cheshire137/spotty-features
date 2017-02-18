@@ -32,10 +32,8 @@ class TrackSeedSummary extends React.Component {
 TrackSeedSummary.propTypes = {
   artists: React.PropTypes.array.isRequired,
   album: React.PropTypes.string.isRequired,
-  albumUrl: React.PropTypes.string.isRequired,
   image: React.PropTypes.string,
-  name: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired
+  name: React.PropTypes.string.isRequired
 }
 
 export default TrackSeedSummary

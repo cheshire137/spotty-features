@@ -1,6 +1,6 @@
-import 'whatwg-fetch'
+/* eslint-disable no-multiple-empty-lines, import/no-unassigned-import */
 
-import Features from './features.js'
+import 'whatwg-fetch'
 
 const apiUrl = 'https://api.spotify.com/v1'
 
@@ -26,7 +26,9 @@ export default class SpotifyApi {
     const limit = opts.limit || 20
     const params = [`limit=${limit}`]
     for (const key in opts) {
-      params.push(`${key}=${encodeURIComponent(opts[key])}`)
+      if (opts.hasOwnProperty(key)) {
+        params.push(`${key}=${encodeURIComponent(opts[key])}`)
+      }
     }
     return this.get(`/recommendations?${params.join('&')}`)
   }
@@ -246,7 +248,7 @@ export default class SpotifyApi {
 
   makeRequest(method, path, extraHeaders, body) {
     const url = `${apiUrl}${path}`
-    let headers = {}
+    const headers = {}
     for (const key of Object.keys(this.headers)) {
       headers[key] = this.headers[key]
     }
