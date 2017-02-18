@@ -114,6 +114,7 @@
   "devDependencies": {
     "babel-jest": "^18.0.0",
     "babel-polyfill": "^6.23.0",
+    "enzyme": "^2.7.1",
     "eslint-config-xo-react": "^0.10.0",
     "eslint-plugin-react": "^6.10.0",
     "fetch-mock": "^5.9.4",
