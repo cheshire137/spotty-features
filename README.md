@@ -32,6 +32,15 @@ gulp
 open http://localhost:3000
 ```
 
+## How to Test
+
+```bash
+yarn install
+yarn test
+```
+
+This will run the style checker.
+
 ## How to Deploy to Heroku
 
 In your Spotify application, you'll need to add your Heroku app's URL, with `/auth`,
