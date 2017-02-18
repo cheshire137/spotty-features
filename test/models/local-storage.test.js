@@ -4,8 +4,12 @@ describe('LocalStorage', () => {
   beforeEach(() => {
     const store = {}
     window.localStorage = {
-      getItem: key => store[key],
-      setItem: (key, value) => store[key] = value + ''
+      getItem: key => {
+        return store[key]
+      },
+      setItem: (key, value) => {
+        store[key] = String(value)
+      }
     }
   })
 
