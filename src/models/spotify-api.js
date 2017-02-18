@@ -247,7 +247,7 @@ export default class SpotifyApi {
   }
 
   makeRequest(method, path, extraHeaders, body) {
-    const url = `${Config.apiUrl}${path}`
+    const url = `${Config.spotify.apiUrl}${path}`
     const headers = {}
     for (const key of Object.keys(this.headers)) {
       headers[key] = this.headers[key]
