@@ -45,6 +45,7 @@
   "xo": {
     "esnext": true,
     "globals": [
+      "afterEach",
       "beforeEach",
       "describe",
       "document",

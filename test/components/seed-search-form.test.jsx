@@ -95,4 +95,14 @@ describe('SeedSearchForm', () => {
       expect(wasUnauthorized).toBe(true)
     })
   })
+
+  test('allows changing seed query', () => {
+    expect(didSeedQueryChange).toBe(false)
+
+    const wrapper = shallow(component)
+    const input = wrapper.find('#seed')
+    input.simulate('change')
+
+    expect(didSeedQueryChange).toBe(true)
+  })
 })
