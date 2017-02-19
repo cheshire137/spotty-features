@@ -38,7 +38,8 @@
       "!**/node_modules/**",
       "!src/public/bundle.js",
       "!gulpfile.js",
-      "!coverage/**"
+      "!coverage/**",
+      "!test/**"
     ],
     "setupFiles": ["<rootDir>/test/setup-jest.js"]
   },
