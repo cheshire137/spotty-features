@@ -1,7 +1,7 @@
 let timer = null
 
-function waitForRequests(mockedRequests) {
-  return new Promise(resolve => {
+function waitForRequests(mockedRequests, done, callback) {
+  const wait = new Promise(resolve => {
     if (mockedRequests.length < 1) {
       resolve()
       return
@@ -19,6 +19,15 @@ function waitForRequests(mockedRequests) {
         resolve()
       }
     }, 100)
+  })
+
+  wait.then(() => {
+    try {
+      callback()
+      done()
+    } catch (error) {
+      done.fail(error)
+    }
   })
 }
 
