@@ -25,4 +25,10 @@ describe('AudioFeaturesChart', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
   })
+
+  test('matches snapshot for mood chart', () => {
+    const component = <AudioFeaturesChart {...props('mood')} />
+    const tree = renderer.create(component).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })
