@@ -50,18 +50,21 @@ describe('AuthLayout', () => {
 
   test('loads user details', done => {
     waitForRequests([meRequest]).then(() => {
-      const wrapper = shallow(component)
+      try {
+        const user = shallow(component).find('.username')
+        expect(user.text()).toBe(MeResponse.display_name)
 
-      const user = wrapper.find('.username')
-      expect(user.text()).toBe(MeResponse.display_name)
+        const expected = initialLocalData
+        expected['spotify-user-id'] = MeResponse.id
+        expected['spotify-user'] = MeResponse.display_name
+        expected['spotify-avatar-url'] = MeResponse.images[0].url
 
-      const expected = initialLocalData
-      expected['spotify-user-id'] = MeResponse.id
-      expected['spotify-user'] = MeResponse.display_name
-      expected['spotify-avatar-url'] = MeResponse.images[0].url
-      expect(store['spotty-features']).toEqual(JSON.stringify(expected))
+        expect(store['spotty-features']).toEqual(JSON.stringify(expected))
 
-      done()
+        done()
+      } catch (error) {
+        done.fail(error)
+      }
     })
   })
 })
