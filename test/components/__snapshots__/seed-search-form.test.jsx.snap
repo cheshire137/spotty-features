@@ -1,0 +1,62 @@
+exports[`SeedSearchForm matches snapshot 1`] = `
+<form
+  onSubmit={[Function]}>
+  <h3
+    className="title is-3">
+    Step 1: Seed your playlist
+  </h3>
+  <div
+    className="control">
+    <label
+      className="label"
+      htmlFor="seed">
+      Recommendations based on this 
+      song
+      :
+    </label>
+    <div
+      className="results-container">
+      <input
+        autoComplete="off"
+        autoFocus={true}
+        className="input is-large"
+        id="seed"
+        onChange={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Search songs on Spotify"
+        type="text"
+        value="scream grimes" />
+      <ul
+        className="results"
+        style={
+          Object {
+            "display": "none",
+          }
+        } />
+    </div>
+  </div>
+  <div
+    className="control">
+    <label
+      className="radio is-large">
+      <input
+        checked={true}
+        name="seed-type"
+        onChange={[Function]}
+        type="radio"
+        value="track" />
+      Songs
+    </label>
+    <label
+      className="radio is-large">
+      <input
+        checked={false}
+        name="seed-type"
+        onChange={[Function]}
+        type="radio"
+        value="artist" />
+      Artists
+    </label>
+  </div>
+</form>
+`;
