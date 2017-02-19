@@ -1,0 +1,22 @@
+exports[`Auth matches snapshot 1`] = `
+<section
+  className="hero">
+  <div
+    className="hero-body">
+    <div
+      className="container">
+      <h2
+        className="subtitle">
+        Sign in with your Spotify account to see trends about your saved songs.
+      </h2>
+      <p>
+        <a
+          className="spotify-button is-primary button is-large"
+          href="https://accounts.spotify.com/authorize?response_type=token&redirect_uri=about%3A%2F%2F%2Fauth&client_id=c093721d396d4c3f802e4a65bb653a68&scope=user-library-read%20playlist-modify-public">
+          Sign into Spotify
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
+`;
