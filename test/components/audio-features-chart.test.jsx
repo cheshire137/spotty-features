@@ -31,4 +31,10 @@ describe('AudioFeaturesChart', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
   })
+
+  test('matches snapshot for party chart', () => {
+    const component = <AudioFeaturesChart {...props('party')} />
+    const tree = renderer.create(component).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })
