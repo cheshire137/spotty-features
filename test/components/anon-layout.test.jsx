@@ -8,7 +8,7 @@ describe('AnonLayout', () => {
   let component = null
 
   beforeEach(() => {
-    component = <AnonLayout children={<div>hey</div>} />
+    component = <AnonLayout><div>hey</div></AnonLayout>
   })
 
   test('matches snapshot', () => {

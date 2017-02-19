@@ -53,7 +53,11 @@ export default class AuthLayout extends React.Component {
       image = <img src={this.state.avatarUrl} className="icon spotify-avatar" />
     }
     return (
-      <a className="nav-item" href="#" onClick={e => this.logout(e)}>
+      <a
+        className="nav-item logout-link"
+        href="#"
+        onClick={e => this.logout(e)}
+      >
         {image}
         <span>Log out </span>
         <span className="username">{this.state.username}</span>
@@ -74,7 +78,9 @@ export default class AuthLayout extends React.Component {
             </div>
           </nav>
         </div>
-        {this.props.children}
+        <div className="content-container">
+          {this.props.children}
+        </div>
       </div>
     )
   }

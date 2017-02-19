@@ -16,8 +16,11 @@ exports[`AuthLayout matches snapshot 1`] = `
         className="nav-right nav-menu" />
     </nav>
   </div>
-  <div>
-    hey
+  <div
+    className="content-container">
+    <p>
+      hey
+    </p>
   </div>
 </div>
 `;
