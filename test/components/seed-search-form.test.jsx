@@ -1,7 +1,13 @@
 import fetchMock from 'fetch-mock'
 import React from 'react'
 import renderer from 'react-test-renderer'
+import { shallow } from 'enzyme'
 
+import TrackSearchResponse from '../fixtures/spotify/track-search'
+
+import waitForRequests from '../helpers/wait-for-requests'
+
+import Config from '../../src/public/config'
 import SeedSearchForm from '../../src/components/seed-search-form.jsx'
 
 function props(opts) {
@@ -50,5 +56,21 @@ describe('SeedSearchForm', () => {
   test('matches snapshot', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
+  })
+
+  test('can search via form', done => {
+    const path = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
+    const searchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path}`,
+                                    TrackSearchResponse)
+
+    const wrapper = shallow(component)
+    expect(wrapper.find('.results').children().length).toBe(0)
+
+    const form = wrapper.find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([searchReq], done, () => {
+      expect(wrapper.find('.results').children().length).toBe(1)
+    })
   })
 })
