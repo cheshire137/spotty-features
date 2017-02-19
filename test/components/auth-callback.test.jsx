@@ -1,4 +1,5 @@
 import React from 'react'
+import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 
 import AuthCallback from '../../src/components/auth-callback.jsx'
@@ -34,6 +35,11 @@ describe('AuthCallback', () => {
     }
 
     component = <AuthCallback router={router} />
+  })
+
+  test('matches snapshot', () => {
+    const tree = renderer.create(component).toJSON()
+    expect(tree).toMatchSnapshot()
   })
 
   test('saves token and redirects', () => {
