@@ -7,6 +7,7 @@ import Config from '../../src/public/config'
 import AuthLayout from '../../src/components/auth-layout.jsx'
 
 import mockLocalStorage from '../mocks/local-storage'
+import waitForRequests from '../helpers/wait-for-requests'
 
 import MeResponse from '../fixtures/spotify/me'
 
@@ -21,25 +22,6 @@ describe('AuthLayout', () => {
   let component = null
   let path = null
   let meRequest = null
-  let timer = null
-
-  function waitForRequests(mockedRequests) {
-    return new Promise(resolve => {
-      if (mockedRequests.length < 1) {
-        resolve()
-        return
-      }
-
-      timer = setInterval(() => {
-        const notYetCalled = mockedRequests.map(req => req.called()).
-          filter(isCalled => !isCalled)
-        if (notYetCalled.length < 1) {
-          clearInterval(timer)
-          resolve()
-        }
-      }, 100)
-    })
-  }
 
   beforeEach(() => {
     meRequest = fetchMock.get(`${Config.spotify.apiUrl}/me`, MeResponse)
