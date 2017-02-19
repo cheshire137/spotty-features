@@ -20,13 +20,20 @@ function props(push) {
 describe('AuthLayout', () => {
   let component = null
   let path = null
-  let resp = null
+  let meRequest = null
   let timer = null
 
-  function waitForRequests() {
+  function waitForRequests(mockedRequests) {
     return new Promise(resolve => {
+      if (mockedRequests.length < 1) {
+        resolve()
+        return
+      }
+
       timer = setInterval(() => {
-        if (resp.called()) {
+        const notYetCalled = mockedRequests.map(req => req.called()).
+          filter(isCalled => !isCalled)
+        if (notYetCalled.length < 1) {
           clearInterval(timer)
           resolve()
         }
@@ -35,7 +42,7 @@ describe('AuthLayout', () => {
   }
 
   beforeEach(() => {
-    resp = fetchMock.get(`${Config.spotify.apiUrl}/me`, MeResponse)
+    meRequest = fetchMock.get(`${Config.spotify.apiUrl}/me`, MeResponse)
 
     const localData = { 'spotify-token': '123abc' }
     const store = { 'spotty-features': JSON.stringify(localData) }
@@ -58,7 +65,7 @@ describe('AuthLayout', () => {
   })
 
   test('shows authenticated user', done => {
-    waitForRequests().then(() => {
+    waitForRequests([meRequest]).then(() => {
       const user = shallow(component).find('.username')
       expect(user.text()).toBe(MeResponse.display_name)
       done()
