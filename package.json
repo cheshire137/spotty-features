@@ -41,7 +41,9 @@
       "!coverage/**",
       "!test/**"
     ],
-    "setupFiles": ["<rootDir>/test/setup-jest.js"]
+    "setupFiles": [
+      "<rootDir>/test/setup-jest.js"
+    ]
   },
   "xo": {
     "esnext": true,
@@ -140,6 +142,7 @@
     "react-addons-test-utils": "^15.4.2",
     "react-shallow-render": "^1.0.1",
     "react-test-renderer": "^15.4.2",
+    "supertest": "^3.0.0",
     "xo": "^0.17.1"
   }
 }
