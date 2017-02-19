@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
 import TrackSearchResponse from '../fixtures/spotify/track-search'
+import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 
 import waitForRequests from '../helpers/wait-for-requests'
 
@@ -53,6 +54,8 @@ describe('SeedSearchForm', () => {
     component = <SeedSearchForm {...props(opts)} />
   })
 
+  afterEach(fetchMock.restore)
+
   test('matches snapshot', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
@@ -71,6 +74,25 @@ describe('SeedSearchForm', () => {
 
     waitForRequests([searchReq], done, () => {
       expect(wrapper.find('.results').children().length).toBe(1)
+    })
+  })
+
+  test('handles expired token', done => {
+    const path = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
+    const resp = {
+      body: UnauthorizedResponse,
+      status: 401
+    }
+    const searchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path}`, resp)
+
+    expect(wasUnauthorized).toBe(false)
+    console.error = () => {}
+
+    const form = shallow(component).find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([searchReq], done, () => {
+      expect(wasUnauthorized).toBe(true)
     })
   })
 })
