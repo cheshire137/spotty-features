@@ -1,0 +1,27 @@
+exports[`SearchResultArtist matches snapshot 1`] = `
+<li
+  className=""
+  onMouseOver={[Function]}>
+  <button
+    className="search-result-button"
+    onClick={[Function]}
+    type="button">
+    <span
+      className="columns">
+      <span
+        className="column track-image-column">
+        <img
+          className="track-image"
+          src="https://i.scdn.co/image/35033e0288ffdc1b0a0958cc917a93d5a28b8b8b" />
+      </span>
+      <span
+        className="column search-result-details">
+        <span
+          className="track-name">
+          Tom Petty
+        </span>
+      </span>
+    </span>
+  </button>
+</li>
+`;
