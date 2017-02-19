@@ -7,10 +7,14 @@ function waitForRequests(mockedRequests) {
       return
     }
 
+    const allRequestsFinished = () => {
+      const unfinishedRequests = mockedRequests.
+        map(req => req.called()).filter(isCalled => !isCalled)
+      return unfinishedRequests.length < 1
+    }
+
     timer = setInterval(() => {
-      const notYetCalled = mockedRequests.map(req => req.called()).
-        filter(isCalled => !isCalled)
-      if (notYetCalled.length < 1) {
+      if (allRequestsFinished()) {
         clearInterval(timer)
         resolve()
       }
