@@ -1,0 +1,49 @@
+exports[`TrackRecommendation matches snapshot 1`] = `
+<li>
+  <div
+    className="columns">
+    <div
+      className="column track-image-column">
+      <a
+        className="track-link"
+        href="https://open.spotify.com/album/4RPo8gaqAbJksSE8JOIVLF"
+        rel="noopener noreferrer"
+        target="_blank">
+        <img
+          className="track-image"
+          src="https://i.scdn.co/image/8bf2ccb01c25cf7b314eec154dc0cdf42e3e67df" />
+      </a>
+    </div>
+    <div
+      className="column recommended-track-details">
+      <a
+        className="track-link"
+        href="https://open.spotify.com/track/4nDfc6F2uVcc6wdG7kBzWO"
+        rel="noopener noreferrer"
+        target="_blank">
+        <span
+          className="track-name">
+          Bom Bidi Bom
+        </span>
+        <span>
+          by
+        </span>
+        <span
+          className="track-artists">
+          Nick Jonas, Nicki Minaj
+        </span>
+      </a>
+      <a
+        className="track-link"
+        href="https://open.spotify.com/album/4RPo8gaqAbJksSE8JOIVLF"
+        rel="noopener noreferrer"
+        target="_blank">
+        <span
+          className="track-album">
+          Fifty Shades Darker (Original Motion Picture Soundtrack)
+        </span>
+      </a>
+    </div>
+  </div>
+</li>
+`;
