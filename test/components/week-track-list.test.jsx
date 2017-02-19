@@ -3,13 +3,14 @@ import renderer from 'react-test-renderer'
 
 import SavedTrackResponse from '../fixtures/spotify/saved-tracks'
 
-import WeekList from '../../src/components/week-list.jsx'
+import WeekTrackList from '../../src/components/week-track-list.jsx'
 
+const weekStr = '2017-02-12T06:00:00.000Z'
 const item = SavedTrackResponse.items[0]
 const track = {
   id: item.track.id,
   savedAt: new Date(item.added_at),
-  week: new Date('2017-02-12T06:00:00.000Z'),
+  week: new Date(weekStr),
   name: item.track.name,
   artists: item.track.artists.map(artist => artist.name),
   album: item.track.album.name,
@@ -30,16 +31,17 @@ const track = {
 
 function props() {
   return {
+    week: weekStr,
     tracks: [track],
     avgLoudness: track.audioFeatures.loudness
   }
 }
 
-describe('WeekList', () => {
+describe('WeekTrackList', () => {
   let component = null
 
   beforeEach(() => {
-    component = <WeekList {...props()} />
+    component = <WeekTrackList {...props()} />
   })
 
   test('matches snapshot', () => {
