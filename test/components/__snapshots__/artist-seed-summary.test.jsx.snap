@@ -1,0 +1,18 @@
+exports[`ArtistSeedSummary matches snapshot 1`] = `
+<div
+  className="columns seed-summary">
+  <div
+    className="column track-image-column">
+    <img
+      className="track-image"
+      src="https://i.scdn.co/image/35033e0288ffdc1b0a0958cc917a93d5a28b8b8b" />
+  </div>
+  <div
+    className="column">
+    <span
+      className="track-name">
+      Tom Petty
+    </span>
+  </div>
+</div>
+`;

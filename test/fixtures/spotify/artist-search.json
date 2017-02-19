@@ -1,0 +1,43 @@
+{
+  "artists" : {
+    "href" : "https://api.spotify.com/v1/search?query=tom+petty&type=artist&offset=0&limit=1",
+    "items" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2UZMlIwnkgAEDBsw1Rejkn"
+      },
+      "followers" : {
+        "href" : null,
+        "total" : 232702
+      },
+      "genres" : [ "album rock", "blues-rock", "classic rock", "folk", "folk rock", "hard rock", "mellow gold", "pop rock", "psychedelic rock", "rock", "rockabilly", "roots rock", "singer-songwriter", "soft rock" ],
+      "href" : "https://api.spotify.com/v1/artists/2UZMlIwnkgAEDBsw1Rejkn",
+      "id" : "2UZMlIwnkgAEDBsw1Rejkn",
+      "images" : [ {
+        "height" : 686,
+        "url" : "https://i.scdn.co/image/2b2b15f4a44c27961dd68085560ab161030b0fd6",
+        "width" : 1000
+      }, {
+        "height" : 439,
+        "url" : "https://i.scdn.co/image/97196129321e87c3e18c4e131fee563eb76c2e5c",
+        "width" : 640
+      }, {
+        "height" : 137,
+        "url" : "https://i.scdn.co/image/1190839e4042e70f1bf6ee505cc88870865a5e97",
+        "width" : 200
+      }, {
+        "height" : 44,
+        "url" : "https://i.scdn.co/image/35033e0288ffdc1b0a0958cc917a93d5a28b8b8b",
+        "width" : 64
+      } ],
+      "name" : "Tom Petty",
+      "popularity" : 67,
+      "type" : "artist",
+      "uri" : "spotify:artist:2UZMlIwnkgAEDBsw1Rejkn"
+    } ],
+    "limit" : 1,
+    "next" : "https://api.spotify.com/v1/search?query=tom+petty&type=artist&offset=1&limit=1",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 3
+  }
+}
