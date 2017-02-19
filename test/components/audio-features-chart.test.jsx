@@ -15,18 +15,13 @@ const weeklyAverages = {
   negativity: { '2017-02-18T04:50:15Z': 0.814 }
 }
 
-function props() {
-  return { weeklyAverages, type: 'all', width: 800 }
+function props(type) {
+  return { weeklyAverages, type, width: 800 }
 }
 
 describe('AudioFeaturesChart', () => {
-  let component = null
-
-  beforeEach(() => {
-    component = <AudioFeaturesChart {...props()} />
-  })
-
-  test('matches snapshot', () => {
+  test('matches snapshot for all-features chart', () => {
+    const component = <AudioFeaturesChart {...props('all')} />
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
   })

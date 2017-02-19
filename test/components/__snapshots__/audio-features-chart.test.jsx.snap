@@ -1,4 +1,4 @@
-exports[`AudioFeaturesChart matches snapshot 1`] = `
+exports[`AudioFeaturesChart matches snapshot for all-features chart 1`] = `
 <div
   className="recharts-wrapper"
   onClick={[Function]}
