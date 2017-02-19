@@ -14,7 +14,7 @@ export default class AnonLayout extends React.Component {
           </div>
         </div>
         <section className="section">
-          <div className="container">
+          <div className="content-container container">
             {this.props.children}
           </div>
         </section>

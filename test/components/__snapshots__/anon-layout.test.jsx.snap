@@ -1,0 +1,29 @@
+exports[`AnonLayout matches snapshot 1`] = `
+<div>
+  <div
+    className="hero is-primary">
+    <div
+      className="hero-body">
+      <div
+        className="container">
+        <h1
+          className="title">
+          <a
+            href="/">
+            Spotty Features
+          </a>
+        </h1>
+      </div>
+    </div>
+  </div>
+  <section
+    className="section">
+    <div
+      className="content-container container">
+      <div>
+        hey
+      </div>
+    </div>
+  </section>
+</div>
+`;
