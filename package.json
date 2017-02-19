@@ -39,7 +39,8 @@
       "!src/public/bundle.js",
       "!gulpfile.js",
       "!coverage/**"
-    ]
+    ],
+    "setupFiles": ["<rootDir>/test/setup-jest.js"]
   },
   "xo": {
     "esnext": true,
