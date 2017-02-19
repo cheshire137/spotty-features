@@ -1,11 +1,11 @@
 import fetchMock from 'fetch-mock'
 import MockDate from 'mockdate'
 
+import Config from '../../src/public/config'
 import SpotifyApi from '../../src/models/spotify-api'
 
 import AddTracksToPlaylistResponse from '../fixtures/spotify/add-tracks-to-playlist'
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
-import Config from '../../src/public/config'
 import CreatePlaylistResponse from '../fixtures/spotify/create-playlist'
 import MeResponse from '../fixtures/spotify/me'
 import MultiAudioFeaturesResponse from '../fixtures/spotify/multi-audio-features'

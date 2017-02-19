@@ -1,0 +1,23 @@
+exports[`AuthLayout matches snapshot 1`] = `
+<div>
+  <div
+    className="container">
+    <nav
+      className="nav">
+      <div
+        className="nav-left">
+        <a
+          className="nav-item is-brand"
+          href="/">
+          Spotty Features
+        </a>
+      </div>
+      <div
+        className="nav-right nav-menu" />
+    </nav>
+  </div>
+  <div>
+    hey
+  </div>
+</div>
+`;
