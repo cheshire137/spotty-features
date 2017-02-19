@@ -1,0 +1,18 @@
+exports[`PlaylistForm matches snapshot 1`] = `
+<form
+  onSubmit={[Function]}>
+  <div
+    className="control has-addons">
+    <input
+      className="input is-expanded"
+      onChange={[Function]}
+      type="text"
+      value="Like SCREAM by Grimes" />
+    <button
+      className="button is-primary"
+      type="submit">
+      Create Playlist
+    </button>
+  </div>
+</form>
+`;

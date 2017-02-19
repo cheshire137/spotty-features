@@ -1,6 +1,5 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
 
 import AudioFeaturesChart from '../../src/components/audio-features-chart.jsx'
 
