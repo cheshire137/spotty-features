@@ -23,13 +23,15 @@ describe('AuthLayout', () => {
   let resp = null
   let timer = null
 
-  function waitForRequests(done) {
-    timer = setInterval(() => {
-      if (resp.called()) {
-        clearInterval(timer)
-        done()
-      }
-    }, 1000)
+  function waitForRequests() {
+    return new Promise(resolve => {
+      timer = setInterval(() => {
+        if (resp.called()) {
+          clearInterval(timer)
+          resolve()
+        }
+      }, 100)
+    })
   }
 
   beforeEach(() => {
@@ -56,7 +58,7 @@ describe('AuthLayout', () => {
   })
 
   test('shows authenticated user', done => {
-    waitForRequests(() => {
+    waitForRequests().then(() => {
       const user = shallow(component).find('.username')
       expect(user.text()).toBe(MeResponse.display_name)
       done()
