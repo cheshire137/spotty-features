@@ -56,7 +56,8 @@ class AudioFeaturesChart extends React.Component {
   render() {
     const features = this.featuresForType()
     const data = this.getChartData(features)
-    const width = document.getElementById('spotify-container').clientWidth
+    const width = this.props.width ||
+      document.getElementById('spotify-container').clientWidth
 
     return (
       <LineChart width={width} height={300} data={data}>
@@ -81,7 +82,8 @@ class AudioFeaturesChart extends React.Component {
 
 AudioFeaturesChart.propTypes = {
   weeklyAverages: React.PropTypes.object.isRequired,
-  type: React.PropTypes.string
+  type: React.PropTypes.string,
+  width: React.PropTypes.number
 }
 
 export default AudioFeaturesChart
