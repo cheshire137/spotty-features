@@ -28,7 +28,6 @@ describe('SeedSearchForm', () => {
   let seedType = 'track'
   let didSeedQueryChange = false
   let wasUnauthorized = false
-  let seed = null
 
   const onSeedTypeChange = newSeedType => {
     seedType = newSeedType
@@ -42,14 +41,10 @@ describe('SeedSearchForm', () => {
     wasUnauthorized = true
   }
 
-  const chooseSeed = newSeed => {
-    seed = newSeed
-  }
-
   beforeEach(() => {
     const opts = {
       seedType, onSeedTypeChange, onSeedQueryChange, unauthorized,
-      chooseSeed
+      chooseSeed: () => {}
     }
     component = <SeedSearchForm {...props(opts)} />
   })
@@ -73,7 +68,14 @@ describe('SeedSearchForm', () => {
     form.simulate('submit', { preventDefault() {} })
 
     waitForRequests([searchReq], done, () => {
-      expect(wrapper.find('.results').children().length).toBe(1)
+      const children = wrapper.find('.results').children()
+      expect(children.length).toBe(1)
+      expect(children.at(0).name()).toBe('SearchResultTrack')
+
+      const resultProps = children.at(0).props()
+      const track = TrackSearchResponse.tracks.items[0]
+      expect(resultProps.id).toBe(track.id)
+      expect(resultProps.name).toBe(track.name)
     })
   })
 
