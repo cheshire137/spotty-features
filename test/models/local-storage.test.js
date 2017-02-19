@@ -1,16 +1,11 @@
 import LocalStorage from '../../src/models/local-storage'
 
+import mockLocalStorage from '../mocks/local-storage'
+
 describe('LocalStorage', () => {
   beforeEach(() => {
     const store = {}
-    window.localStorage = {
-      getItem: key => {
-        return store[key]
-      },
-      setItem: (key, value) => {
-        store[key] = String(value)
-      }
-    }
+    mockLocalStorage(store)
   })
 
   test('fetches saved local values as JSON', () => {
