@@ -1,0 +1,25 @@
+exports[`SeedTypeControls matches snapshot 1`] = `
+<div
+  className="control">
+  <label
+    className="radio is-large">
+    <input
+      checked={true}
+      name="seed-type"
+      onChange={[Function]}
+      type="radio"
+      value="track" />
+    Songs
+  </label>
+  <label
+    className="radio is-large">
+    <input
+      checked={false}
+      name="seed-type"
+      onChange={[Function]}
+      type="radio"
+      value="artist" />
+    Artists
+  </label>
+</div>
+`;
