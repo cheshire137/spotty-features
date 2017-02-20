@@ -8,7 +8,7 @@ import FeatureGuide from './feature-guide.jsx'
 import Search from './search.jsx'
 import WeekList from './week-list.jsx'
 
-export default class Spotify extends React.Component {
+class Spotify extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,8 +25,10 @@ export default class Spotify extends React.Component {
   }
 
   fetchTracks() {
+    const numWeeks = this.props.numWeeks || 14
     const api = new SpotifyApi(this.state.token)
-    api.savedTracksForXWeeks(14).then(json => this.onTracksFetched(json)).
+    api.savedTracksForXWeeks(numWeeks).
+      then(json => this.onTracksFetched(json)).
       catch(err => this.onTracksFetchError(err))
   }
 
@@ -310,3 +312,9 @@ export default class Spotify extends React.Component {
     )
   }
 }
+
+Spotify.propTypes = {
+  numWeeks: React.PropTypes.number
+}
+
+export default Spotify
