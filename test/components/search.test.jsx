@@ -12,6 +12,25 @@ import TrackSearchResponse from '../fixtures/spotify/track-search'
 
 import waitForRequests from '../helpers/wait-for-requests'
 
+const track = TrackSearchResponse.tracks.items[0]
+const trackSeed = {
+  id: track.id,
+  name: track.name,
+  url: track.external_urls.spotify,
+  artists: track.artists.map(artist => artist.name),
+  album: track.album.name,
+  image: track.album.images[2].url,
+  albumUrl: track.album.external_urls.spotify
+}
+
+const artist = ArtistSearchResponse.artists.items[0]
+const artistSeed = {
+  id: artist.id,
+  name: artist.name,
+  url: artist.external_urls.spotify,
+  image: artist.images[3].url
+}
+
 function props(opts) {
   return {
     token: '123abc',
@@ -25,6 +44,7 @@ describe('Search', () => {
   let component = null
   let wasUnauthorized = false
   let wasRecommendationsFormShown = null
+  let featureReq = null
 
   const unauthorized = () => {
     wasUnauthorized = true
@@ -39,6 +59,10 @@ describe('Search', () => {
   }
 
   beforeEach(() => {
+    const path = `audio-features/${trackSeed.id}`
+    featureReq = fetchMock.get(`${Config.spotify.apiUrl}/${path}`,
+                               AudioFeaturesResponse)
+
     const opts = {
       unauthorized, recommendationsFormShown, recommendationsFormHidden
     }
@@ -72,22 +96,7 @@ describe('Search', () => {
   })
 
   test('recommendations form shown when seed track chosen', done => {
-    const track = TrackSearchResponse.tracks.items[0]
-    const seed = {
-      id: track.id,
-      name: track.name,
-      url: track.external_urls.spotify,
-      artists: track.artists.map(artist => artist.name),
-      album: track.album.name,
-      image: track.album.images[2].url,
-      albumUrl: track.album.external_urls.spotify
-    }
-
-    const path = `audio-features/${seed.id}`
-    const featureReq = fetchMock.get(`${Config.spotify.apiUrl}/${path}`,
-                                     AudioFeaturesResponse)
-
-    shallow(component).instance().chooseSeed(seed)
+    shallow(component).instance().chooseSeed(trackSeed)
 
     waitForRequests([featureReq], done, done.fail, () => {
       expect(wasRecommendationsFormShown).toBe(true)
@@ -95,17 +104,29 @@ describe('Search', () => {
   })
 
   test('recommendations form shown when seed artist chosen', () => {
-    const artist = ArtistSearchResponse.artists.items[0]
-    const seed = {
-      id: artist.id,
-      name: artist.name,
-      url: artist.external_urls.spotify,
-      image: artist.images[3].url
-    }
-
     const instance = shallow(component).instance()
     instance.onSeedTypeChange('artist')
-    instance.chooseSeed(seed)
+    instance.chooseSeed(artistSeed)
+
     expect(wasRecommendationsFormShown).toBe(true)
+  })
+
+  test('returns track seed summary for given track', done => {
+    const instance = shallow(component).instance()
+    instance.chooseSeed(trackSeed)
+
+    waitForRequests([featureReq], done, done.fail, () => {
+      const type = instance.seedSummary().type.toString()
+      expect(type).toMatch(/TrackSeedSummary/)
+    })
+  })
+
+  test('returns artist seed summary for given artist', () => {
+    const instance = shallow(component).instance()
+    instance.onSeedTypeChange('artist')
+    instance.chooseSeed(artistSeed)
+
+    const type = instance.seedSummary().type.toString()
+    expect(type).toMatch(/ArtistSeedSummary/)
   })
 })
