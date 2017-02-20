@@ -64,16 +64,19 @@ class PlaylistForm extends React.Component {
   render() {
     const { name } = this.state
     return (
-      <form onSubmit={e => this.onSubmit(e)}>
+      <form
+        className="playlist-form"
+        onSubmit={e => this.onSubmit(e)}
+      >
         {this.errorMessage()}
         <div className="control has-addons">
           <input
             type="text"
             value={name}
-            className="input is-expanded"
+            className="input is-expanded is-large"
             onChange={e => this.changeName(e)}
           />
-          <button type="submit" className="button is-primary">
+          <button type="submit" className="button is-large is-primary">
             Create Playlist
           </button>
         </div>

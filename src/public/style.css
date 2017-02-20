@@ -395,3 +395,7 @@ input[type="range"]:focus::-ms-fill-upper {
 .form-controls {
   margin-top: 15px;
 }
+
+.playlist-form {
+  margin-bottom: 30px;
+}
