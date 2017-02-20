@@ -90,6 +90,13 @@
         2,
         "never"
       ],
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
       "react/jsx-closing-bracket-location": [
         2,
         "tag-aligned"

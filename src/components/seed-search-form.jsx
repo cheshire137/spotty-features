@@ -158,6 +158,7 @@ class SeedSearchForm extends React.Component {
     const seedType = event.target.value
     this.setState({ selectedResultIndex: -1 }, () => {
       this.props.onSeedTypeChange(seedType)
+      this.seedQueryInput.focus()
     })
   }
 
@@ -203,6 +204,7 @@ class SeedSearchForm extends React.Component {
           <div className="results-container">
             <input
               type="text"
+              ref={input => { this.seedQueryInput = input }}
               id="seed"
               className="input is-large"
               autoComplete="off"
