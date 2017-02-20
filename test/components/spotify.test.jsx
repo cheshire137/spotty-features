@@ -2,7 +2,7 @@ import fetchMock from 'fetch-mock'
 import MockDate from 'mockdate'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 
 import Config from '../../src/public/config'
 import Spotify from '../../src/components/spotify.jsx'
@@ -16,7 +16,7 @@ import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 
 const initialLocalData = {
-  'spotify-token': '123abc' ,
+  'spotify-token': '123abc',
   'spotify-user': MeResponse.display_name,
   'spotify-avatar-url': MeResponse.images[0].url,
   'active-view': 'trends'

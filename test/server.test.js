@@ -2,7 +2,9 @@ const request = require('supertest')
 const server = require('../src/server')
 
 function handleFailure(err, res, done) {
-  if (err) return done.fail(err)
+  if (err) {
+    return done.fail(err)
+  }
   done()
 }
 
