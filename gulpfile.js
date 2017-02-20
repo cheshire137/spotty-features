@@ -8,10 +8,26 @@ const buffer = require('vinyl-buffer')
 const browserify = require('browserify')
 const watchify = require('watchify')
 
+function getTimeSegment(date, funcName) {
+  let timeSegment = date[funcName]()
+  if (timeSegment < 10) {
+    return `0${timeSegment}`
+  }
+  return timeSegment
+}
+
+function getTimestamp() {
+  const date = new Date()
+  const hours = getTimeSegment(date, 'getHours')
+  const minutes = getTimeSegment(date, 'getMinutes')
+  const seconds = getTimeSegment(date, 'getSeconds')
+  return `${hours}:${minutes}:${seconds}`
+}
+
 function compile(watch) {
   const bundler = watchify(
     browserify('./src/index.jsx', { debug: true }).
-    transform('babelify', { presets: ['es2015', 'react'] })
+      transform('babelify', { presets: ['es2015', 'react'] })
   )
 
   function rebundle() {
@@ -26,21 +42,7 @@ function compile(watch) {
   }
 
   function onUpdate() {
-    const date = new Date()
-    let hours = date.getHours()
-    if (hours < 10) {
-      hours = `0${hours}`
-    }
-    let minutes = date.getMinutes()
-    if (minutes < 10) {
-      minutes = `0${minutes}`
-    }
-    let seconds = date.getSeconds()
-    if (seconds < 10) {
-      seconds = `0${seconds}`
-    }
-    const timestamp = `${hours}:${minutes}:${seconds}`
-    console.log(`[${timestamp}] bundling...`)
+    console.log(`[${getTimestamp()}] bundling...`)
     rebundle()
   }
 
