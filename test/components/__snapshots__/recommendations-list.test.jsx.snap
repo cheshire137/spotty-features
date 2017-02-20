@@ -1,0 +1,88 @@
+exports[`RecommendationsList matches snapshot 1`] = `
+<div
+  className="content">
+  <p>
+    <button
+      className="button is-link"
+      onClick={[Function]}
+      type="button">
+      ← Change filters
+    </button>
+  </p>
+  <h3
+    className="title is-3 song-recs-title">
+    Step 3: Save playlist (
+    <span>
+      1 song
+    </span>
+    )
+  </h3>
+  <form
+    className="playlist-form"
+    onSubmit={[Function]}>
+    <div
+      className="control has-addons">
+      <input
+        className="input is-expanded is-large"
+        onChange={[Function]}
+        type="text"
+        value="Like SCREAM by Grimes" />
+      <button
+        className="button is-large is-primary"
+        type="submit">
+        Create Playlist
+      </button>
+    </div>
+  </form>
+  <ul
+    className="recommendations-list">
+    <li>
+      <div
+        className="columns">
+        <div
+          className="column track-image-column">
+          <a
+            className="track-link"
+            href="https://open.spotify.com/album/3o5EnVZNJXtfPV8tCoagjI"
+            rel="noopener noreferrer"
+            target="_blank">
+            <img
+              className="track-image"
+              src="https://i.scdn.co/image/d4a10ce84788eb82b53f72d1dee2fca4fa8cbcf0" />
+          </a>
+        </div>
+        <div
+          className="column recommended-track-details">
+          <a
+            className="track-link"
+            href="https://open.spotify.com/track/6DLJQz0hav4l4VfEjJze5T"
+            rel="noopener noreferrer"
+            target="_blank">
+            <span
+              className="track-name">
+              The Way Things Are
+            </span>
+            <span>
+              by
+            </span>
+            <span
+              className="track-artists">
+              Fiona Apple
+            </span>
+          </a>
+          <a
+            className="track-link"
+            href="https://open.spotify.com/album/3o5EnVZNJXtfPV8tCoagjI"
+            rel="noopener noreferrer"
+            target="_blank">
+            <span
+              className="track-album">
+              When The Pawn...
+            </span>
+          </a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
