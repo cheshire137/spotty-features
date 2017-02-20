@@ -15,7 +15,7 @@ class Search extends React.Component {
       seedType: 'track',
       recommendations: [],
       seedQuery: '',
-      numRecommendations: 20,
+      numRecommendations: 25,
       fetchedFeatures: false
     }
   }

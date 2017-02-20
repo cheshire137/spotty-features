@@ -122,29 +122,40 @@ class RecommendationsForm extends React.Component {
               </div>
             )
           })}
-          <div className="control">
-            <label className="label" htmlFor="num-recommendations">
-              How many songs to find:
-            </label>
-            <span className="select">
-              <select
-                id="num-recommendations"
-                value={numRecommendations}
-                onChange={e => this.onNumRecommendationsChange(e)}
-              >
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="75">75</option>
-                <option value="100">100</option>
-              </select>
-            </span>
-          </div>
-          <div className="control">
-            <button
-              type="submit"
-              className="button is-primary is-large"
-            >Find Songs</button>
+          <div className="columns form-controls">
+            <div className="column">
+              <div className="control is-large is-horizontal">
+                <div className="control-label">
+                  <label
+                    className="label nowrap"
+                    htmlFor="num-recommendations"
+                  >How many songs to find:</label>
+                </div>
+                <div className="control">
+                  <span className="select">
+                    <select
+                      id="num-recommendations"
+                      value={numRecommendations}
+                      onChange={e => this.onNumRecommendationsChange(e)}
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="75">75</option>
+                      <option value="100">100</option>
+                    </select>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="column">
+              <div className="control">
+                <button
+                  type="submit"
+                  className="button is-primary is-right is-large"
+                >Find Songs</button>
+              </div>
+            </div>
           </div>
         </form>
       </div>

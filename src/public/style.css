@@ -369,3 +369,29 @@ input[type="range"]:focus::-ms-fill-upper {
 .radio.is-large + .radio.is-large {
   margin-left: 1em;
 }
+
+.control.is-large .label {
+  font-weight: normal;
+  font-size: 1.3rem;
+  line-height: 2.1;
+}
+
+.control.is-large .select select {
+  font-size: 1.3rem;
+}
+
+.control.is-large .select:after {
+  margin-top: -0.15em;
+}
+
+.is-right {
+  float: right;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.form-controls {
+  margin-top: 15px;
+}

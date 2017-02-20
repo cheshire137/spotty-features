@@ -199,7 +199,7 @@ class SeedSearchForm extends React.Component {
         <h3 className="title is-3">Step 1: Seed your playlist</h3>
         <div className="control">
           <label className="label" htmlFor="seed">
-            Recommendations based on this {noun}:
+            Find songs based on this {noun}:
           </label>
           <div className="results-container">
             <input
