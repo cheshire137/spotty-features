@@ -24,9 +24,13 @@ function waitForRequests(mockedRequests, done, callback) {
   wait.then(() => {
     try {
       callback()
-      done()
+      if (done) {
+        done()
+      }
     } catch (error) {
-      done.fail(error)
+      if (done) {
+        done.fail(error)
+      }
     }
   })
 }
