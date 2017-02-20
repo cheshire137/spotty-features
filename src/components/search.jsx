@@ -48,6 +48,7 @@ class Search extends React.Component {
   getAudioFeaturesForSeed() {
     const { seed, seedType } = this.state
     if (seedType !== 'track') {
+      this.props.recommendationsFormShown()
       return
     }
     const api = new SpotifyApi(this.props.token)
@@ -57,7 +58,9 @@ class Search extends React.Component {
   }
 
   onAudioFeatures(features) {
-    this.setState({ features, fetchedFeatures: true })
+    this.setState({ features, fetchedFeatures: true }, () => {
+      this.props.recommendationsFormShown()
+    })
   }
 
   onAudioFeaturesError(error) {
@@ -97,7 +100,9 @@ class Search extends React.Component {
   }
 
   changeSeed() {
-    this.setState({ seed: null, fetchedFeatures: false })
+    this.setState({ seed: null, fetchedFeatures: false }, () => {
+      this.props.recommendationsFormHidden()
+    })
   }
 
   onNumRecommendationsChange(numRecommendations) {
@@ -110,6 +115,7 @@ class Search extends React.Component {
         seedType === 'track' && !fetchedFeatures) {
       return
     }
+
     const { numRecommendations, features } = this.state
     return (
       <RecommendationsForm
@@ -160,7 +166,9 @@ class Search extends React.Component {
 
 Search.propTypes = {
   token: React.PropTypes.string.isRequired,
-  unauthorized: React.PropTypes.func.isRequired
+  unauthorized: React.PropTypes.func.isRequired,
+  recommendationsFormShown: React.PropTypes.func.isRequired,
+  recommendationsFormHidden: React.PropTypes.func.isRequired
 }
 
 export default Search

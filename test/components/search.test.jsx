@@ -14,10 +14,12 @@ import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 
 import waitForRequests from '../helpers/wait-for-requests'
 
-function props(unauthorized) {
+function props(opts) {
   return {
     token: '123abc',
-    unauthorized
+    unauthorized: opts.unauthorized,
+    recommendationsFormShown: opts.recommendationsFormShown,
+    recommendationsFormHidden: opts.recommendationsFormHidden
   }
 }
 
@@ -27,9 +29,18 @@ describe('Search', () => {
   let artistSearchReq = null
   let trackSearchReq = null
   let recommendationsReq = null
+  let wasRecommendationsFormShown = null
 
   const unauthorized = () => {
     wasUnauthorized = true
+  }
+
+  const recommendationsFormShown = () => {
+    wasRecommendationsFormShown = true
+  }
+
+  const recommendationsFormHidden = () => {
+    wasRecommendationsFormShown = false
   }
 
   beforeEach(() => {
@@ -47,7 +58,10 @@ describe('Search', () => {
       '&target_speechiness=0.0665'
     recommendationsReq = fetchMock.get(`${Config.spotify.apiUrl}/${path3}`, RecommendationsResponse)
 
-    component = <Search {...props(unauthorized)} />
+    const opts = {
+      unauthorized, recommendationsFormShown, recommendationsFormHidden
+    }
+    component = <Search {...props(opts)} />
   })
 
   afterEach(fetchMock.restore)
@@ -91,9 +105,11 @@ describe('Search', () => {
       expect(button.length).toBe(1)
       button.simulate('click')
 
-      // Now should see the artist seed summary and audio features header
+      // Now should see the artist seed summary, audio features header, and
+      // audio feature sliders
       expect(wrapper.find('.seed-summary').length).toBe(1)
       expect(wrapper.find('.refine-title').length).toBe(1)
+      expect(wasRecommendationsFormShown).toBe(true)
     })
   })
 
@@ -136,9 +152,11 @@ describe('Search', () => {
       button.simulate('click')
 
       waitForRequests([featureReq], null, () => {
-        // Now should see the track seed summary and audio features header
+        // Now should see the track seed summary, audio features header,
+        // and recommendations form audio feature sliders
         expect(wrapper.find('.seed-summary').length).toBe(1)
         expect(wrapper.find('.refine-title').length).toBe(1)
+        expect(wasRecommendationsFormShown).toBe(true)
 
         // Still no recommendations list
         expect(wrapper.find('.recommendations-list').length).toBe(0)

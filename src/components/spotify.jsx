@@ -190,15 +190,22 @@ class Spotify extends React.Component {
     return <WeekList tracks={tracks} avgLoudness={avgLoudness} />
   }
 
+  onRecommendationsFormToggle(shown) {
+    this.setState({ recommendationsFormShown: shown })
+  }
+
   search() {
     const { activeView, token } = this.state
     if (activeView !== 'search') {
       return
     }
+
     return (
       <Search
         token={token}
         unauthorized={() => this.unauthorized()}
+        recommendationsFormShown={() => this.onRecommendationsFormToggle(true)}
+        recommendationsFormHidden={() => this.onRecommendationsFormToggle(false)}
       />
     )
   }
@@ -282,6 +289,13 @@ class Spotify extends React.Component {
     return 'Your listening trends'
   }
 
+  featureGuide() {
+    if (!this.state.recommendationsFormShown) {
+      return
+    }
+    return <FeatureGuide activeView={this.state.activeView} />
+  }
+
   render() {
     const { activeView } = this.state
     return (
@@ -325,7 +339,7 @@ class Spotify extends React.Component {
                 {this.search()}
               </div>
               <div className="column">
-                <FeatureGuide activeView={activeView} />
+                {this.featureGuide()}
               </div>
             </div>
           </div>
