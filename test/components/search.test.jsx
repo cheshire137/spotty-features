@@ -8,6 +8,7 @@ import Search from '../../src/components/search.jsx'
 
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
+import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 
 import waitForRequests from '../helpers/wait-for-requests'
 
@@ -80,6 +81,45 @@ describe('Search', () => {
         // Now should see the track seed summary and audio features header
         expect(wrapper.find('.seed-summary').length).toBe(1)
         expect(wrapper.find('.refine-title').length).toBe(1)
+      })
+    })
+  })
+
+  test('handles expired token on audio features search', done => {
+    const path1 = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
+    const searchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path1}`,
+                                    TrackSearchResponse)
+
+    const trackID = '6cgvDYk7YGQTVfd5jsw0Qw'
+    const path2 = `audio-features/${trackID}`
+    const resp = {
+      body: UnauthorizedResponse,
+      status: 401
+    }
+    const featureReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
+                                     resp)
+
+    const wrapper = mount(component)
+
+    expect(wasUnauthorized).toBe(false)
+    console.error = () => {}
+
+    // Enter a track search query
+    const input = wrapper.find('#seed')
+    input.simulate('change', { target: { value: 'scream grimes' } })
+
+    // Submit the search form
+    const form = wrapper.find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([searchReq], null, () => {
+      // Choose the search result as our seed track
+      const button = wrapper.find('.results .search-result-button')
+      expect(button.length).toBe(1)
+      button.simulate('click')
+
+      waitForRequests([featureReq], done, () => {
+        expect(wasUnauthorized).toBe(true)
       })
     })
   })
