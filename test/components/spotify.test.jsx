@@ -2,14 +2,15 @@ import fetchMock from 'fetch-mock'
 import MockDate from 'mockdate'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 
 import Config from '../../src/public/config'
 import Spotify from '../../src/components/spotify.jsx'
 
 import mockLocalStorage from '../mocks/local-storage'
+import waitForRequests from '../helpers/wait-for-requests'
 
-import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
+import MultiAudioFeaturesResponse from '../fixtures/spotify/multi-audio-features'
 import SavedTracksResponse from '../fixtures/spotify/saved-tracks'
 
 const initialLocalData = { 'spotify-token': '123abc' }
@@ -37,13 +38,24 @@ describe('Spotify', () => {
 
     const path2 = 'audio-features?ids=4nDfc6F2uVcc6wdG7kBzWO'
     featuresReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
-                                AudioFeaturesResponse)
+                                MultiAudioFeaturesResponse)
 
     component = <Spotify numWeeks={1} router={{ push: routeChange }} />
   })
 
+  afterEach(fetchMock.restore)
+
   test('matches snapshot', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
+  })
+
+  test('shows recently saved tracks', done => {
+    const wrapper = mount(component)
+    expect(wrapper.find('.week-list-container').length).toBe(0)
+
+    waitForRequests([tracksReq, featuresReq], done, () => {
+      expect(wrapper.find('.week-list-container').length).toBe(1)
+    })
   })
 })
