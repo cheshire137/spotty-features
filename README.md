@@ -61,7 +61,8 @@ See also:
 ## How to Deploy to Heroku
 
 In your Spotify application, you'll need to add your Heroku app's URL, with `/auth`,
-as a valid redirect URI.
+as a valid redirect URI. You probably want to add two redirect URIs: one with
+https and the other with http.
 
 ```bash
 git push heroku master
