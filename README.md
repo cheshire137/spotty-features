@@ -51,6 +51,13 @@ because the snapshot is now different from what is rendered. Manually
 compare the two and if the change is expected, update the now out-of-date
 snapshot with `yarn run unit-test -- -u`.
 
+See also:
+
+- [Shallow rendering with Enzyme](http://airbnb.io/enzyme/docs/api/shallow.html)
+- [Jest matchers](https://facebook.github.io/jest/docs/expect.html#content)
+- [ESLint rules](http://eslint.org/docs/rules/)
+- [XO style checker](https://github.com/sindresorhus/xo)
+
 ## How to Deploy to Heroku
 
 In your Spotify application, you'll need to add your Heroku app's URL, with `/auth`,
