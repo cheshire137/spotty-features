@@ -1,3 +1,370 @@
+exports[`RecommendationsForm matches snapshot for artist seed 1`] = `
+<div
+  className="content">
+  <p>
+    <button
+      className="button is-link"
+      onClick={[Function]}
+      type="button">
+      ← Change seed
+    </button>
+  </p>
+  <form
+    onSubmit={[Function]}>
+    <h3
+      className="refine-title title is-3">
+      Step 2: Refine your results
+    </h3>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="acousticness"
+          style={
+            Object {
+              "color": "#FF7EAB",
+            }
+          }>
+          Acoustic
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="acousticness"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0.5} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          50
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="danceability"
+          style={
+            Object {
+              "color": "#0ABD9C",
+            }
+          }>
+          Danceable
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="danceability"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0.5} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          50
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="energy"
+          style={
+            Object {
+              "color": "#e3b951",
+            }
+          }>
+          Energetic
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="energy"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0.5} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          50
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="instrumentalness"
+          style={
+            Object {
+              "color": "#494949",
+            }
+          }>
+          Instrumental
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="instrumentalness"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0.5} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          50
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="liveness"
+          style={
+            Object {
+              "color": "#AF33C8",
+            }
+          }>
+          Live
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="liveness"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          0
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="valence"
+          style={
+            Object {
+              "color": "#90B207",
+            }
+          }>
+          Positivity
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="valence"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0.5} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          50
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="control is-horizontal">
+      <div
+        className="control-label">
+        <label
+          className="label"
+          htmlFor="speechiness"
+          style={
+            Object {
+              "color": "#f09945",
+            }
+          }>
+          Speechy
+        </label>
+      </div>
+      <div
+        className="control">
+        <span
+          className="feature-range-min">
+          0%
+        </span>
+        <input
+          className="slider"
+          id="speechiness"
+          max="1"
+          min="0"
+          onChange={[Function]}
+          step="0.05"
+          type="range"
+          value={0} />
+        <span
+          className="feature-range-max">
+          100%
+        </span>
+        <span
+          className="feature-percentage">
+          0
+          %
+        </span>
+      </div>
+    </div>
+    <div
+      className="columns form-controls">
+      <div
+        className="column">
+        <div
+          className="control is-large is-horizontal">
+          <div
+            className="control-label">
+            <label
+              className="label nowrap"
+              htmlFor="num-recommendations">
+              How many songs to find:
+            </label>
+          </div>
+          <div
+            className="control">
+            <span
+              className="select">
+              <select
+                id="num-recommendations"
+                onChange={[Function]}
+                value={25}>
+                <option
+                  value="10">
+                  10
+                </option>
+                <option
+                  value="25">
+                  25
+                </option>
+                <option
+                  value="50">
+                  50
+                </option>
+                <option
+                  value="75">
+                  75
+                </option>
+                <option
+                  value="100">
+                  100
+                </option>
+              </select>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="column">
+        <div
+          className="control">
+          <button
+            className="button is-primary is-right is-large"
+            type="submit">
+            Find Songs
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
 exports[`RecommendationsForm matches snapshot for track seed 1`] = `
 <div
   className="content">

@@ -17,6 +17,15 @@ const trackSeed = {
   image: track.album.images[2].url,
   albumUrl: track.album.external_urls.spotify
 }
+const trackFeatures = {
+  danceability: 0.468,
+  energy: 0.515,
+  speechiness: 0.0665,
+  acousticness: 0.145,
+  instrumentalness: 0,
+  liveness: 0.132,
+  valence: 0.186
+}
 
 const artist = ArtistSearchResponse.artists.items[0]
 const artistSeed = {
@@ -24,6 +33,15 @@ const artistSeed = {
   name: artist.name,
   url: artist.external_urls.spotify,
   image: artist.images[3].url
+}
+const artistFeatures = {
+  danceability: 0.5,
+  energy: 0.5,
+  speechiness: 0,
+  acousticness: 0.5,
+  instrumentalness: 0.5,
+  liveness: 0,
+  valence: 0.5
 }
 
 function props(opts) {
@@ -35,15 +53,7 @@ function props(opts) {
     token: '123abc',
     onNumRecommendationsChange: opts.onNumRecommendationsChange,
     onRecommendations: opts.onRecommendations,
-    features: {
-      danceability: 0.468,
-      energy: 0.515,
-      speechiness: 0.0665,
-      acousticness: 0.145,
-      instrumentalness: 0,
-      liveness: 0.132,
-      valence: 0.186
-    }
+    features: opts.features
   }
 }
 
@@ -76,7 +86,16 @@ describe('RecommendationsForm', () => {
 
   test('matches snapshot for track seed', () => {
     const opts = Object.assign(baseOpts, {
-      seed: trackSeed, seedType: 'track'
+      seed: trackSeed, seedType: 'track', features: trackFeatures
+    })
+    const component = <RecommendationsForm {...props(opts)} />
+    const tree = renderer.create(component).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+
+  test('matches snapshot for artist seed', () => {
+    const opts = Object.assign(baseOpts, {
+      seed: artistSeed, seedType: 'artist', features: artistFeatures
     })
     const component = <RecommendationsForm {...props(opts)} />
     const tree = renderer.create(component).toJSON()
