@@ -5,6 +5,7 @@ import SpotifyApi from '../models/spotify-api'
 
 import SearchResultArtist from './search-result-artist.jsx'
 import SearchResultTrack from './search-result-track.jsx'
+import SeedTypeControls from './seed-type-controls.jsx'
 
 class SeedSearchForm extends React.Component {
   constructor(props) {
@@ -154,40 +155,11 @@ class SeedSearchForm extends React.Component {
     }
   }
 
-  onSeedTypeChange(event) {
-    const seedType = event.target.value
+  onSeedTypeChange(seedType) {
     this.setState({ selectedResultIndex: -1 }, () => {
       this.props.onSeedTypeChange(seedType)
       this.seedQueryInput.focus()
     })
-  }
-
-  seedTypeControls() {
-    const { seedType } = this.props
-    return (
-      <div className="control">
-        <label className="radio is-large">
-          <input
-            type="radio"
-            name="seed-type"
-            checked={seedType === 'track'}
-            value="track"
-            onChange={e => this.onSeedTypeChange(e)}
-          />
-          Songs
-        </label>
-        <label className="radio is-large">
-          <input
-            type="radio"
-            name="seed-type"
-            checked={seedType === 'artist'}
-            value="artist"
-            onChange={e => this.onSeedTypeChange(e)}
-          />
-          Artists
-        </label>
-      </div>
-    )
   }
 
   render() {
@@ -219,7 +191,10 @@ class SeedSearchForm extends React.Component {
             </ul>
           </div>
         </div>
-        {this.seedTypeControls()}
+        <SeedTypeControls
+          seedType={seedType}
+          onSeedTypeChange={val => this.onSeedTypeChange(val)}
+        />
       </form>
     )
   }
