@@ -35,12 +35,6 @@ class FeatureGuide extends React.Component {
           <dd>
             Detects the presence of an audience.
           </dd>
-          <dt style={{ color: Features.colors.speechiness }}>Speechy</dt>
-          <dd>
-            Detects the presence of spoken words. More than 66%
-            is probably entirely spoken. Between 33% - 66% may contain
-            both music and speech. Less than 33% most likely is music.
-          </dd>
           <dt>
             <span style={{ color: Features.colors.valence }}>Positive</span>
             <span> / </span>
@@ -50,6 +44,12 @@ class FeatureGuide extends React.Component {
             Describes the musical positiveness of the track. High
             positivity sounds more happy, cheerful, or euphoric. High
             negativity sounds more sad, depressed, or angry.
+          </dd>
+          <dt style={{ color: Features.colors.speechiness }}>Speechy</dt>
+          <dd>
+            Detects the presence of spoken words. More than 66%
+            is probably entirely spoken. Between 33% - 66% may contain
+            both music and speech. Less than 33% most likely is music.
           </dd>
         </dl>
       </div>
