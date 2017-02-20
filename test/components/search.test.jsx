@@ -52,7 +52,7 @@ describe('Search', () => {
     trackSearchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
                                    TrackSearchResponse)
 
-    const path3 = 'recommendations?limit=20&seed_tracks=6cgvDYk7YGQTVfd5jsw0Qw' +
+    const path3 = 'recommendations?limit=25&seed_tracks=6cgvDYk7YGQTVfd5jsw0Qw' +
       '&target_acousticness=0.145&target_danceability=0.468&target_energy=0.515' +
       '&target_instrumentalness=0.5&target_liveness=0.132&target_valence=0.186' +
       '&target_speechiness=0.0665'

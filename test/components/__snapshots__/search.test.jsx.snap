@@ -11,7 +11,7 @@ exports[`Search matches snapshot 1`] = `
       <label
         className="label"
         htmlFor="seed">
-        Recommendations based on this 
+        Find songs based on this 
         song
         :
       </label>
