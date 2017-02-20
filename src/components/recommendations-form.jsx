@@ -8,15 +8,22 @@ class RecommendationsForm extends React.Component {
     super(props)
     this.state = {
       features: {
-        acousticness: props.features.acousticness || 0.5,
-        danceability: props.features.danceability || 0.5,
-        energy: props.features.energy || 0.5,
-        valence: props.features.valence || 0.5,
-        instrumentalness: props.features.instrumentalness || 0.5,
-        liveness: props.features.liveness || 0,
-        speechiness: props.features.speechiness || 0
+        acousticness: this.initFeature(props.features, 'acousticness', 0.5),
+        danceability: this.initFeature(props.features, 'danceability', 0.5),
+        energy: this.initFeature(props.features, 'energy', 0.5),
+        valence: this.initFeature(props.features, 'valence', 0.5),
+        instrumentalness: this.initFeature(props.features, 'instrumentalness', 0.5),
+        liveness: this.initFeature(props.features, 'liveness', 0),
+        speechiness: this.initFeature(props.features, 'speechiness', 0)
       }
     }
+  }
+
+  initFeature(features, key, defaultValue) {
+    if (typeof features[key] === 'number') {
+      return features[key]
+    }
+    return defaultValue
   }
 
   onSubmit(event) {
