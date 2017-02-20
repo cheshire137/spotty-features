@@ -76,7 +76,9 @@ class Spotify extends React.Component {
 
   fetchAudioFeatures(trackIDs, tracksByID) {
     const api = new SpotifyApi(this.state.token)
-    api.audioFeatures(trackIDs).then(json => this.onAudioFeatures(json, tracksByID))
+    api.audioFeatures(trackIDs).
+      then(json => this.onAudioFeatures(json, tracksByID)).
+      catch(err => this.onAudioFeaturesError(err))
   }
 
   onAudioFeatures(audioFeatures, tracksByID) {
@@ -90,6 +92,13 @@ class Spotify extends React.Component {
       weeklyAverages: this.getWeeklyAverages(tracks),
       avgLoudness: this.getAverageLoudness(tracks)
     })
+  }
+
+  onAudioFeaturesError(error) {
+    console.error('failed to load audio features for tracks', error)
+    if (error.response.status === 401) {
+      this.unauthorized()
+    }
   }
 
   getAverageLoudness(tracks) {
