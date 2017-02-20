@@ -61,17 +61,6 @@ exports[`FeatureGuide matches snapshot 1`] = `
     <dd>
       Detects the presence of an audience.
     </dd>
-    <dt
-      style={
-        Object {
-          "color": "#f09945",
-        }
-      }>
-      Speechy
-    </dt>
-    <dd>
-      Detects the presence of spoken words. More than 66% is probably entirely spoken. Between 33% - 66% may contain both music and speech. Less than 33% most likely is music.
-    </dd>
     <dt>
       <span
         style={
@@ -95,6 +84,17 @@ exports[`FeatureGuide matches snapshot 1`] = `
     </dt>
     <dd>
       Describes the musical positiveness of the track. High positivity sounds more happy, cheerful, or euphoric. High negativity sounds more sad, depressed, or angry.
+    </dd>
+    <dt
+      style={
+        Object {
+          "color": "#f09945",
+        }
+      }>
+      Speechy
+    </dt>
+    <dd>
+      Detects the presence of spoken words. More than 66% is probably entirely spoken. Between 33% - 66% may contain both music and speech. Less than 33% most likely is music.
     </dd>
   </dl>
 </div>

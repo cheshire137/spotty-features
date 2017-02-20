@@ -306,11 +306,27 @@ exports[`AudioFeaturesChart matches snapshot for all-features chart 1`] = `
               <circle
                 className="recharts-dot recharts-line-dot"
                 cx={430}
-                cy={215.6}
+                cy={265}
                 fill="#fff"
                 height={260}
                 r={3}
-                stroke="#90B207"
+                stroke="#494949"
+                strokeWidth={1}
+                width={730} />
+            </g>
+          </g>
+          <g
+            className="recharts-layer recharts-line">
+            <g
+              className="recharts-layer recharts-line-dots">
+              <circle
+                className="recharts-dot recharts-line-dot"
+                cx={430}
+                cy={231.2}
+                fill="#fff"
+                height={260}
+                r={3}
+                stroke="#AF33C8"
                 strokeWidth={1}
                 width={730} />
             </g>
@@ -338,27 +354,11 @@ exports[`AudioFeaturesChart matches snapshot for all-features chart 1`] = `
               <circle
                 className="recharts-dot recharts-line-dot"
                 cx={430}
-                cy={265}
+                cy={215.6}
                 fill="#fff"
                 height={260}
                 r={3}
-                stroke="#494949"
-                strokeWidth={1}
-                width={730} />
-            </g>
-          </g>
-          <g
-            className="recharts-layer recharts-line">
-            <g
-              className="recharts-layer recharts-line-dots">
-              <circle
-                className="recharts-dot recharts-line-dot"
-                cx={430}
-                cy={231.2}
-                fill="#fff"
-                height={260}
-                r={3}
-                stroke="#AF33C8"
+                stroke="#90B207"
                 strokeWidth={1}
                 width={730} />
             </g>
@@ -541,16 +541,52 @@ exports[`AudioFeaturesChart matches snapshot for all-features chart 1`] = `
                       H32M21.333333333333332,16
                       A5.333333333333333,5.333333333333333,0,1,1,10.666666666666666,16"
             fill="none"
-            stroke="#90B207"
+            stroke="#494949"
             strokeWidth={4} />
         </svg>
         <span
           className="recharts-legend-item-text">
-          Positivity
+          Instrumental
         </span>
       </li>
       <li
         className="recharts-legend-item legend-item-4"
+        style={
+          Object {
+            "display": "inline-block",
+            "marginRight": 10,
+          }
+        }>
+        <svg
+          className="recharts-surface"
+          height={14}
+          style={
+            Object {
+              "display": "inline-block",
+              "marginRight": 4,
+              "verticalAlign": "middle",
+            }
+          }
+          version="1.1"
+          viewBox="0 0 32 32"
+          width={14}>
+          <path
+            className="recharts-legend-icon"
+            d="M0,16h10.666666666666666
+                      A5.333333333333333,5.333333333333333,0,1,1,21.333333333333332,16
+                      H32M21.333333333333332,16
+                      A5.333333333333333,5.333333333333333,0,1,1,10.666666666666666,16"
+            fill="none"
+            stroke="#AF33C8"
+            strokeWidth={4} />
+        </svg>
+        <span
+          className="recharts-legend-item-text">
+          Live
+        </span>
+      </li>
+      <li
+        className="recharts-legend-item legend-item-5"
         style={
           Object {
             "display": "inline-block",
@@ -586,42 +622,6 @@ exports[`AudioFeaturesChart matches snapshot for all-features chart 1`] = `
         </span>
       </li>
       <li
-        className="recharts-legend-item legend-item-5"
-        style={
-          Object {
-            "display": "inline-block",
-            "marginRight": 10,
-          }
-        }>
-        <svg
-          className="recharts-surface"
-          height={14}
-          style={
-            Object {
-              "display": "inline-block",
-              "marginRight": 4,
-              "verticalAlign": "middle",
-            }
-          }
-          version="1.1"
-          viewBox="0 0 32 32"
-          width={14}>
-          <path
-            className="recharts-legend-icon"
-            d="M0,16h10.666666666666666
-                      A5.333333333333333,5.333333333333333,0,1,1,21.333333333333332,16
-                      H32M21.333333333333332,16
-                      A5.333333333333333,5.333333333333333,0,1,1,10.666666666666666,16"
-            fill="none"
-            stroke="#494949"
-            strokeWidth={4} />
-        </svg>
-        <span
-          className="recharts-legend-item-text">
-          Instrumental
-        </span>
-      </li>
-      <li
         className="recharts-legend-item legend-item-6"
         style={
           Object {
@@ -649,12 +649,12 @@ exports[`AudioFeaturesChart matches snapshot for all-features chart 1`] = `
                       H32M21.333333333333332,16
                       A5.333333333333333,5.333333333333333,0,1,1,10.666666666666666,16"
             fill="none"
-            stroke="#AF33C8"
+            stroke="#90B207"
             strokeWidth={4} />
         </svg>
         <span
           className="recharts-legend-item-text">
-          Live
+          Positivity
         </span>
       </li>
       <li
