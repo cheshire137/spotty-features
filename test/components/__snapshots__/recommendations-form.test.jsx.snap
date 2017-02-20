@@ -534,14 +534,14 @@ exports[`RecommendationsForm matches snapshot for track seed 1`] = `
           onChange={[Function]}
           step="0.05"
           type="range"
-          value={0.5} />
+          value={0} />
         <span
           className="feature-range-max">
           100%
         </span>
         <span
           className="feature-percentage">
-          50
+          0
           %
         </span>
       </div>
