@@ -18,7 +18,8 @@ import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 const initialLocalData = {
   'spotify-token': '123abc' ,
   'spotify-user': MeResponse.display_name,
-  'spotify-avatar-url': MeResponse.images[0].url
+  'spotify-avatar-url': MeResponse.images[0].url,
+  'active-view': 'trends'
 }
 
 describe('Spotify', () => {
@@ -70,11 +71,33 @@ describe('Spotify', () => {
     const resp = { body: UnauthorizedResponse, status: 401 }
     const tracksReq = fetchMock.get(`${Config.spotify.apiUrl}/${tracksPath}`, resp)
 
+    console.error = () => {}
     mount(component)
 
     waitForRequests([tracksReq], done, () => {
       expect(path).toBe('/')
-      expect(store).toEqual({ 'spotty-features': '{}' })
+      expect(store['spotty-features']).toEqual('{"active-view":"trends"}')
+    })
+  })
+
+  test('can change tabs', done => {
+    const tracksReq = fetchMock.get(`${Config.spotify.apiUrl}/${tracksPath}`,
+                                    SavedTracksResponse)
+
+    const wrapper = mount(component)
+    expect(wrapper.find('.tabs .is-active a').text()).toBe('Trends')
+
+    waitForRequests([tracksReq, featuresReq], done, () => {
+      const links = wrapper.find('.tabs li a')
+      expect(links.length).toBe(2)
+      links.at(1).simulate('click', { preventDefault() {} })
+
+      const expected = Object.assign({}, initialLocalData)
+      expected['active-view'] = 'search'
+      expect(store['spotty-features']).toEqual(JSON.stringify(expected))
+
+      expect(wrapper.find('.tabs .is-active a').text()).
+        toBe('Generate playlists')
     })
   })
 })

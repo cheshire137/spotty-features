@@ -52,12 +52,10 @@ describe('AuthLayout', () => {
       expect(title.text()).toBe('Spotty Features')
 
       // Ensure data saved to local storage
-      const expected = {
-        'spotify-token': '123abc',
-        'spotify-user-id': MeResponse.id,
-        'spotify-user': MeResponse.display_name,
-        'spotify-avatar-url': MeResponse.images[0].url
-      }
+      const expected = Object.assign({}, initialLocalData)
+      expected['spotify-user-id'] = MeResponse.id
+      expected['spotify-user'] = MeResponse.display_name
+      expected['spotify-avatar-url'] = MeResponse.images[0].url
       expect(store['spotty-features']).
         toEqual(JSON.stringify(expected))
 
