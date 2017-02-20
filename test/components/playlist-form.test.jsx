@@ -1,9 +1,16 @@
+import fetchMock from 'fetch-mock'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
+import Config from '../../src/public/config'
 import PlaylistForm from '../../src/components/playlist-form.jsx'
 
+import mockLocalStorage from '../mocks/local-storage'
+import waitForRequests from '../helpers/wait-for-requests'
+
+import AddTracksToPlaylistResponse from '../fixtures/spotify/add-tracks-to-playlist'
+import CreatePlaylistResponse from '../fixtures/spotify/create-playlist'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
 
@@ -42,10 +49,14 @@ function props(opts) {
   }
 }
 
+const userID = 'cheshire137'
+const initialLocalData = { 'spotify-user-id': userID }
+
 describe('PlaylistForm', () => {
   let component = null
   let wasUnauthorized = false
   let wasPlaylistCreated = false
+  let store = null
 
   const unauthorized = () => {
     wasUnauthorized = true
@@ -56,6 +67,9 @@ describe('PlaylistForm', () => {
   }
 
   beforeEach(() => {
+    store = { 'spotty-features': JSON.stringify(initialLocalData) }
+    mockLocalStorage(store)
+
     const opts = { unauthorized, onPlaylistCreated }
     component = <PlaylistForm {...props(opts)} />
   })
@@ -63,5 +77,24 @@ describe('PlaylistForm', () => {
   test('matches snapshot', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
+  })
+
+  test('creates playlist on submit', done => {
+    const path1 = `users/${userID}/playlists`
+    const createReq = fetchMock.post(`${Config.spotify.apiUrl}/${path1}`,
+                                     CreatePlaylistResponse)
+
+    const path2 = `users/${userID}/playlists/${CreatePlaylistResponse.id}/tracks`
+    const addTrackReq = fetchMock.post(`${Config.spotify.apiUrl}/${path2}`,
+                                       AddTracksToPlaylistResponse)
+
+    expect(wasPlaylistCreated).toBe(false)
+
+    const form = shallow(component).find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([createReq, addTrackReq], done, () => {
+      expect(wasPlaylistCreated).toBe(true)
+    })
   })
 })
