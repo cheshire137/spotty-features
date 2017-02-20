@@ -48,9 +48,7 @@ exports[`Spotify matches snapshot 1`] = `
       <div
         className="columns">
         <div
-          className="column is-two-thirds" />
-        <div
-          className="column" />
+          className="column is-two-thirds is-offset-2" />
       </div>
     </div>
   </section>

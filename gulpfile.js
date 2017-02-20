@@ -39,7 +39,7 @@ function compile(watch) {
        pipe(sourcemaps.init({ loadMaps: true })).
        pipe(sourcemaps.write('./')).
        pipe(gulp.dest('./src/public')).
-       on('end', function() {
+       on('end', () => {
          console.log(`[${getTimestamp()}] done!`)
        })
   }
