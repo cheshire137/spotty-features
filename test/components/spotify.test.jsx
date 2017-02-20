@@ -85,12 +85,14 @@ describe('Spotify', () => {
                                     SavedTracksResponse)
 
     const wrapper = mount(component)
-    expect(wrapper.find('.tabs .is-active a').text()).toBe('Trends')
+    expect(wrapper.find('.tabs .is-active a').text()).toBe('Listening trends')
 
     waitForRequests([tracksReq, featuresReq], done, () => {
       const links = wrapper.find('.tabs li a')
       expect(links.length).toBe(2)
-      links.at(1).simulate('click', { preventDefault() {} })
+      const playlistLink = links.at(0)
+      expect(playlistLink.text()).toBe('Generate playlists')
+      playlistLink.simulate('click', { preventDefault() {} })
 
       const expected = Object.assign({}, initialLocalData)
       expected['active-view'] = 'search'

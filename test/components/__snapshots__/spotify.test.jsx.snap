@@ -20,19 +20,19 @@ exports[`Spotify matches snapshot 1`] = `
           className="tabs is-boxed">
           <ul>
             <li
-              className="is-active">
-              <a
-                href="#"
-                onClick={[Function]}>
-                Trends
-              </a>
-            </li>
-            <li
               className="">
               <a
                 href="#"
                 onClick={[Function]}>
                 Generate playlists
+              </a>
+            </li>
+            <li
+              className="is-active">
+              <a
+                href="#"
+                onClick={[Function]}>
+                Listening trends
               </a>
             </li>
           </ul>

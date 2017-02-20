@@ -14,7 +14,7 @@ class Spotify extends React.Component {
     this.state = {
       token: LocalStorage.get('spotify-token'),
       activeChart: 'all',
-      activeView: LocalStorage.get('active-view') || 'trends'
+      activeView: LocalStorage.get('active-view') || 'search'
     }
   }
 
@@ -298,17 +298,17 @@ class Spotify extends React.Component {
             <div className="container">
               <nav className="tabs is-boxed">
                 <ul>
-                  <li className={activeView === 'trends' ? 'is-active' : ''}>
-                    <a
-                      href="#"
-                      onClick={e => this.setActiveView(e, 'trends')}
-                    >Trends</a>
-                  </li>
                   <li className={activeView === 'search' ? 'is-active' : ''}>
                     <a
                       href="#"
                       onClick={e => this.setActiveView(e, 'search')}
                     >Generate playlists</a>
+                  </li>
+                  <li className={activeView === 'trends' ? 'is-active' : ''}>
+                    <a
+                      href="#"
+                      onClick={e => this.setActiveView(e, 'trends')}
+                    >Listening trends</a>
                   </li>
                 </ul>
               </nav>

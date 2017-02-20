@@ -9,7 +9,7 @@ const browserify = require('browserify')
 const watchify = require('watchify')
 
 function getTimeSegment(date, funcName) {
-  let timeSegment = date[funcName]()
+  const timeSegment = date[funcName]()
   if (timeSegment < 10) {
     return `0${timeSegment}`
   }
