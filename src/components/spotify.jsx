@@ -84,7 +84,10 @@ class Spotify extends React.Component {
   onAudioFeatures(audioFeatures, tracksByID) {
     const tracks = []
     for (const feature of audioFeatures) {
-      tracks.push(this.addAudioFeaturesToTrack(feature, tracksByID[feature.id]))
+      const track = tracksByID[feature.id]
+      if (track) {
+        tracks.push(this.addAudioFeaturesToTrack(feature, track))
+      }
     }
     this.setState({
       tracks,
