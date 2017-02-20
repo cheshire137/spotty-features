@@ -13,6 +13,7 @@ import AddTracksToPlaylistResponse from '../fixtures/spotify/add-tracks-to-playl
 import CreatePlaylistResponse from '../fixtures/spotify/create-playlist'
 import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
+import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 
 const seedTrack = TrackSearchResponse.tracks.items[0]
 const seed = {
@@ -74,6 +75,8 @@ describe('PlaylistForm', () => {
     component = <PlaylistForm {...props(opts)} />
   })
 
+  afterEach(fetchMock.restore)
+
   test('matches snapshot', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
@@ -95,6 +98,25 @@ describe('PlaylistForm', () => {
 
     waitForRequests([createReq, addTrackReq], done, () => {
       expect(wasPlaylistCreated).toBe(true)
+    })
+  })
+
+  test('handles expired token', done => {
+    const path = `users/${userID}/playlists`
+    const resp = {
+      body: UnauthorizedResponse,
+      status: 401
+    }
+    const createReq = fetchMock.post(`${Config.spotify.apiUrl}/${path}`, resp)
+
+    expect(wasUnauthorized).toBe(false)
+    console.error = () => {}
+
+    const form = shallow(component).find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([createReq], done, () => {
+      expect(wasUnauthorized).toBe(true)
     })
   })
 })
