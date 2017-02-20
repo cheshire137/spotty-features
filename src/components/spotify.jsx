@@ -289,8 +289,13 @@ class Spotify extends React.Component {
     return 'Your listening trends'
   }
 
+  showFeatureGuide() {
+    return this.state.recommendationsFormShown ||
+      this.state.activeView === 'trends'
+  }
+
   featureGuideColumn() {
-    if (!this.state.recommendationsFormShown) {
+    if (!this.showFeatureGuide()) {
       return
     }
 
@@ -303,7 +308,7 @@ class Spotify extends React.Component {
 
   mainColumnClass() {
     const classes = ['column', 'is-two-thirds']
-    if (!this.state.recommendationsFormShown) {
+    if (!this.showFeatureGuide()) {
       classes.push('is-offset-2')
     }
     return classes.join(' ')
