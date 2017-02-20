@@ -22,7 +22,7 @@ const trackSeed = {
 
 function props(opts) {
   return {
-    unauthorized: opts.unauthorized,
+    unauthorized: () => {},
     changeAudioFeatures: opts.changeAudioFeatures,
     recommendations: [
       {
@@ -44,31 +44,29 @@ function props(opts) {
 
 describe('RecommendationsList', () => {
   let component = null
-  let wasUnauthorized = false
   let wantToChangeAudioFeatures = false
 
   const changeAudioFeatures = () => {
     wantToChangeAudioFeatures = true
   }
 
-  const unauthorized = () => {
-    wasUnauthorized = true
-  }
-
   beforeEach(() => {
-    const opts = {
-      changeAudioFeatures, unauthorized
-    }
+    const opts = { changeAudioFeatures }
     component = <RecommendationsList {...props(opts)} />
   })
 
   afterEach(() => {
     wantToChangeAudioFeatures = false
-    wasUnauthorized = false
   })
 
   test('matches snapshot', () => {
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
+  })
+
+  test('can go back to change audio features', () => {
+    const button = shallow(component).find('.button.is-link')
+    button.simulate('click')
+    expect(wantToChangeAudioFeatures).toBe(true)
   })
 })
