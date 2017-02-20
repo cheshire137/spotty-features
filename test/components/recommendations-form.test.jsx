@@ -116,4 +116,11 @@ describe('RecommendationsForm', () => {
     select.simulate('change', { target: { value: 50 } })
     expect(numRecommendations).toBe(50)
   })
+
+  test('can change feature slider', () => {
+    const wrapper = shallow(getArtistComponent())
+    const slider = wrapper.find('#liveness')
+    slider.simulate('change', { target: { value: 0.3 } })
+    expect(wrapper.find('#liveness').props().value).toBeCloseTo(0.3, 5)
+  })
 })
