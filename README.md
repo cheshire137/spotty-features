@@ -43,6 +43,14 @@ This will run the style checker and the Jest tests. You can run just the
 style checker via `yarn run style`. You can run just the Jest tests
 via `yarn run unit-test`.
 
+Snapshots are used --
+see [`test/components/__snapshots__/`](test/components/__snapshots__/) --
+to test that a React component is rendered the same way consistently based
+on the props it's given. If you update a component, a test may fail
+because the snapshot is now different from what is rendered. Manually
+compare the two and if the change is expected, update the now out-of-date
+snapshot with `yarn run unit-test -- -u`.
+
 ## How to Deploy to Heroku
 
 In your Spotify application, you'll need to add your Heroku app's URL, with `/auth`,
