@@ -161,4 +161,10 @@ describe('RecommendationsForm', () => {
       expect(recommendations).toEqual([expectedRec])
     })
   })
+
+  test('can go back to change seed for playlist', () => {
+    const button = shallow(getArtistComponent()).find('.button.is-link')
+    button.simulate('click')
+    expect(wasSeedChanged).toBe(true)
+  })
 })
