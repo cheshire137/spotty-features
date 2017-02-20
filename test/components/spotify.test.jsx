@@ -17,13 +17,13 @@ const initialLocalData = { 'spotify-token': '123abc' }
 
 describe('Spotify', () => {
   let component = null
-  let path = null
+  // let path = null
   let store = null
   let tracksReq = null
   let featuresReq = null
 
-  const routeChange = newPath => {
-    path = newPath
+  const routeChange = () => {
+    // path = newPath
   }
 
   beforeEach(() => {
