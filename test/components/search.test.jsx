@@ -8,6 +8,7 @@ import Search from '../../src/components/search.jsx'
 
 import ArtistSearchResponse from '../fixtures/spotify/artist-search'
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
+import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
 import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
 
@@ -25,6 +26,7 @@ describe('Search', () => {
   let wasUnauthorized = false
   let artistSearchReq = null
   let trackSearchReq = null
+  let recommendationsReq = null
 
   const unauthorized = () => {
     wasUnauthorized = true
@@ -38,6 +40,12 @@ describe('Search', () => {
     const path2 = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
     trackSearchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
                                    TrackSearchResponse)
+
+    const path3 = 'recommendations?limit=20&seed_tracks=6cgvDYk7YGQTVfd5jsw0Qw' +
+      '&target_acousticness=0.145&target_danceability=0.468&target_energy=0.515' +
+      '&target_valence=0.186&target_instrumentalness=0.5&target_liveness=0.132' +
+      '&target_speechiness=0.0665'
+    recommendationsReq = fetchMock.get(`${Config.spotify.apiUrl}/${path3}`, RecommendationsResponse)
 
     component = <Search {...props(unauthorized)} />
   })
@@ -89,7 +97,7 @@ describe('Search', () => {
     })
   })
 
-  test('can search for tracks and choose one as a seed', done => {
+  test('can search for tracks, choose one as a seed, and get recs', done => {
     const trackID = '6cgvDYk7YGQTVfd5jsw0Qw'
     const path2 = `audio-features/${trackID}`
     const featureReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
@@ -97,10 +105,12 @@ describe('Search', () => {
 
     const wrapper = mount(component)
 
-    // No search results, chosen seed track, or audio features header yet
+    // No search results, chosen seed track, audio features header,
+    // or recommendations yet
     expect(wrapper.find('.results').children().length).toBe(0)
     expect(wrapper.find('.seed-summary').length).toBe(0)
     expect(wrapper.find('.refine-title').length).toBe(0)
+    expect(wrapper.find('.recommendations-list').length).toBe(0)
 
     // Enter a track search query
     const input = wrapper.find('#seed')
@@ -111,8 +121,9 @@ describe('Search', () => {
     form.simulate('submit', { preventDefault() {} })
 
     waitForRequests([trackSearchReq], null, () => {
-      // Still no audio features header
+      // Still no audio features header or recommendations list
       expect(wrapper.find('.refine-title').length).toBe(0)
+      expect(wrapper.find('.recommendations-list').length).toBe(0)
 
       // Should see track search result
       const children = wrapper.find('.results').children()
@@ -124,10 +135,22 @@ describe('Search', () => {
       expect(button.length).toBe(1)
       button.simulate('click')
 
-      waitForRequests([featureReq], done, () => {
+      waitForRequests([featureReq], null, () => {
         // Now should see the track seed summary and audio features header
         expect(wrapper.find('.seed-summary').length).toBe(1)
         expect(wrapper.find('.refine-title').length).toBe(1)
+
+        // Still no recommendations list
+        expect(wrapper.find('.recommendations-list').length).toBe(0)
+
+        // Find audio features form and submit it to get recommendations
+        const recForm = wrapper.find('.content form')
+        recForm.simulate('submit', { preventDefault() {} })
+
+        waitForRequests([recommendationsReq], done, () => {
+          // Now we should have a list of recommendations for our playlist
+          expect(wrapper.find('.recommendations-list').length).toBe(1)
+        })
       })
     })
   })
