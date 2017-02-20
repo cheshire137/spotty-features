@@ -1,11 +1,16 @@
+import fetchMock from 'fetch-mock'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
+import Config from '../../src/public/config'
 import RecommendationsForm from '../../src/components/recommendations-form.jsx'
 
 import ArtistSearchResponse from '../fixtures/spotify/artist-search'
+import RecommendationsResponse from '../fixtures/spotify/recommendations'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
+
+import waitForRequests from '../helpers/wait-for-requests'
 
 const track = TrackSearchResponse.tracks.items[0]
 const trackSeed = {
@@ -122,5 +127,38 @@ describe('RecommendationsForm', () => {
     const slider = wrapper.find('#liveness')
     slider.simulate('change', { target: { value: 0.3 } })
     expect(wrapper.find('#liveness').props().value).toBeCloseTo(0.3, 5)
+  })
+
+  test('can get recommendations by submitting form', done => {
+    const path = `recommendations?limit=25&seed_tracks=${trackSeed.id}` +
+      `&target_acousticness=${trackFeatures.acousticness}` +
+      `&target_danceability=${trackFeatures.danceability}` +
+      `&target_energy=${trackFeatures.energy}` +
+      `&target_instrumentalness=${trackFeatures.instrumentalness}` +
+      `&target_liveness=${trackFeatures.liveness}` +
+      `&target_valence=${trackFeatures.valence}` +
+      `&target_speechiness=${trackFeatures.speechiness}`
+    const recReq = fetchMock.get(`${Config.spotify.apiUrl}/${path}`,
+                                 RecommendationsResponse)
+
+    const recommendation = RecommendationsResponse.tracks[0]
+    const expectedRec = {
+      album: recommendation.album.name,
+      albumUrl: recommendation.album.external_urls.spotify,
+      artists: recommendation.artists.map(a => a.name),
+      id: recommendation.id,
+      image: recommendation.album.images[2].url,
+      name: recommendation.name,
+      spotifyUri: recommendation.uri,
+      url: recommendation.external_urls.spotify
+    }
+
+    const wrapper = shallow(getTrackComponent())
+    const form = wrapper.find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([recReq], done, done.fail, () => {
+      expect(recommendations).toEqual([expectedRec])
+    })
   })
 })
