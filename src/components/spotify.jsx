@@ -289,11 +289,24 @@ class Spotify extends React.Component {
     return 'Your listening trends'
   }
 
-  featureGuide() {
+  featureGuideColumn() {
     if (!this.state.recommendationsFormShown) {
       return
     }
-    return <FeatureGuide activeView={this.state.activeView} />
+
+    return (
+      <div className="column">
+        <FeatureGuide activeView={this.state.activeView} />
+      </div>
+    )
+  }
+
+  mainColumnClass() {
+    const classes = ['column', 'is-two-thirds']
+    if (!this.state.recommendationsFormShown) {
+      classes.push('is-offset-2')
+    }
+    return classes.join(' ')
   }
 
   render() {
@@ -333,14 +346,12 @@ class Spotify extends React.Component {
           <div className="container" id="spotify-container">
             {this.audioFeaturesCharts()}
             <div className="columns">
-              <div className="column is-two-thirds">
+              <div className={this.mainColumnClass()}>
                 {this.message()}
                 {this.weekList()}
                 {this.search()}
               </div>
-              <div className="column">
-                {this.featureGuide()}
-              </div>
+              {this.featureGuideColumn()}
             </div>
           </div>
         </section>
