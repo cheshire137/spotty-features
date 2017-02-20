@@ -96,9 +96,11 @@ class RecommendationsForm extends React.Component {
             return (
               <div key={feature} className="control is-horizontal">
                 <div className="control-label">
-                  <label className="label" htmlFor={feature}>
-                    {Features.labels[feature]}
-                  </label>
+                  <label
+                    className="label"
+                    htmlFor={feature}
+                    style={{ color: Features.colors[feature] }}
+                  >{Features.labels[feature]}</label>
                 </div>
                 <div className="control">
                   <span className="feature-range-min">0%</span>
