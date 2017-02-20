@@ -78,6 +78,20 @@ describe('RecommendationsForm', () => {
     changeSeed, onNumRecommendationsChange, onRecommendations
   }
 
+  function getTrackComponent() {
+    const opts = Object.assign(baseOpts, {
+      seed: trackSeed, seedType: 'track', features: trackFeatures
+    })
+    return <RecommendationsForm {...props(opts)} />
+  }
+
+  function getArtistComponent() {
+    const opts = Object.assign(baseOpts, {
+      seed: artistSeed, seedType: 'artist', features: artistFeatures
+    })
+    return <RecommendationsForm {...props(opts)} />
+  }
+
   afterEach(() => {
     wasSeedChanged = false
     numRecommendations = null
@@ -85,20 +99,21 @@ describe('RecommendationsForm', () => {
   })
 
   test('matches snapshot for track seed', () => {
-    const opts = Object.assign(baseOpts, {
-      seed: trackSeed, seedType: 'track', features: trackFeatures
-    })
-    const component = <RecommendationsForm {...props(opts)} />
+    const component = getTrackComponent()
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
   })
 
   test('matches snapshot for artist seed', () => {
-    const opts = Object.assign(baseOpts, {
-      seed: artistSeed, seedType: 'artist', features: artistFeatures
-    })
-    const component = <RecommendationsForm {...props(opts)} />
+    const component = getArtistComponent()
     const tree = renderer.create(component).toJSON()
     expect(tree).toMatchSnapshot()
+  })
+
+  test('can change how many recommendations to get', () => {
+    const component = getTrackComponent()
+    const select = shallow(component).find('#num-recommendations')
+    select.simulate('change', { target: { value: 50 } })
+    expect(numRecommendations).toBe(50)
   })
 })
