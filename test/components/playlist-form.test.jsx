@@ -119,4 +119,28 @@ describe('PlaylistForm', () => {
       expect(wasUnauthorized).toBe(true)
     })
   })
+
+  test('displays error with creating playlist', done => {
+    const path = `users/${userID}/playlists`
+    const resp = {
+      body: { error: { status: 400, message: 'o crappa' } },
+      status: 400
+    }
+    const createReq = fetchMock.post(`${Config.spotify.apiUrl}/${path}`, resp)
+
+    console.error = () => {}
+
+    const wrapper = shallow(component)
+
+    expect(wrapper.find('.is-danger').length).toBe(0)
+
+    const form = wrapper.find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([createReq], done, () => {
+      const error = wrapper.find('.is-danger')
+      expect(error.length).toBe(1)
+      expect(error.text()).toBe('Could not create playlist: Error: Bad Request')
+    })
+  })
 })
