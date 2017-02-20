@@ -67,7 +67,7 @@ describe('SeedSearchForm', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([searchReq], done, () => {
+    waitForRequests([searchReq], done, done.fail, () => {
       const children = wrapper.find('.results').children()
       expect(children.length).toBe(1)
       expect(children.at(0).name()).toBe('SearchResultTrack')
@@ -93,7 +93,7 @@ describe('SeedSearchForm', () => {
     const form = shallow(component).find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([searchReq], done, () => {
+    waitForRequests([searchReq], done, done.fail, () => {
       expect(wasUnauthorized).toBe(true)
     })
   })

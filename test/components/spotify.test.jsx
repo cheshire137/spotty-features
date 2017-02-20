@@ -62,7 +62,7 @@ describe('Spotify', () => {
     const wrapper = mount(component)
     expect(wrapper.find('.week-list-container').length).toBe(0)
 
-    waitForRequests([tracksReq, featuresReq], done, () => {
+    waitForRequests([tracksReq, featuresReq], done, done.fail, () => {
       expect(wrapper.find('.week-list-container').length).toBe(1)
     })
   })
@@ -74,7 +74,7 @@ describe('Spotify', () => {
     console.error = () => {}
     mount(component)
 
-    waitForRequests([tracksReq], done, () => {
+    waitForRequests([tracksReq], done, done.fail, () => {
       expect(path).toBe('/')
       expect(store['spotty-features']).toEqual('{"active-view":"trends"}')
     })
@@ -87,7 +87,7 @@ describe('Spotify', () => {
     const wrapper = mount(component)
     expect(wrapper.find('.tabs .is-active a').text()).toBe('Listening trends')
 
-    waitForRequests([tracksReq, featuresReq], done, () => {
+    waitForRequests([tracksReq, featuresReq], done, done.fail, () => {
       const links = wrapper.find('.tabs li a')
       expect(links.length).toBe(2)
       const playlistLink = links.at(0)

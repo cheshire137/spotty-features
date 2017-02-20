@@ -96,7 +96,7 @@ describe('PlaylistForm', () => {
     const form = shallow(component).find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([createReq, addTrackReq], done, () => {
+    waitForRequests([createReq, addTrackReq], done, done.fail, () => {
       expect(wasPlaylistCreated).toBe(true)
     })
   })
@@ -115,7 +115,7 @@ describe('PlaylistForm', () => {
     const form = shallow(component).find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([createReq], done, () => {
+    waitForRequests([createReq], done, done.fail, () => {
       expect(wasUnauthorized).toBe(true)
     })
   })
@@ -137,7 +137,7 @@ describe('PlaylistForm', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([createReq], done, () => {
+    waitForRequests([createReq], done, done.fail, () => {
       const error = wrapper.find('.is-danger')
       expect(error.length).toBe(1)
       expect(error.text()).toBe('Could not create playlist: Error: Bad Request')

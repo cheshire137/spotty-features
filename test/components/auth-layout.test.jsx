@@ -40,7 +40,7 @@ describe('AuthLayout', () => {
   })
 
   test('renders details from Spotify', done => {
-    waitForRequests([meRequest], done, () => {
+    waitForRequests([meRequest], done, done.fail, () => {
       const wrapper = shallow(component)
 
       // Ensure Spotify user is shown

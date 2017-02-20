@@ -91,7 +91,7 @@ describe('Search', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([artistSearchReq], done, () => {
+    waitForRequests([artistSearchReq], done, done.fail, () => {
       // Still no audio features header
       expect(wrapper.find('.refine-title').length).toBe(0)
 
@@ -136,7 +136,7 @@ describe('Search', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([trackSearchReq], null, () => {
+    waitForRequests([trackSearchReq], null, done.fail, () => {
       // Still no audio features header or recommendations list
       expect(wrapper.find('.refine-title').length).toBe(0)
       expect(wrapper.find('.recommendations-list').length).toBe(0)
@@ -151,7 +151,7 @@ describe('Search', () => {
       expect(button.length).toBe(1)
       button.simulate('click')
 
-      waitForRequests([featureReq], null, () => {
+      waitForRequests([featureReq], null, done.fail, () => {
         // Now should see the track seed summary, audio features header,
         // and recommendations form audio feature sliders
         expect(wrapper.find('.seed-summary').length).toBe(1)
@@ -165,7 +165,7 @@ describe('Search', () => {
         const recForm = wrapper.find('.content form')
         recForm.simulate('submit', { preventDefault() {} })
 
-        waitForRequests([recommendationsReq], done, () => {
+        waitForRequests([recommendationsReq], done, done.fail, () => {
           // Now we should have a list of recommendations for our playlist
           expect(wrapper.find('.recommendations-list').length).toBe(1)
         })
@@ -196,13 +196,13 @@ describe('Search', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([trackSearchReq], null, () => {
+    waitForRequests([trackSearchReq], null, done.fail, () => {
       // Choose the search result as our seed track
       const button = wrapper.find('.results .search-result-button')
       expect(button.length).toBe(1)
       button.simulate('click')
 
-      waitForRequests([featureReq], done, () => {
+      waitForRequests([featureReq], done, done.fail, () => {
         expect(wasUnauthorized).toBe(true)
       })
     })
