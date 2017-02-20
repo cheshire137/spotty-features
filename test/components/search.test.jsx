@@ -1,11 +1,12 @@
 import fetchMock from 'fetch-mock'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 
 import Config from '../../src/public/config'
 import Search from '../../src/components/search.jsx'
 
+import ArtistSearchResponse from '../fixtures/spotify/artist-search'
 import AudioFeaturesResponse from '../fixtures/spotify/audio-features'
 import TrackSearchResponse from '../fixtures/spotify/track-search'
 import UnauthorizedResponse from '../fixtures/spotify/unauthorized'
@@ -22,12 +23,22 @@ function props(unauthorized) {
 describe('Search', () => {
   let component = null
   let wasUnauthorized = false
+  let artistSearchReq = null
+  let trackSearchReq = null
 
   const unauthorized = () => {
     wasUnauthorized = true
   }
 
   beforeEach(() => {
+    const path1 = 'search?q=tom%20petty&type=artist&limit=20&offset=0'
+    artistSearchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path1}`,
+                                    ArtistSearchResponse)
+
+    const path2 = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
+    trackSearchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
+                                   TrackSearchResponse)
+
     component = <Search {...props(unauthorized)} />
   })
 
@@ -38,11 +49,47 @@ describe('Search', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  test('can search for tracks and choose one as a seed', done => {
-    const path1 = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
-    const searchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path1}`,
-                                    TrackSearchResponse)
+  test('can search for artists and choose one as a seed', done => {
+    const wrapper = mount(component)
 
+    // No search results, chosen seed artist, or audio features header yet
+    expect(wrapper.find('.results').children().length).toBe(0)
+    expect(wrapper.find('.seed-summary').length).toBe(0)
+    expect(wrapper.find('.refine-title').length).toBe(0)
+
+    // Choose artist search
+    const radio = wrapper.find('input[name="seed-type"][value="artist"]')
+    radio.simulate('change', { target: { value: 'artist' } })
+
+    // Enter an artist search query
+    const input = wrapper.find('#seed')
+    input.simulate('change', { target: { value: 'tom petty' } })
+
+    // Submit the search form
+    const form = wrapper.find('form')
+    form.simulate('submit', { preventDefault() {} })
+
+    waitForRequests([artistSearchReq], done, () => {
+      // Still no audio features header
+      expect(wrapper.find('.refine-title').length).toBe(0)
+
+      // Should see artist search result
+      const children = wrapper.find('.results').children()
+      expect(children.length).toBe(1)
+      expect(children.at(0).name()).toBe('SearchResultArtist')
+
+      // Choose the search result as our seed artist
+      const button = wrapper.find('.results .search-result-button')
+      expect(button.length).toBe(1)
+      button.simulate('click')
+
+      // Now should see the artist seed summary and audio features header
+      expect(wrapper.find('.seed-summary').length).toBe(1)
+      expect(wrapper.find('.refine-title').length).toBe(1)
+    })
+  })
+
+  test('can search for tracks and choose one as a seed', done => {
     const trackID = '6cgvDYk7YGQTVfd5jsw0Qw'
     const path2 = `audio-features/${trackID}`
     const featureReq = fetchMock.get(`${Config.spotify.apiUrl}/${path2}`,
@@ -63,7 +110,7 @@ describe('Search', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([searchReq], null, () => {
+    waitForRequests([trackSearchReq], null, () => {
       // Still no audio features header
       expect(wrapper.find('.refine-title').length).toBe(0)
 
@@ -86,10 +133,6 @@ describe('Search', () => {
   })
 
   test('handles expired token on audio features search', done => {
-    const path1 = 'search?q=scream%20grimes&type=track&limit=20&offset=0'
-    const searchReq = fetchMock.get(`${Config.spotify.apiUrl}/${path1}`,
-                                    TrackSearchResponse)
-
     const trackID = '6cgvDYk7YGQTVfd5jsw0Qw'
     const path2 = `audio-features/${trackID}`
     const resp = {
@@ -112,7 +155,7 @@ describe('Search', () => {
     const form = wrapper.find('form')
     form.simulate('submit', { preventDefault() {} })
 
-    waitForRequests([searchReq], null, () => {
+    waitForRequests([trackSearchReq], null, () => {
       // Choose the search result as our seed track
       const button = wrapper.find('.results .search-result-button')
       expect(button.length).toBe(1)
