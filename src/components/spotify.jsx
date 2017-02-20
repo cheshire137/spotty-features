@@ -52,10 +52,10 @@ class Spotify extends React.Component {
       this.setState({ message: 'You have no saved tracks to show.' })
       return
     }
+
     const tracksByID = {}
     for (const item of items) {
       const savedAt = new Date(item.added_at)
-      const images = item.track.album.images.filter(img => img.width < 100)
       const track = {
         id: item.track.id,
         savedAt,
@@ -66,11 +66,15 @@ class Spotify extends React.Component {
         url: item.track.external_urls.spotify,
         albumUrl: item.track.album.external_urls.spotify
       }
+
+      const images = item.track.album.images.filter(img => img.width < 100)
       if (images.length > 0) {
         track.image = images[0].url
       }
+
       tracksByID[item.track.id] = track
     }
+
     this.fetchAudioFeatures(trackIDs, tracksByID)
   }
 
@@ -89,6 +93,7 @@ class Spotify extends React.Component {
         tracks.push(this.addAudioFeaturesToTrack(feature, track))
       }
     }
+
     this.setState({
       tracks,
       message: null,
@@ -208,10 +213,12 @@ class Spotify extends React.Component {
     if (!weeklyAverages || activeView !== 'trends') {
       return
     }
+
     const weekCount = Object.keys(weeklyAverages.acousticness).length
     if (weekCount < 2) {
       return
     }
+
     return (
       <div>
         <div className="tabs">
@@ -257,8 +264,10 @@ class Spotify extends React.Component {
 
   setActiveView(event, activeView) {
     event.preventDefault()
+
     this.setState({ activeView }, () => {
       LocalStorage.set('active-view', activeView)
+
       if (!this.state.weeklyAverages) {
         this.fetchTracks()
       }
@@ -269,6 +278,7 @@ class Spotify extends React.Component {
     if (this.state.activeView === 'search') {
       return 'Make playlists from audio features'
     }
+
     return 'Your listening trends'
   }
 
